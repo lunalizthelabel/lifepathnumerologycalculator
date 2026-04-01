@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://yournumerologyreport.com
+
+# Sitemaps
+Sitemap: https://yournumerologyreport.com/sitemap.xml

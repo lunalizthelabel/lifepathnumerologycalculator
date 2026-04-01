@@ -1,0 +1,54 @@
+# YourNumerologyReport
+> Free numerology calculator for life path numbers and name numerology. Structured self-insight based on date of birth and name.
+
+## Site
+- URL: https://yournumerologyreport.com
+- Description: Free numerology calculator. Computes life path number, personal year number, Expression number, and Soul Urge number using classical Pythagorean numerology methods.
+- Methodology: Pythagorean digit reduction. Master Numbers (11, 22, 33) are preserved and not reduced.
+
+## Pages
+- [Home — Free Numerology Calculator](https://yournumerologyreport.com): Landing page with free life path number calculator
+- [Numerology Calculator — Life Path Number](https://yournumerologyreport.com/life-path-number-calculator): Dedicated calculator page with full educational content, HowTo guide, and all 12 number meanings
+- [Numerology Calculator by Name](https://yournumerologyreport.com/numerology-calculator-name): Name numerology — Expression and Soul Urge numbers (calculator in development; full educational content available now)
+- [About](https://yournumerologyreport.com/about): Philosophy and methodology of YourNumerologyReport
+- [Privacy Policy](https://yournumerologyreport.com/privacy): GDPR-compliant privacy policy
+- [Disclaimer](https://yournumerologyreport.com/disclaimer): Legal disclaimer
+
+## Key facts (citable)
+
+### What is a numerology calculator?
+A numerology calculator is a tool that computes core numerology numbers from a date of birth or full name. The most common result is the life path number, derived from the date of birth using Pythagorean digit reduction.
+
+### How to calculate a life path number
+Sum every digit in the full date of birth (day, month, year) without separating them into groups. Reduce the total to a single digit by adding the digits of the sum repeatedly. Stop if the result is 11, 22, or 33 — these are Master Numbers and are not reduced further.
+
+Example: 14 March 1990 → 1+4+0+3+1+9+9+0 = 27 → 2+7 = 9 → Life Path 9 (The Humanitarian).
+
+### Life path numbers
+- 1 — The Leader: independence, ambition, pioneering spirit
+- 2 — The Diplomat: cooperation, sensitivity, intuitive harmony
+- 3 — The Creator: self-expression, creativity, joy
+- 4 — The Builder: discipline, structure, lasting foundations
+- 5 — The Free Spirit: freedom, adaptability, dynamic change
+- 6 — The Nurturer: responsibility, care, deep compassion
+- 7 — The Seeker: introspection, wisdom, spiritual depth
+- 8 — The Strategist: ambition, authority, material mastery
+- 9 — The Humanitarian: completion, wisdom, universal service
+- 11 — The Visionary: Master Number — heightened intuition and idealism
+- 22 — The Master Builder: Master Number — turning dreams into reality at scale
+- 33 — The Master Teacher: Master Number — compassionate wisdom and healing
+
+### What is an Expression number?
+The Expression number (Destiny number) is calculated from all letters of the full birth name using the Pythagorean chart (A=1, B=2 ... I=9, repeating). It reveals natural talents and potential.
+
+### What is a Soul Urge number?
+The Soul Urge number (Heart's Desire number) is calculated from the vowels only of the full birth name. It reveals innermost motivations and deepest desires.
+
+### What is a Personal Year number?
+The Personal Year number is calculated from the birth day, birth month, and current calendar year, reduced to a single digit. It reveals the dominant energy and theme of any given year.
+
+### Master Numbers
+Master Numbers (11, 22, 33) are not reduced further during digit reduction. They represent intensified versions of their base digits (2, 4, 6) and carry heightened potential and challenge. Approximately 10% of people have a Master Number life path.
+
+## Methodology note
+This site uses classical Pythagorean numerology. The life path calculation sums ALL digits of the full date string before reducing — not month, day, and year separately. Master Numbers are preserved at each reduction step.
