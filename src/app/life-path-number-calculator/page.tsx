@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import LifePathCalculator from '@/components/LifePathCalculator';
+import CalculatorSection from '@/components/CalculatorSection';
 import NumberGrid from '@/components/NumberGrid';
 import FAQ from '@/components/FAQ';
 
@@ -175,7 +175,7 @@ export default function CalculatorPage() {
             <h2 className="mb-10 font-display text-3xl font-light text-[#f0ede8]">
               Calculate your life path number
             </h2>
-            <LifePathCalculator />
+            <CalculatorSection />
           </div>
         </section>
 

@@ -18,34 +18,35 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Life Path ${lifePath} — YourNumerologyReport</title>
+<title>Life Path ${lifePath} — Life Path Numerology Calculator</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0a0a0f; color: #f0ede8; font-family: 'DM Sans', sans-serif; padding: 60px 48px; max-width: 720px; margin: 0 auto; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.7); margin-bottom: 16px; }
-  .number { font-family: 'Cormorant Garamond', serif; font-size: 120px; line-height: 1; color: #c9a84c; margin-bottom: 8px; }
-  .name { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; font-style: italic; margin-bottom: 24px; }
-  .description { font-size: 16px; line-height: 1.7; color: rgba(240,237,232,0.7); margin-bottom: 40px; }
-  .divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 32px 0; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 40px; }
-  .cell { background: rgba(255,255,255,0.02); padding: 24px; }
-  .cell-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #c9a84c; margin-bottom: 14px; }
+  html, body { width: 100%; height: 100%; }
+  body { background: #0a0a0f; color: #f0ede8; font-family: 'DM Sans', sans-serif; padding: 52px 56px; max-width: 760px; margin: 0 auto; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 14px; }
+  .number { font-family: 'Cormorant Garamond', serif; font-size: 100px; line-height: 1; color: #c9a84c; margin-bottom: 6px; }
+  .name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; font-style: italic; margin-bottom: 18px; }
+  .description { font-size: 15px; line-height: 1.75; color: rgba(240,237,232,0.68); margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 32px; }
+  .cell { background: rgba(255,255,255,0.025); padding: 20px 22px; }
+  .cell-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 12px; }
   .cell ul { list-style: none; }
-  .cell li { font-size: 15px; color: rgba(240,237,232,0.7); padding: 4px 0; }
-  .py-box { border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); padding: 28px; display: flex; gap: 24px; align-items: flex-start; margin-bottom: 40px; }
-  .py-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; color: rgba(201,168,76,0.6); flex-shrink: 0; line-height: 1; }
-  .py-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #c9a84c; margin-bottom: 6px; }
-  .py-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; margin-bottom: 8px; }
-  .py-text { font-size: 14px; line-height: 1.6; color: rgba(240,237,232,0.6); }
-  .footer { font-size: 12px; color: rgba(240,237,232,0.25); text-align: center; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .cell li { font-size: 14px; color: rgba(240,237,232,0.68); padding: 3px 0; }
+  .py-box { border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); padding: 22px 26px; display: flex; gap: 22px; align-items: flex-start; margin-bottom: 32px; }
+  .py-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; color: rgba(201,168,76,0.55); flex-shrink: 0; line-height: 1; }
+  .py-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 5px; }
+  .py-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; margin-bottom: 7px; }
+  .py-text { font-size: 13px; line-height: 1.65; color: rgba(240,237,232,0.58); }
+  .footer { font-size: 11px; color: rgba(240,237,232,0.22); text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); }
+  @page { size: A4; margin: 0; }
   @media print {
-    body { background: #0a0a0f !important; color: #f0ede8 !important; }
+    body { background: #0a0a0f !important; color: #f0ede8 !important; padding: 52px 56px; }
   }
 </style>
 </head>
 <body>
-  <p class="eyebrow">YourNumerologyReport &middot; Born ${formatBirthDate(birthDate)}</p>
+  <p class="eyebrow">Life Path Numerology Calculator &middot; Born ${formatBirthDate(birthDate)}</p>
   <div class="number">${lifePath}</div>
   <div class="name">${meaning.name}</div>
   <p class="description">${meaning.description}</p>
@@ -68,19 +69,17 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
     </div>
   </div>
   <div class="footer">
-    Free life path reading &middot; yournumerologyreport.com &middot; ${year}<br>
-    Full personalised report (Expression, Soul Urge &amp; 2,000-word analysis) — coming soon.
+    Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year}<br>
+    Coming soon: Life Cycles, Pinnacles, Personal Months &amp; full integration report.
   </div>
+  <script>window.onload = function(){ window.print(); }<\/script>
 </body>
 </html>`;
 
-  const blob = new Blob([html], { type: 'text/html' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `life-path-${lifePath}-numerology-reading.html`;
-  a.click();
-  URL.revokeObjectURL(url);
+  const win = window.open('', '_blank');
+  if (!win) return;
+  win.document.write(html);
+  win.document.close();
 }
 
 export default function LifePathResult({ lifePath, personalYear, birthDate }: Props) {
@@ -208,7 +207,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
               strokeLinejoin="round"
             />
           </svg>
-          Download your free reading
+          Download as PDF
         </button>
       </motion.div>
 
@@ -226,8 +225,8 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           Go deeper with your complete numerology reading
         </p>
         <p className="mx-auto mb-8 max-w-md font-body text-base text-[#f0ede8]/50">
-          Your Expression number, Soul Urge number, and a 2,000-word personalised report
-          generated from your full name and date of birth.
+          Life Cycles, Pinnacles, Personal Months, plus the full integration framework — a 2,000-word
+          personalised report generated from your name and date of birth.
         </p>
         <button
           disabled

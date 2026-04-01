@@ -1,11 +1,13 @@
 'use client';
-import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import LifePathCalculator from './LifePathCalculator';
+import LifePathCalculator, { type CalcResult } from './LifePathCalculator';
+import SacredGeometryCanvas from './SacredGeometryCanvas';
 
-const SacredGeometryCanvas = dynamic(() => import('./SacredGeometryCanvas'), { ssr: false });
+type Props = {
+  onResult: (result: CalcResult) => void;
+};
 
-export default function Hero() {
+export default function Hero({ onResult }: Props) {
   return (
     <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-[#0a0a0f] px-6 pt-20">
       {/* Living canvas background */}
@@ -52,7 +54,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.45 }}
           className="w-full"
         >
-          <LifePathCalculator />
+          <LifePathCalculator onResult={onResult} />
         </motion.div>
       </div>
 

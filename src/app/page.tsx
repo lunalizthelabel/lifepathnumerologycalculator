@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Hero from '@/components/Hero';
+import HomeContent from '@/components/HomeContent';
 import NumberGrid from '@/components/NumberGrid';
 import FAQ from '@/components/FAQ';
 
@@ -77,8 +77,8 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <main>
-        {/* Hero */}
-        <Hero />
+        {/* Hero + result (result renders outside hero to prevent canvas stretch) */}
+        <HomeContent />
 
         {/* How it works */}
         <section className="border-t border-white/5 bg-[#0a0a0f] px-6 py-24" aria-labelledby="how-it-works">
