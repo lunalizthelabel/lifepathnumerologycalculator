@@ -37,7 +37,8 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
   .number { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: 1; color: #c9a84c; flex-shrink: 0; }
   .header-right { flex: 1; }
   .eyebrow { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 4px; }
-  .name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; font-style: italic; margin-bottom: 0; }
+  .name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; font-style: italic; margin-bottom: 2px; }
+  .tagline { font-size: 9.5px; color: rgba(240,237,232,0.45); letter-spacing: 0.04em; }
   /* ── Hook + description ── */
   .hook { font-size: 11.5px; line-height: 1.55; color: #f0ede8; font-style: italic; margin: 9px 0 7px; border-left: 2px solid rgba(201,168,76,0.4); padding-left: 12px; }
   .description { font-size: 10.5px; line-height: 1.65; color: rgba(240,237,232,0.62); margin-bottom: 10px; }
@@ -77,6 +78,7 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
   @page { size: A4; margin: 0; }
   @media print {
     html, body { background: #0a0a0f !important; }
+    .page { transform-origin: top left; }
   }
 </style>
 </head>
@@ -87,6 +89,7 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
     <div class="header-right">
       <p class="eyebrow">Life Path Numerology Calculator &middot; Born ${formatBirthDate(birthDate)}</p>
       <div class="name">${meaning.name}</div>
+      <div class="tagline">${meaning.tagline}</div>
     </div>
   </div>
 
@@ -165,7 +168,19 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
   <div class="footer">
     Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year} &middot; Full report coming soon
   </div>
-  <script>window.onload = function(){ window.print(); }<\/script>
+  <script>
+    window.onload = function() {
+      var body = document.body;
+      var pageH = 297 * 3.7795; // 297mm in px at 96dpi
+      if (body.scrollHeight > pageH) {
+        var scale = pageH / body.scrollHeight;
+        body.style.transform = 'scale(' + scale + ')';
+        body.style.transformOrigin = 'top left';
+        body.style.width = (100 / scale) + '%';
+      }
+      window.print();
+    };
+  <\/script>
 </body>
 </html>`;
 
