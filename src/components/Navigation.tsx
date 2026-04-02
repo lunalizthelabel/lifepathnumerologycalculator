@@ -8,7 +8,7 @@ export default function Navigation() {
           href="/"
           className="font-display text-lg tracking-wide text-[#f0ede8] transition-opacity hover:opacity-70"
         >
-          YourNumerologyReport
+          Life Path Numerology Calculator
         </Link>
         <ul className="flex items-center gap-8">
           <li>

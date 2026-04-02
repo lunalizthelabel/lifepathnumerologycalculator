@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'YourNumerologyReport — numerology without the mysticism. Structured self-insight based on your date of birth.',
+    'Life Path Numerology Calculator — numerology without the mysticism. Structured self-insight based on your date of birth.',
   alternates: {
     canonical: 'https://yournumerologyreport.com/about',
   },
@@ -22,7 +22,7 @@ export default function AboutPage() {
             Numerology without the mysticism
           </h1>
           <p className="mb-6 font-body text-lg leading-relaxed text-[#f0ede8]/65">
-            YourNumerologyReport was built on a simple premise: numerology is a system worth taking
+            Life Path Numerology Calculator was built on a simple premise: numerology is a system worth taking
             seriously, but most numerology tools are not. They trade in vague positivity, cosmic
             language, and aesthetic mysticism that makes the underlying structure — which is
             genuinely interesting — harder to access.
