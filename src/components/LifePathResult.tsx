@@ -162,6 +162,11 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
   const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
   const pageW = pdf.internal.pageSize.getWidth();
   const pageH = pdf.internal.pageSize.getHeight();
+
+  // Fill page background so the bottom is never white
+  pdf.setFillColor(10, 10, 15); // #0a0a0f
+  pdf.rect(0, 0, pageW, pageH, 'F');
+
   const imgH = (canvas.height * pageW) / canvas.width;
 
   // If taller than one page, scale to fit
