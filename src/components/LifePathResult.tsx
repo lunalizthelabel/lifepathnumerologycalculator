@@ -57,7 +57,7 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
     .cell-label { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 6px; }
     .cell ul { list-style: none; }
     .cell li { font-size: 10.5px; color: rgba(240,237,232,0.68); padding: 1.5px 0; }
-    .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+    .lower { margin-bottom: 10px; }
     .py-box { border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); }
     .py-header { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-bottom: 1px solid rgba(201,168,76,0.1); }
     .py-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; color: rgba(201,168,76,0.55); flex-shrink: 0; line-height: 1; }
@@ -69,15 +69,6 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
     .py-section-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 4px; }
     .py-section p { font-size: 10px; line-height: 1.6; color: rgba(240,237,232,0.62); }
     .py-watch p { color: rgba(201,168,76,0.65); }
-    .teaser { border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.01); }
-    .teaser-header { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .teaser-eyebrow { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.5); margin-bottom: 3px; }
-    .teaser-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px; font-weight: 300; color: #f0ede8; }
-    .teaser-item { padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .teaser-item:last-child { border-bottom: none; }
-    .teaser-item-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 3px; }
-    .teaser-item p { font-size: 10px; line-height: 1.55; color: rgba(240,237,232,0.62); }
-    .teaser-item.locked p { color: rgba(240,237,232,0.3); }
     .footer { font-size: 8.5px; color: rgba(240,237,232,0.2); text-align: center; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
   `;
 
@@ -123,32 +114,6 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
         <div class="py-section py-watch">
           <p class="py-section-label">Watch for</p>
           <p>${pyTheme?.watch ?? ''}</p>
-        </div>
-      </div>
-      <div class="teaser">
-        <div class="teaser-header">
-          <p class="teaser-eyebrow">There is more</p>
-          <p class="teaser-title">What your life path doesn&apos;t tell you &mdash; yet</p>
-        </div>
-        <div class="teaser-item">
-          <p class="teaser-item-label">Your core wound</p>
-          <p>${meaning.coreWound}</p>
-        </div>
-        <div class="teaser-item locked">
-          <p class="teaser-item-label">Life Cycles</p>
-          <p>Three major cycles across your life, each with its own number &mdash; revealing what each phase asks you to master.</p>
-        </div>
-        <div class="teaser-item locked">
-          <p class="teaser-item-label">Pinnacles</p>
-          <p>Four peak periods &mdash; each with its own theme and duration &mdash; revealing your major turning points.</p>
-        </div>
-        <div class="teaser-item locked">
-          <p class="teaser-item-label">Personal Months</p>
-          <p>Inside Personal Year ${personalYear}, each month carries its own sub-frequency. Some will flow; others will push.</p>
-        </div>
-        <div class="teaser-item locked">
-          <p class="teaser-item-label">Full integration report</p>
-          <p>How your life path, personal year, cycles &amp; pinnacles interact &mdash; and what that means for you now.</p>
         </div>
       </div>
     </div>
