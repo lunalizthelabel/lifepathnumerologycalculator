@@ -23,39 +23,78 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; }
-  body { background: #0a0a0f; color: #f0ede8; font-family: 'DM Sans', sans-serif; padding: 44px 52px; max-width: 760px; margin: 0 auto; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 12px; }
-  .number { font-family: 'Cormorant Garamond', serif; font-size: 88px; line-height: 1; color: #c9a84c; margin-bottom: 4px; }
-  .name { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; font-style: italic; margin-bottom: 10px; }
-  .hook { font-size: 15px; line-height: 1.6; color: #f0ede8; font-style: italic; margin-bottom: 14px; border-left: 2px solid rgba(201,168,76,0.4); padding-left: 16px; }
-  .description { font-size: 13px; line-height: 1.75; color: rgba(240,237,232,0.65); margin-bottom: 24px; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 24px; }
-  .cell { background: rgba(255,255,255,0.025); padding: 16px 20px; }
-  .cell-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 10px; }
+  html { height: 100%; }
+  body {
+    background: #0a0a0f; color: #f0ede8; font-family: 'DM Sans', sans-serif;
+    width: 210mm; min-height: 297mm;
+    padding: 14mm 16mm 12mm;
+    margin: 0 auto;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    font-size: 11px;
+  }
+  /* ── Header row ── */
+  .header { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; }
+  .number { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: 1; color: #c9a84c; flex-shrink: 0; }
+  .header-right { flex: 1; }
+  .eyebrow { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 4px; }
+  .name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; font-style: italic; margin-bottom: 0; }
+  /* ── Hook + description ── */
+  .hook { font-size: 11.5px; line-height: 1.55; color: #f0ede8; font-style: italic; margin: 9px 0 7px; border-left: 2px solid rgba(201,168,76,0.4); padding-left: 12px; }
+  .description { font-size: 10.5px; line-height: 1.65; color: rgba(240,237,232,0.62); margin-bottom: 10px; }
+  /* ── Strengths / Challenges ── */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 10px; }
+  .cell { background: rgba(255,255,255,0.025); padding: 10px 14px; }
+  .cell-label { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 6px; }
   .cell ul { list-style: none; }
-  .cell li { font-size: 13px; color: rgba(240,237,232,0.68); padding: 2px 0; }
-  .py-box { border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); padding: 18px 22px; margin-bottom: 18px; }
-  .py-header { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 10px; }
-  .py-num { font-family: 'Cormorant Garamond', serif; font-size: 40px; color: rgba(201,168,76,0.55); flex-shrink: 0; line-height: 1; }
-  .py-label { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 4px; }
-  .py-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; margin-bottom: 4px; }
-  .py-tagline { font-size: 12px; color: rgba(240,237,232,0.55); }
-  .py-focus { font-size: 12px; line-height: 1.65; color: rgba(240,237,232,0.65); margin-bottom: 6px; }
-  .py-watch { font-size: 11px; color: rgba(201,168,76,0.6); padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
-  .footer { font-size: 10px; color: rgba(240,237,232,0.2); text-align: center; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .cell li { font-size: 10.5px; color: rgba(240,237,232,0.68); padding: 1.5px 0; }
+  /* ── Two-column lower section ── */
+  .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  /* ── Personal Year ── */
+  .py-box { border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); }
+  .py-header { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-bottom: 1px solid rgba(201,168,76,0.1); }
+  .py-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: rgba(201,168,76,0.55); flex-shrink: 0; line-height: 1; }
+  .py-label { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 3px; }
+  .py-name { font-family: 'Cormorant Garamond', serif; font-size: 14px; margin-bottom: 2px; }
+  .py-tagline { font-size: 9.5px; color: rgba(240,237,232,0.5); }
+  .py-section { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .py-section:last-child { border-bottom: none; }
+  .py-section-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 4px; }
+  .py-section p { font-size: 10px; line-height: 1.6; color: rgba(240,237,232,0.62); }
+  .py-watch p { color: rgba(201,168,76,0.65); }
+  /* ── Teaser ── */
+  .teaser { border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.01); }
+  .teaser-header { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .teaser-eyebrow { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.5); margin-bottom: 3px; }
+  .teaser-title { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 300; color: #f0ede8; }
+  .teaser-item { padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .teaser-item:last-child { border-bottom: none; }
+  .teaser-item-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+  .teaser-item-label .lock { opacity: 0.4; font-size: 9px; }
+  .teaser-item p { font-size: 10px; line-height: 1.55; color: rgba(240,237,232,0.62); }
+  .teaser-item.locked p { color: rgba(240,237,232,0.3); }
+  /* ── Footer ── */
+  .footer { font-size: 8.5px; color: rgba(240,237,232,0.2); text-align: center; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
   @page { size: A4; margin: 0; }
   @media print {
-    body { background: #0a0a0f !important; color: #f0ede8 !important; padding: 44px 52px; }
+    html, body { background: #0a0a0f !important; }
   }
 </style>
 </head>
 <body>
-  <p class="eyebrow">Life Path Numerology Calculator &middot; Born ${formatBirthDate(birthDate)}</p>
-  <div class="number">${lifePath}</div>
-  <div class="name">${meaning.name}</div>
+  <!-- Header -->
+  <div class="header">
+    <div class="number">${lifePath}</div>
+    <div class="header-right">
+      <p class="eyebrow">Life Path Numerology Calculator &middot; Born ${formatBirthDate(birthDate)}</p>
+      <div class="name">${meaning.name}</div>
+    </div>
+  </div>
+
+  <!-- Hook + description -->
   <p class="hook">${meaning.hook}</p>
   <p class="description">${meaning.description}</p>
+
+  <!-- Strengths / Challenges -->
   <div class="grid">
     <div class="cell">
       <p class="cell-label">Strengths</p>
@@ -66,21 +105,65 @@ function downloadReading(lifePath: number, personalYear: number, birthDate: stri
       <ul>${meaning.challenges.map(c => `<li>${c}</li>`).join('')}</ul>
     </div>
   </div>
-  <div class="py-box">
-    <div class="py-header">
-      <div class="py-num">${personalYear}</div>
-      <div>
-        <p class="py-label">Personal Year ${year}</p>
-        <p class="py-name">${pyMeaning.name} &mdash; ${pyTheme?.theme ?? ''}</p>
-        <p class="py-tagline">${pyMeaning.tagline}</p>
+
+  <!-- Two-column: Personal Year + Teaser -->
+  <div class="lower">
+    <!-- Personal Year -->
+    <div class="py-box">
+      <div class="py-header">
+        <div class="py-num">${personalYear}</div>
+        <div>
+          <p class="py-label">Personal Year ${year}</p>
+          <p class="py-name">${pyMeaning.name} &mdash; ${pyTheme?.theme ?? ''}</p>
+          <p class="py-tagline">${pyMeaning.tagline}</p>
+        </div>
+      </div>
+      <div class="py-section">
+        <p class="py-section-label">What is a personal year?</p>
+        <p>Your Personal Year reveals the dominant energy running through every month of ${year}. It cycles through a 9-year sequence — where your life path describes your whole journey, your personal year describes the chapter you are in <em>right now</em>.</p>
+      </div>
+      <div class="py-section">
+        <p class="py-section-label">${year} for you</p>
+        <p>${pyTheme?.focus ?? ''}</p>
+      </div>
+      <div class="py-section py-watch">
+        <p class="py-section-label">Watch for</p>
+        <p>${pyTheme?.watch ?? ''}</p>
       </div>
     </div>
-    <p class="py-focus">${pyTheme?.focus ?? ''}</p>
-    <p class="py-watch"><strong>Watch for:</strong> ${pyTheme?.watch ?? ''}</p>
+
+    <!-- Teaser -->
+    <div class="teaser">
+      <div class="teaser-header">
+        <p class="teaser-eyebrow">There is more</p>
+        <p class="teaser-title">What your life path doesn&apos;t tell you — yet</p>
+      </div>
+      <div class="teaser-item">
+        <p class="teaser-item-label">Your core wound</p>
+        <p>${meaning.coreWound}</p>
+      </div>
+      <div class="teaser-item locked">
+        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Life Cycles</p>
+        <p>Three major cycles across your life, each with its own number — revealing what each phase asks you to master.</p>
+      </div>
+      <div class="teaser-item locked">
+        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Pinnacles</p>
+        <p>Four peak periods — each with its own theme and duration — revealing your major turning points.</p>
+      </div>
+      <div class="teaser-item locked">
+        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Personal Months</p>
+        <p>Inside Personal Year ${personalYear}, each month carries its own sub-frequency. Some will flow; others will push.</p>
+      </div>
+      <div class="teaser-item locked">
+        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Full integration report</p>
+        <p>How your life path, personal year, cycles &amp; pinnacles interact — and what that means for you now.</p>
+      </div>
+    </div>
   </div>
+
+  <!-- Footer -->
   <div class="footer">
-    Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year}<br>
-    Coming soon: Life Cycles, Pinnacles, Personal Months &amp; full integration report.
+    Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year} &middot; Full report coming soon
   </div>
   <script>window.onload = function(){ window.print(); }<\/script>
 </body>

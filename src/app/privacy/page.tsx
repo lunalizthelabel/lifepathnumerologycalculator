@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy Policy for YourNumerologyReport — how we handle your data and your rights under GDPR.',
+  description: 'Privacy Policy for Life Path Numerology Calculator — how we handle your data and your rights under GDPR.',
   alternates: { canonical: 'https://yournumerologyreport.com/privacy' },
   robots: { index: false, follow: false },
 };
@@ -13,9 +13,9 @@ const sections = [
   {
     id: 'who-we-are',
     heading: 'Who we are',
-    body: `This website is operated by YourNumerologyReport ("we", "us", "our"). For the purposes of the General Data Protection Regulation (GDPR) and applicable Dutch and EU data protection law, we are the data controller for any personal data processed in connection with this website.
+    body: `This website is operated by Life Path Numerology Calculator ("we", "us", "our"). For the purposes of the General Data Protection Regulation (GDPR) and applicable Dutch and EU data protection law, we are the data controller for any personal data processed in connection with this website.
 
-If you have any questions about how we handle your data, you can contact us at: privacy@yournumerologyreport.com`,
+If you have any questions about how we handle your data, you can contact us at: info@lunalizbv.nl`,
   },
   {
     id: 'data-we-collect',
@@ -86,7 +86,7 @@ We do not use any other third-party data processors at this time. If this change
   {
     id: 'exercise-rights',
     heading: 'How to exercise your rights',
-    body: `To exercise any of the rights listed above, please contact us at privacy@yournumerologyreport.com. We will respond within 30 days. We may need to verify your identity before processing certain requests.
+    body: `To exercise any of the rights listed above, please contact us at info@lunalizbv.nl. We will respond within 30 days. We may need to verify your identity before processing certain requests.
 
 Because we collect very little data and none of it is tied to an identity, most requests will be straightforward to fulfil.`,
   },
@@ -107,8 +107,8 @@ Any material changes will be reflected on this page with an updated date. We enc
     heading: 'Contact',
     body: `For any questions, requests, or concerns regarding this Privacy Policy or how we handle your data, please contact:
 
-YourNumerologyReport
-Email: privacy@yournumerologyreport.com
+Life Path Numerology Calculator
+Email: info@lunalizbv.nl
 
 We will do our best to respond within 5 business days.`,
   },
@@ -136,7 +136,7 @@ export default function PrivacyPage() {
       <section className="border-b border-white/5 px-6 py-12">
         <div className="mx-auto max-w-3xl">
           <p className="font-body text-base leading-relaxed text-[#f0ede8]/65">
-            Your privacy matters to us. This policy explains exactly what data YourNumerologyReport
+            Your privacy matters to us. This policy explains exactly what data Life Path Numerology Calculator
             collects, why we collect it, how long we keep it, and what rights you have under the
             General Data Protection Regulation (GDPR). We have written it in plain language — not
             legalese — because we believe you deserve to understand it.
