@@ -423,11 +423,11 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           </p>
           <button
             disabled
-            className="cursor-not-allowed border border-[#c9a84c]/20 bg-transparent px-10 py-3.5 font-body text-sm uppercase tracking-widest text-[#c9a84c]/30"
+            className="cursor-not-allowed border border-[#c9a84c]/60 bg-[#c9a84c]/8 px-10 py-3.5 font-body text-sm uppercase tracking-widest text-[#c9a84c]/70"
           >
             Coming soon — enter your name to unlock
           </button>
-          <p className="mt-3 font-body text-xs text-[#f0ede8]/20">
+          <p className="mt-3 font-body text-xs text-[#f0ede8]/40">
             Full report — $19 &middot; Phase 2
           </p>
         </div>
