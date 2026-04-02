@@ -45,11 +45,11 @@ export default function LifePathCalculator({ onResult }: Props) {
       >
         Calculate my life path
       </motion.button>
-      <p className="font-body text-xs text-[#f0ede8]/20">
+      <p className="font-body text-xs text-[#f0ede8]/55">
         By calculating you agree to our{' '}
-        <Link href="/privacy" className="underline underline-offset-2 hover:text-[#f0ede8]/40 transition-colors">privacy policy</Link>
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-[#f0ede8]/80 transition-colors">privacy policy</Link>
         {' '}and{' '}
-        <Link href="/disclaimer" className="underline underline-offset-2 hover:text-[#f0ede8]/40 transition-colors">disclaimer</Link>.
+        <Link href="/disclaimer" className="underline underline-offset-2 hover:text-[#f0ede8]/80 transition-colors">disclaimer</Link>.
       </p>
     </form>
   );
