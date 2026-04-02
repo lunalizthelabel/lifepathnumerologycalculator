@@ -4,24 +4,21 @@ import { motion } from 'framer-motion';
 import { NUMBER_MEANINGS, PERSONAL_YEAR_THEMES } from '@/lib/numberMeanings';
 import { formatBirthDate } from '@/lib/numerology';
 
-// Load html2pdf.js from CDN on demand (avoids Turbopack/tapable build conflict)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function loadHtml2pdf(): Promise<any> {
+function loadScript(src: string, globalKey: string): Promise<any> {
   return new Promise((resolve, reject) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (typeof (window as any).html2pdf !== 'undefined') {
+    if (typeof (window as any)[globalKey] !== 'undefined') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      resolve((window as any).html2pdf);
+      resolve((window as any)[globalKey]);
       return;
     }
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-    script.onload = () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      resolve((window as any).html2pdf);
-    };
-    script.onerror = reject;
-    document.head.appendChild(script);
+    const s = document.createElement('script');
+    s.src = src;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    s.onload = () => resolve((window as any)[globalKey]);
+    s.onerror = reject;
+    document.head.appendChild(s);
   });
 }
 
@@ -122,9 +119,8 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
     </div>
   `;
 
-  // Build hidden DOM element
+  // Build render container
   const wrapper = document.createElement('div');
-  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;z-index:-1;';
 
   const styleEl = document.createElement('style');
   styleEl.textContent = css;
@@ -133,42 +129,49 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
   content.className = 'pdf-wrap';
   content.innerHTML = bodyHtml;
 
+  // Position off-screen but still rendered (left:-9999px breaks html2canvas)
+  wrapper.style.cssText = 'position:absolute;top:0;left:0;opacity:0;pointer-events:none;z-index:-1;overflow:hidden;width:794px;';
+
   wrapper.appendChild(styleEl);
   wrapper.appendChild(content);
   document.body.appendChild(wrapper);
 
-  // Wait for fonts already loaded on the page to propagate
   await document.fonts.ready;
 
-  // Scale down if content exceeds A4 height at 794px width
-  const A4_H = Math.round(794 * (297 / 210));
-  if (content.scrollHeight > A4_H) {
-    const scale = A4_H / content.scrollHeight;
-    content.style.transform = `scale(${scale})`;
-    content.style.transformOrigin = 'top left';
-    content.style.width = `${Math.round(100 / scale)}%`;
-  }
+  // Load html2canvas and jsPDF from CDN
+  const [html2canvas, { jsPDF }] = await Promise.all([
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', 'html2canvas'),
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', 'jspdf').then(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (jspdf: any) => ({ jsPDF: jspdf.jsPDF })
+    ),
+  ]);
 
-  const html2pdf = await loadHtml2pdf();
-
-  await html2pdf()
-    .set({
-      filename: `life-path-${lifePath}-numerology-reading.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#0a0a0f',
-        logging: false,
-        windowWidth: 794,
-      },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    })
-    .from(content)
-    .save();
+  const canvas = await html2canvas(content, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#0a0a0f',
+    logging: false,
+    width: 794,
+    windowWidth: 794,
+  });
 
   document.body.removeChild(wrapper);
+
+  const imgData = canvas.toDataURL('image/jpeg', 0.97);
+  const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+  const pageW = pdf.internal.pageSize.getWidth();
+  const pageH = pdf.internal.pageSize.getHeight();
+  const imgH = (canvas.height * pageW) / canvas.width;
+
+  // If taller than one page, scale to fit
+  if (imgH <= pageH) {
+    pdf.addImage(imgData, 'JPEG', 0, 0, pageW, imgH);
+  } else {
+    pdf.addImage(imgData, 'JPEG', 0, 0, pageW, pageH);
+  }
+
+  pdf.save(`life-path-${lifePath}-numerology-reading.pdf`);
 }
 
 export default function LifePathResult({ lifePath, personalYear, birthDate }: Props) {
