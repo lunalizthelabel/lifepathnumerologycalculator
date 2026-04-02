@@ -127,6 +127,11 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Ad */}
+        <div className="border-t border-white/5 px-6 py-8">
+          <div className="mx-auto max-w-6xl" ta-ad-container=""></div>
+        </div>
+
         {/* FAQ */}
         <section className="border-t border-white/5 bg-white/[0.01] px-6 py-24" aria-labelledby="faq">
           <div className="mx-auto max-w-3xl">

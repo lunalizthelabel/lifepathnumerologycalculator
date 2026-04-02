@@ -327,6 +327,11 @@ export default function CalculatorPage() {
           </div>
         </section>
 
+        {/* Ad */}
+        <div className="border-t border-white/5 px-6 py-8">
+          <div className="mx-auto max-w-6xl" ta-ad-container=""></div>
+        </div>
+
         {/* ── FAQ ── */}
         <section className="px-6 py-24" aria-labelledby="faq-calc">
           <div className="mx-auto max-w-3xl">
