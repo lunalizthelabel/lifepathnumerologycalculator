@@ -1,7 +1,29 @@
 'use client';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { NUMBER_MEANINGS, PERSONAL_YEAR_THEMES } from '@/lib/numberMeanings';
 import { formatBirthDate } from '@/lib/numerology';
+
+// Load html2pdf.js from CDN on demand (avoids Turbopack/tapable build conflict)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function loadHtml2pdf(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (typeof (window as any).html2pdf !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      resolve((window as any).html2pdf);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    script.onload = () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      resolve((window as any).html2pdf);
+    };
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
 
 type Props = {
   lifePath: number;
@@ -9,193 +31,198 @@ type Props = {
   birthDate: string;
 };
 
-function downloadReading(lifePath: number, personalYear: number, birthDate: string) {
+async function downloadReading(lifePath: number, personalYear: number, birthDate: string) {
   const meaning = NUMBER_MEANINGS[lifePath];
   const pyMeaning = NUMBER_MEANINGS[personalYear];
   const pyTheme = PERSONAL_YEAR_THEMES[personalYear];
   const year = new Date().getFullYear();
 
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Life Path ${lifePath} — Life Path Numerology Calculator</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap');
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { height: 100%; }
-  body {
-    background: #0a0a0f; color: #f0ede8; font-family: 'DM Sans', sans-serif;
-    width: 210mm; min-height: 297mm;
-    padding: 14mm 16mm 12mm;
-    margin: 0 auto;
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    font-size: 11px;
-  }
-  /* ── Header row ── */
-  .header { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; }
-  .number { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: 1; color: #c9a84c; flex-shrink: 0; }
-  .header-right { flex: 1; }
-  .eyebrow { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 4px; }
-  .name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; font-style: italic; margin-bottom: 2px; }
-  .tagline { font-size: 9.5px; color: rgba(240,237,232,0.45); letter-spacing: 0.04em; }
-  /* ── Hook + description ── */
-  .hook { font-size: 11.5px; line-height: 1.55; color: #f0ede8; font-style: italic; margin: 9px 0 7px; border-left: 2px solid rgba(201,168,76,0.4); padding-left: 12px; }
-  .description { font-size: 10.5px; line-height: 1.65; color: rgba(240,237,232,0.62); margin-bottom: 10px; }
-  /* ── Strengths / Challenges ── */
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 10px; }
-  .cell { background: rgba(255,255,255,0.025); padding: 10px 14px; }
-  .cell-label { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 6px; }
-  .cell ul { list-style: none; }
-  .cell li { font-size: 10.5px; color: rgba(240,237,232,0.68); padding: 1.5px 0; }
-  /* ── Two-column lower section ── */
-  .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-  /* ── Personal Year ── */
-  .py-box { border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); }
-  .py-header { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-bottom: 1px solid rgba(201,168,76,0.1); }
-  .py-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: rgba(201,168,76,0.55); flex-shrink: 0; line-height: 1; }
-  .py-label { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 3px; }
-  .py-name { font-family: 'Cormorant Garamond', serif; font-size: 14px; margin-bottom: 2px; }
-  .py-tagline { font-size: 9.5px; color: rgba(240,237,232,0.5); }
-  .py-section { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-  .py-section:last-child { border-bottom: none; }
-  .py-section-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 4px; }
-  .py-section p { font-size: 10px; line-height: 1.6; color: rgba(240,237,232,0.62); }
-  .py-watch p { color: rgba(201,168,76,0.65); }
-  /* ── Teaser ── */
-  .teaser { border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.01); }
-  .teaser-header { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-  .teaser-eyebrow { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.5); margin-bottom: 3px; }
-  .teaser-title { font-family: 'Cormorant Garamond', serif; font-size: 13px; font-weight: 300; color: #f0ede8; }
-  .teaser-item { padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .teaser-item:last-child { border-bottom: none; }
-  .teaser-item-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
-  .teaser-item-label .lock { opacity: 0.4; font-size: 9px; }
-  .teaser-item p { font-size: 10px; line-height: 1.55; color: rgba(240,237,232,0.62); }
-  .teaser-item.locked p { color: rgba(240,237,232,0.3); }
-  /* ── Footer ── */
-  .footer { font-size: 8.5px; color: rgba(240,237,232,0.2); text-align: center; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
-  @page { size: A4; margin: 0; }
-  @media print {
-    html, body { background: #0a0a0f !important; }
-    .page { transform-origin: top left; }
-  }
-</style>
-</head>
-<body>
-  <!-- Header -->
-  <div class="header">
-    <div class="number">${lifePath}</div>
-    <div class="header-right">
-      <p class="eyebrow">Life Path Numerology Calculator &middot; Born ${formatBirthDate(birthDate)}</p>
-      <div class="name">${meaning.name}</div>
-      <div class="tagline">${meaning.tagline}</div>
-    </div>
-  </div>
+  const css = `
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .pdf-wrap {
+      background: #0a0a0f; color: #f0ede8;
+      font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+      width: 794px; padding: 53px 60px 45px; font-size: 11px;
+    }
+    .header { display: flex; align-items: flex-end; gap: 20px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 10px; }
+    .lp-number { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 64px; line-height: 1; color: #c9a84c; flex-shrink: 0; }
+    .header-right { flex: 1; }
+    .eyebrow { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(201,168,76,0.65); margin-bottom: 4px; }
+    .lp-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 300; font-style: italic; margin-bottom: 2px; }
+    .tagline { font-size: 9.5px; color: rgba(240,237,232,0.45); letter-spacing: 0.04em; }
+    .hook { font-size: 11.5px; line-height: 1.55; color: #f0ede8; font-style: italic; margin: 9px 0 7px; border-left: 2px solid rgba(201,168,76,0.4); padding-left: 12px; }
+    .description { font-size: 10.5px; line-height: 1.65; color: rgba(240,237,232,0.62); margin-bottom: 10px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 10px; }
+    .cell { background: rgba(255,255,255,0.025); padding: 10px 14px; }
+    .cell-label { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 6px; }
+    .cell ul { list-style: none; }
+    .cell li { font-size: 10.5px; color: rgba(240,237,232,0.68); padding: 1.5px 0; }
+    .lower { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+    .py-box { border: 1px solid rgba(201,168,76,0.2); background: rgba(201,168,76,0.04); }
+    .py-header { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .py-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; color: rgba(201,168,76,0.55); flex-shrink: 0; line-height: 1; }
+    .py-label { font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 3px; }
+    .py-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 14px; margin-bottom: 2px; }
+    .py-tagline { font-size: 9.5px; color: rgba(240,237,232,0.5); }
+    .py-section { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .py-section:last-child { border-bottom: none; }
+    .py-section-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 4px; }
+    .py-section p { font-size: 10px; line-height: 1.6; color: rgba(240,237,232,0.62); }
+    .py-watch p { color: rgba(201,168,76,0.65); }
+    .teaser { border: 1px solid rgba(255,255,255,0.07); background: rgba(255,255,255,0.01); }
+    .teaser-header { padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .teaser-eyebrow { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.5); margin-bottom: 3px; }
+    .teaser-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px; font-weight: 300; color: #f0ede8; }
+    .teaser-item { padding: 7px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .teaser-item:last-child { border-bottom: none; }
+    .teaser-item-label { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.55); margin-bottom: 3px; }
+    .teaser-item p { font-size: 10px; line-height: 1.55; color: rgba(240,237,232,0.62); }
+    .teaser-item.locked p { color: rgba(240,237,232,0.3); }
+    .footer { font-size: 8.5px; color: rgba(240,237,232,0.2); text-align: center; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
+  `;
 
-  <!-- Hook + description -->
-  <p class="hook">${meaning.hook}</p>
-  <p class="description">${meaning.description}</p>
-
-  <!-- Strengths / Challenges -->
-  <div class="grid">
-    <div class="cell">
-      <p class="cell-label">Strengths</p>
-      <ul>${meaning.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+  const bodyHtml = `
+    <div class="header">
+      <div class="lp-number">${lifePath}</div>
+      <div class="header-right">
+        <p class="eyebrow">Life Path Numerology Calculator &middot; Born ${formatBirthDate(birthDate)}</p>
+        <div class="lp-name">${meaning.name}</div>
+        <div class="tagline">${meaning.tagline}</div>
+      </div>
     </div>
-    <div class="cell">
-      <p class="cell-label">Challenges</p>
-      <ul>${meaning.challenges.map(c => `<li>${c}</li>`).join('')}</ul>
+    <p class="hook">${meaning.hook}</p>
+    <p class="description">${meaning.description}</p>
+    <div class="grid">
+      <div class="cell">
+        <p class="cell-label">Strengths</p>
+        <ul>${meaning.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+      </div>
+      <div class="cell">
+        <p class="cell-label">Challenges</p>
+        <ul>${meaning.challenges.map(c => `<li>${c}</li>`).join('')}</ul>
+      </div>
     </div>
-  </div>
-
-  <!-- Two-column: Personal Year + Teaser -->
-  <div class="lower">
-    <!-- Personal Year -->
-    <div class="py-box">
-      <div class="py-header">
-        <div class="py-num">${personalYear}</div>
-        <div>
-          <p class="py-label">Personal Year ${year}</p>
-          <p class="py-name">${pyMeaning.name} &mdash; ${pyTheme?.theme ?? ''}</p>
-          <p class="py-tagline">${pyMeaning.tagline}</p>
+    <div class="lower">
+      <div class="py-box">
+        <div class="py-header">
+          <div class="py-num">${personalYear}</div>
+          <div>
+            <p class="py-label">Personal Year ${year}</p>
+            <p class="py-name">${pyMeaning.name} &mdash; ${pyTheme?.theme ?? ''}</p>
+            <p class="py-tagline">${pyMeaning.tagline}</p>
+          </div>
+        </div>
+        <div class="py-section">
+          <p class="py-section-label">What is a personal year?</p>
+          <p>Your Personal Year reveals the dominant energy running through every month of ${year}. It cycles through a 9-year sequence &mdash; where your life path describes your whole journey, your personal year describes the chapter you are in right now.</p>
+        </div>
+        <div class="py-section">
+          <p class="py-section-label">${year} for you</p>
+          <p>${pyTheme?.focus ?? ''}</p>
+        </div>
+        <div class="py-section py-watch">
+          <p class="py-section-label">Watch for</p>
+          <p>${pyTheme?.watch ?? ''}</p>
         </div>
       </div>
-      <div class="py-section">
-        <p class="py-section-label">What is a personal year?</p>
-        <p>Your Personal Year reveals the dominant energy running through every month of ${year}. It cycles through a 9-year sequence — where your life path describes your whole journey, your personal year describes the chapter you are in <em>right now</em>.</p>
-      </div>
-      <div class="py-section">
-        <p class="py-section-label">${year} for you</p>
-        <p>${pyTheme?.focus ?? ''}</p>
-      </div>
-      <div class="py-section py-watch">
-        <p class="py-section-label">Watch for</p>
-        <p>${pyTheme?.watch ?? ''}</p>
-      </div>
-    </div>
-
-    <!-- Teaser -->
-    <div class="teaser">
-      <div class="teaser-header">
-        <p class="teaser-eyebrow">There is more</p>
-        <p class="teaser-title">What your life path doesn&apos;t tell you — yet</p>
-      </div>
-      <div class="teaser-item">
-        <p class="teaser-item-label">Your core wound</p>
-        <p>${meaning.coreWound}</p>
-      </div>
-      <div class="teaser-item locked">
-        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Life Cycles</p>
-        <p>Three major cycles across your life, each with its own number — revealing what each phase asks you to master.</p>
-      </div>
-      <div class="teaser-item locked">
-        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Pinnacles</p>
-        <p>Four peak periods — each with its own theme and duration — revealing your major turning points.</p>
-      </div>
-      <div class="teaser-item locked">
-        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Personal Months</p>
-        <p>Inside Personal Year ${personalYear}, each month carries its own sub-frequency. Some will flow; others will push.</p>
-      </div>
-      <div class="teaser-item locked">
-        <p class="teaser-item-label"><span class="lock">&#x1F512;</span> Full integration report</p>
-        <p>How your life path, personal year, cycles &amp; pinnacles interact — and what that means for you now.</p>
+      <div class="teaser">
+        <div class="teaser-header">
+          <p class="teaser-eyebrow">There is more</p>
+          <p class="teaser-title">What your life path doesn&apos;t tell you &mdash; yet</p>
+        </div>
+        <div class="teaser-item">
+          <p class="teaser-item-label">Your core wound</p>
+          <p>${meaning.coreWound}</p>
+        </div>
+        <div class="teaser-item locked">
+          <p class="teaser-item-label">Life Cycles</p>
+          <p>Three major cycles across your life, each with its own number &mdash; revealing what each phase asks you to master.</p>
+        </div>
+        <div class="teaser-item locked">
+          <p class="teaser-item-label">Pinnacles</p>
+          <p>Four peak periods &mdash; each with its own theme and duration &mdash; revealing your major turning points.</p>
+        </div>
+        <div class="teaser-item locked">
+          <p class="teaser-item-label">Personal Months</p>
+          <p>Inside Personal Year ${personalYear}, each month carries its own sub-frequency. Some will flow; others will push.</p>
+        </div>
+        <div class="teaser-item locked">
+          <p class="teaser-item-label">Full integration report</p>
+          <p>How your life path, personal year, cycles &amp; pinnacles interact &mdash; and what that means for you now.</p>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="footer">
+      Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year} &middot; Full report coming soon
+    </div>
+  `;
 
-  <!-- Footer -->
-  <div class="footer">
-    Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year} &middot; Full report coming soon
-  </div>
-  <script>
-    window.onload = function() {
-      var body = document.body;
-      var pageH = 297 * 3.7795; // 297mm in px at 96dpi
-      if (body.scrollHeight > pageH) {
-        var scale = pageH / body.scrollHeight;
-        body.style.transform = 'scale(' + scale + ')';
-        body.style.transformOrigin = 'top left';
-        body.style.width = (100 / scale) + '%';
-      }
-      window.print();
-    };
-  <\/script>
-</body>
-</html>`;
+  // Build hidden DOM element
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;z-index:-1;';
 
-  const win = window.open('', '_blank');
-  if (!win) return;
-  win.document.write(html);
-  win.document.close();
+  const styleEl = document.createElement('style');
+  styleEl.textContent = css;
+
+  const content = document.createElement('div');
+  content.className = 'pdf-wrap';
+  content.innerHTML = bodyHtml;
+
+  wrapper.appendChild(styleEl);
+  wrapper.appendChild(content);
+  document.body.appendChild(wrapper);
+
+  // Wait for fonts already loaded on the page to propagate
+  await document.fonts.ready;
+
+  // Scale down if content exceeds A4 height at 794px width
+  const A4_H = Math.round(794 * (297 / 210));
+  if (content.scrollHeight > A4_H) {
+    const scale = A4_H / content.scrollHeight;
+    content.style.transform = `scale(${scale})`;
+    content.style.transformOrigin = 'top left';
+    content.style.width = `${Math.round(100 / scale)}%`;
+  }
+
+  const html2pdf = await loadHtml2pdf();
+
+  await html2pdf()
+    .set({
+      filename: `life-path-${lifePath}-numerology-reading.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#0a0a0f',
+        logging: false,
+        windowWidth: 794,
+      },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    })
+    .from(content)
+    .save();
+
+  document.body.removeChild(wrapper);
 }
 
 export default function LifePathResult({ lifePath, personalYear, birthDate }: Props) {
+  const [downloading, setDownloading] = useState(false);
   const meaning = NUMBER_MEANINGS[lifePath];
   const pyMeaning = NUMBER_MEANINGS[personalYear];
   const pyTheme = PERSONAL_YEAR_THEMES[personalYear];
   const isMaster = [11, 22, 33].includes(lifePath);
   const year = new Date().getFullYear();
+
+  const handleDownload = async () => {
+    if (downloading) return;
+    setDownloading(true);
+    try {
+      await downloadReading(lifePath, personalYear, birthDate);
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   return (
     <motion.div
@@ -341,15 +368,16 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         className="mb-10 flex justify-center"
       >
         <button
-          onClick={() => downloadReading(lifePath, personalYear, birthDate)}
-          className="group flex items-center gap-3 border border-[#c9a84c]/40 bg-transparent px-8 py-3.5 font-body text-sm uppercase tracking-widest text-[#c9a84c]/80 transition-all hover:border-[#c9a84c] hover:bg-[#c9a84c]/5 hover:text-[#c9a84c]"
+          onClick={handleDownload}
+          disabled={downloading}
+          className="group flex items-center gap-3 border border-[#c9a84c]/40 bg-transparent px-8 py-3.5 font-body text-sm uppercase tracking-widest text-[#c9a84c]/80 transition-all hover:border-[#c9a84c] hover:bg-[#c9a84c]/5 hover:text-[#c9a84c] disabled:cursor-wait disabled:opacity-50"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-            className="transition-transform group-hover:translate-y-0.5">
+            className={`transition-transform ${downloading ? 'animate-bounce' : 'group-hover:translate-y-0.5'}`}>
             <path d="M7 1v8M7 9l-3-3M7 9l3-3M1 12h12"
               stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Download as PDF
+          {downloading ? 'Generating PDF…' : 'Download as PDF'}
         </button>
       </motion.div>
 
