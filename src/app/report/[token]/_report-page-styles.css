@@ -1,0 +1,547 @@
+/* ============================================
+   NUMEROLOGY REPORT — SCREEN + PRINT STYLES
+   Drop this into your globals.css or as a
+   CSS module on the report page
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+/* ─── SCREEN STYLES ──────────────────────── */
+
+.report-wrap {
+  background: #0D0B09;
+  min-height: 100vh;
+  padding-bottom: 80px;
+  font-family: 'Jost', sans-serif;
+}
+
+.report-hero {
+  background: #0D0B09;
+  border-bottom: 1px solid #2A2218;
+  padding: 60px 40px 48px;
+  text-align: center;
+}
+
+.report-ornament {
+  color: #C4A882;
+  font-size: 12px;
+  letter-spacing: 6px;
+  font-weight: 300;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.report-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: #F0EBE3;
+  letter-spacing: 2px;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.report-subtitle {
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: #6B5F52;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.report-meta-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.report-meta-item {
+  text-align: center;
+}
+
+.report-meta-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #6B5F52;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.report-meta-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: #C4A882;
+}
+
+.report-body {
+  padding: 0 40px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.report-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 40px;
+  margin: 40px auto;
+  max-width: 720px;
+}
+
+.report-divider-line {
+  flex: 1;
+  height: 1px;
+  background: #2A2218;
+}
+
+.report-divider-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #C4A882;
+}
+
+/* Section cards */
+.report-section {
+  margin-bottom: 40px;
+  border: 1px solid #2A2218;
+}
+
+.report-section-header {
+  background: #121009;
+  padding: 18px 28px;
+  border-bottom: 1px solid #2A2218;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.report-section-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  color: #C4A882;
+  letter-spacing: 3px;
+  opacity: 0.5;
+  min-width: 20px;
+}
+
+.report-section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #F0EBE3;
+  margin: 0;
+  flex: 1;
+}
+
+.report-section-tag {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #C4A882;
+  border: 1px solid #2A2218;
+  padding: 3px 10px;
+  font-weight: 300;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.report-section-body {
+  padding: 24px 28px 28px;
+}
+
+/* Typography */
+.report-p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: #C8BFB5;
+  margin: 0 0 18px;
+}
+
+.report-p:last-child {
+  margin-bottom: 0;
+}
+
+.report-highlight {
+  color: #C4A882;
+  font-style: italic;
+}
+
+.report-callout {
+  border-left: 2px solid #C4A882;
+  padding: 14px 20px;
+  margin: 20px 0;
+  background: rgba(196, 168, 130, 0.04);
+}
+
+.report-callout-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: #D4C4B0;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.report-number-badge {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 300;
+  color: #C4A882;
+  line-height: 1;
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+/* Synthesis / closing section */
+.report-synthesis {
+  background: #100E0C;
+  border: 1px solid #C4A882;
+  padding: 36px 32px;
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.report-synthesis-label {
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: #C4A882;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: block;
+  opacity: 0.6;
+}
+
+.report-closing-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 300;
+  color: #F0EBE3;
+  line-height: 1.65;
+  margin: 0 auto 24px;
+  max-width: 480px;
+}
+
+/* Markdown inline styles */
+.report-strong {
+  color: #D4C4B0;
+  font-weight: 500;
+}
+
+.report-em {
+  color: #C4A882;
+  font-style: italic;
+}
+
+.report-subheading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #C4A882;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 24px 0 12px;
+}
+
+.report-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+}
+
+.report-li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: #C8BFB5;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.report-li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: #C4A882;
+  opacity: 0.6;
+}
+
+/* Section emoji */
+.report-section-emoji {
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* Calculations summary block */
+.report-calculations {
+  border: 1px solid #2A2218;
+  margin-bottom: 40px;
+  background: #0D0B09;
+}
+
+.report-calculations-label {
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: #C4A882;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border-bottom: 1px solid #2A2218;
+  opacity: 0.5;
+}
+
+.report-calculations .report-p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #6B5F52;
+  padding: 0 28px;
+  margin-bottom: 10px;
+}
+
+.report-calculations .report-p:first-of-type {
+  padding-top: 20px;
+}
+
+.report-calculations .report-p:last-of-type {
+  padding-bottom: 20px;
+}
+
+.report-calculations .report-strong {
+  color: #C4A882;
+  font-weight: 400;
+}
+
+/* Print button */
+.report-print-btn {
+  display: block;
+  margin: 0 auto 40px;
+  background: transparent;
+  border: 1px solid #2A2218;
+  color: #6B5F52;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  padding: 12px 32px;
+  cursor: pointer;
+  font-weight: 300;
+  text-transform: uppercase;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.report-print-btn:hover {
+  border-color: #C4A882;
+  color: #C4A882;
+}
+
+/* Disclaimer */
+.report-disclaimer {
+  border-top: 1px solid #1E1A14;
+  padding: 32px 0 0;
+  margin-top: 20px;
+}
+
+.report-disclaimer-text {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #3D3730;
+  font-weight: 300;
+}
+
+.report-disclaimer-block {
+  border-top: 1px solid #1E1A14;
+  margin-top: 48px;
+  padding: 32px 0 48px;
+  text-align: center;
+}
+
+.report-disclaimer-block .report-disclaimer-text {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  line-height: 1.9;
+  color: #2E2820;
+  font-weight: 300;
+  max-width: 560px;
+  margin: 0 auto 10px;
+}
+
+.report-disclaimer-copy {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  color: #221E18;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+
+/* ─── PRINT STYLES ───────────────────────── */
+/* Automatically applied when user prints or saves as PDF */
+
+@media print {
+
+  /* Reset dark background to light */
+  .report-wrap {
+    background: #FDFBF7 !important;
+    color: #1A1612 !important;
+  }
+
+  /* Hero: light cream */
+  .report-hero {
+    background: #FDFBF7 !important;
+    border-bottom: 1px solid #D4C9B8 !important;
+    padding: 40px 0 32px !important;
+  }
+
+  .report-ornament {
+    color: #8B6F47 !important;
+    opacity: 1 !important;
+  }
+
+  .report-title {
+    color: #1A1612 !important;
+  }
+
+  .report-subtitle {
+    color: #8B6F47 !important;
+  }
+
+  .report-meta-label {
+    color: #8B6F47 !important;
+  }
+
+  .report-meta-value {
+    color: #6B4F2A !important;
+  }
+
+  /* Divider */
+  .report-divider-line {
+    background: #D4C9B8 !important;
+  }
+
+  .report-divider-dot {
+    background: #8B6F47 !important;
+  }
+
+  /* Section cards */
+  .report-section {
+    border: 1px solid #D4C9B8 !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 28px !important;
+  }
+
+  .report-section-header {
+    background: #F5F0E8 !important;
+    border-bottom: 1px solid #D4C9B8 !important;
+  }
+
+  .report-section-num {
+    color: #8B6F47 !important;
+    opacity: 1 !important;
+  }
+
+  .report-section-title {
+    color: #1A1612 !important;
+  }
+
+  .report-section-tag {
+    color: #8B6F47 !important;
+    border-color: #D4C9B8 !important;
+    opacity: 1 !important;
+  }
+
+  /* Typography */
+  .report-p {
+    color: #2A2420 !important;
+  }
+
+  .report-highlight {
+    color: #6B4F2A !important;
+  }
+
+  .report-callout {
+    border-left: 2px solid #8B6F47 !important;
+    background: rgba(139, 111, 71, 0.05) !important;
+  }
+
+  .report-callout-text {
+    color: #3A2E26 !important;
+  }
+
+  .report-number-badge {
+    color: #8B6F47 !important;
+    opacity: 1 !important;
+  }
+
+  /* Synthesis */
+  .report-synthesis {
+    background: #F5F0E8 !important;
+    border: 1px solid #8B6F47 !important;
+  }
+
+  .report-synthesis-label {
+    color: #8B6F47 !important;
+    opacity: 1 !important;
+  }
+
+  .report-closing-line {
+    color: #1A1612 !important;
+  }
+
+  /* Hide print button when printing */
+  .report-print-btn {
+    display: none !important;
+  }
+
+  /* Disclaimer */
+  .report-disclaimer {
+    border-top: 1px solid #D4C9B8 !important;
+  }
+
+  .report-disclaimer-text {
+    color: #8B8078 !important;
+  }
+
+  .report-disclaimer-block {
+    border-top: 1px solid #D4C9B8 !important;
+  }
+
+  .report-disclaimer-block .report-disclaimer-text {
+    color: #A09890 !important;
+  }
+
+  .report-disclaimer-copy {
+    color: #B8B0A8 !important;
+  }
+
+  /* Page breaks — prevent sections cutting mid-content */
+  .report-section-header {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .report-section-body {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+
+  /* Page setup */
+  @page {
+    margin: 20mm 18mm;
+    size: A4;
+  }
+
+  /* Remove URL footers browsers add */
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

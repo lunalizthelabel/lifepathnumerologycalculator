@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { NUMBER_MEANINGS, PERSONAL_YEAR_THEMES } from '@/lib/numberMeanings';
 import { formatBirthDate } from '@/lib/numerology';
+import NumerologyLayer2Checkout from './NumerologyLayer2Checkout';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function loadScript(src: string, globalKey: string): Promise<any> {
@@ -115,30 +116,22 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
       </div>
     </div>
     <div class="footer">
-      Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year} &middot; Full report coming soon
+      Free life path reading &middot; lifepathnumerologycalculator.com &middot; ${year}
     </div>
   `;
 
-  // Build render container
   const wrapper = document.createElement('div');
-
   const styleEl = document.createElement('style');
   styleEl.textContent = css;
-
   const content = document.createElement('div');
   content.className = 'pdf-wrap';
   content.innerHTML = bodyHtml;
-
-  // Position off-screen but still rendered (left:-9999px breaks html2canvas)
   wrapper.style.cssText = 'position:absolute;top:0;left:0;opacity:0;pointer-events:none;z-index:-1;overflow:hidden;width:794px;';
-
   wrapper.appendChild(styleEl);
   wrapper.appendChild(content);
   document.body.appendChild(wrapper);
-
   await document.fonts.ready;
 
-  // Load html2canvas and jsPDF from CDN
   const [html2canvas, { jsPDF }] = await Promise.all([
     loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', 'html2canvas'),
     loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', 'jspdf').then(
@@ -148,12 +141,8 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
   ]);
 
   const canvas = await html2canvas(content, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: '#0a0a0f',
-    logging: false,
-    width: 794,
-    windowWidth: 794,
+    scale: 2, useCORS: true, backgroundColor: '#0a0a0f',
+    logging: false, width: 794, windowWidth: 794,
   });
 
   document.body.removeChild(wrapper);
@@ -162,21 +151,28 @@ async function downloadReading(lifePath: number, personalYear: number, birthDate
   const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
   const pageW = pdf.internal.pageSize.getWidth();
   const pageH = pdf.internal.pageSize.getHeight();
-
-  // Fill page background so the bottom is never white
-  pdf.setFillColor(10, 10, 15); // #0a0a0f
+  pdf.setFillColor(10, 10, 15);
   pdf.rect(0, 0, pageW, pageH, 'F');
-
   const imgH = (canvas.height * pageW) / canvas.width;
-
-  // If taller than one page, scale to fit
   if (imgH <= pageH) {
     pdf.addImage(imgData, 'JPEG', 0, 0, pageW, imgH);
   } else {
     pdf.addImage(imgData, 'JPEG', 0, 0, pageW, pageH);
   }
-
   pdf.save(`life-path-${lifePath}-numerology-reading.pdf`);
+}
+
+// Reusable divider
+function Divider() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '0 0 32px' }}>
+      <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+      <div style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--color-accent)' }} />
+      <div style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--color-accent)', opacity: 0.35 }} />
+      <div style={{ width: 3, height: 3, borderRadius: '50%', background: 'var(--color-accent)', opacity: 0.15 }} />
+      <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+    </div>
+  );
 }
 
 export default function LifePathResult({ lifePath, personalYear, birthDate }: Props) {
@@ -206,16 +202,15 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
     >
       {/* ── Primary result ── */}
       <div className="mb-10 text-center">
-        <p className="mb-4 font-body text-sm uppercase tracking-widest text-[#c9a84c]/70">
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
           Born {formatBirthDate(birthDate)}
-          {isMaster && <span className="ml-3 text-[#c9a84c]">· Master Number</span>}
+          {isMaster && <span style={{ marginLeft: 12 }}> · Master Number</span>}
         </p>
         <motion.div
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="mb-2 font-display text-[clamp(7rem,20vw,10rem)] leading-none text-[#c9a84c]"
-          style={{ textShadow: '0 0 80px rgba(201,168,76,0.25)' }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(7rem, 20vw, 10rem)', lineHeight: 1, color: 'var(--color-accent)', marginBottom: 8 }}
         >
           {lifePath}
         </motion.div>
@@ -223,17 +218,17 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mb-5 font-display text-4xl font-light italic text-[#f0ede8]"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 300, fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 24 }}
         >
           {meaning.name}
         </motion.h2>
 
-        {/* Viral hook */}
+        {/* Hook callout */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="mx-auto mb-6 max-w-xl border-l-2 border-[#c9a84c]/40 pl-5 text-left font-display text-xl font-light italic text-[#f0ede8]/90"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 19, fontWeight: 300, fontStyle: 'italic', color: 'var(--color-accent-deep)', borderLeft: '2px solid var(--color-accent)', paddingLeft: 20, textAlign: 'left', maxWidth: 560, margin: '0 auto 24px', lineHeight: 1.75 }}
         >
           {meaning.hook}
         </motion.p>
@@ -242,7 +237,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mx-auto max-w-xl font-body text-lg leading-relaxed text-[#f0ede8]/65"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-body)', maxWidth: 560, margin: '0 auto' }}
         >
           {meaning.description}
         </motion.p>
@@ -253,84 +248,65 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="mb-10 grid grid-cols-1 gap-px border border-white/5 sm:grid-cols-2"
+        className="mb-10 grid grid-cols-1 sm:grid-cols-2"
+        style={{ border: '1px solid var(--color-border)', gap: 1, background: 'var(--color-border)' }}
       >
-        <div className="bg-white/[0.02] p-6">
-          <h3 className="mb-4 font-body text-xs uppercase tracking-widest text-[#c9a84c]">
+        <div style={{ background: 'var(--color-bg-raised)', padding: 24 }}>
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
             Strengths
           </h3>
           <ul className="space-y-2">
             {meaning.strengths.map((s) => (
-              <li key={s} className="font-body text-base text-[#f0ede8]/70">{s}</li>
+              <li key={s} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 300, color: 'var(--color-body)' }}>{s}</li>
             ))}
           </ul>
         </div>
-        <div className="bg-white/[0.02] p-6">
-          <h3 className="mb-4 font-body text-xs uppercase tracking-widest text-[#c9a84c]">
+        <div style={{ background: 'var(--color-bg-raised)', padding: 24 }}>
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
             Challenges
           </h3>
           <ul className="space-y-2">
             {meaning.challenges.map((c) => (
-              <li key={c} className="font-body text-base text-[#f0ede8]/70">{c}</li>
+              <li key={c} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 300, color: 'var(--color-body)' }}>{c}</li>
             ))}
           </ul>
         </div>
       </motion.div>
 
-      {/* ── Personal Year — full explanation ── */}
+      {/* ── Personal Year ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
-        className="mb-10 border border-[#c9a84c]/20 bg-[#c9a84c]/5"
+        className="mb-10"
+        style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-raised)' }}
       >
-        {/* Header */}
-        <div className="flex items-start gap-6 border-b border-[#c9a84c]/10 p-6">
-          <span className="font-display text-5xl leading-none text-[#c9a84c]/60">{personalYear}</span>
+        <div className="flex items-start gap-6 p-6" style={{ borderBottom: '1px solid var(--color-border)' }}>
+          <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 48, lineHeight: 1, color: 'var(--color-accent)', opacity: 0.6 }}>{personalYear}</span>
           <div>
-            <p className="mb-1 font-body text-xs uppercase tracking-widest text-[#c9a84c]">
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6, fontWeight: 400 }}>
               Personal Year {year}
             </p>
-            <p className="mb-1 font-display text-2xl text-[#f0ede8]">
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 300, color: 'var(--color-ink)', marginBottom: 4 }}>
               {pyMeaning.name} — {pyTheme?.theme}
             </p>
-            <p className="font-body text-sm text-[#f0ede8]/45">{pyMeaning.tagline}</p>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 300, color: 'var(--color-faint)' }}>{pyMeaning.tagline}</p>
           </div>
         </div>
-
-        {/* What is a personal year */}
-        <div className="border-b border-[#c9a84c]/10 px-6 py-5">
-          <p className="mb-2 font-body text-xs uppercase tracking-widest text-[#c9a84c]/60">
-            What is a personal year?
-          </p>
-          <p className="font-body text-base leading-relaxed text-[#f0ede8]/60">
-            Your Personal Year number reveals the dominant energy and theme running through every
-            month of {year}. It is calculated from your birth day and month combined with the
-            current year — so it changes annually, cycling through a 9-year sequence. Where your
-            life path number describes the whole of your journey, your personal year describes the
-            specific chapter you are in <em>right now</em>.
-          </p>
-        </div>
-
-        {/* This year's energy */}
-        <div className="border-b border-[#c9a84c]/10 px-6 py-5">
-          <p className="mb-2 font-body text-xs uppercase tracking-widest text-[#c9a84c]/60">
-            {year} for you
-          </p>
-          <p className="font-body text-base leading-relaxed text-[#f0ede8]/70">
-            {pyTheme?.focus}
-          </p>
-        </div>
-
-        {/* Watch for */}
-        <div className="px-6 py-5">
-          <p className="mb-2 font-body text-xs uppercase tracking-widest text-[#c9a84c]/60">
-            Watch for
-          </p>
-          <p className="font-body text-base leading-relaxed text-[#f0ede8]/60">
-            {pyTheme?.watch}
-          </p>
-        </div>
+        {[
+          { label: 'What is a personal year?', text: `Your Personal Year number reveals the dominant energy and theme running through every month of ${year}. It is calculated from your birth day and month combined with the current year — so it changes annually, cycling through a 9-year sequence. Where your life path number describes the whole of your journey, your personal year describes the specific chapter you are in right now.` },
+          { label: `${year} for you`, text: pyTheme?.focus ?? '' },
+          { label: 'Watch for', text: pyTheme?.watch ?? '' },
+        ].map(({ label, text }, i, arr) => (
+          <div key={label} className="px-6 py-5" style={{ borderBottom: i < arr.length - 1 ? '1px solid var(--color-border)' : 'none' }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.6, marginBottom: 8, fontWeight: 400 }}>
+              {label}
+            </p>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-body)' }}>
+              {text}
+            </p>
+          </div>
+        ))}
       </motion.div>
 
       {/* ── Download ── */}
@@ -343,10 +319,26 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         <button
           onClick={handleDownload}
           disabled={downloading}
-          className="group flex items-center gap-3 border border-[#c9a84c]/40 bg-transparent px-8 py-3.5 font-body text-sm uppercase tracking-widest text-[#c9a84c]/80 transition-all hover:border-[#c9a84c] hover:bg-[#c9a84c]/5 hover:text-[#c9a84c] disabled:cursor-wait disabled:opacity-50"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            background: 'transparent',
+            border: '1px solid var(--color-border)',
+            color: 'var(--color-muted)',
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase',
+            padding: '12px 28px', borderRadius: 0, cursor: downloading ? 'wait' : 'pointer',
+            fontWeight: 400, transition: 'all 0.2s', opacity: downloading ? 0.5 : 1,
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-accent)';
+            (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)';
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-border)';
+            (e.currentTarget as HTMLElement).style.color = 'var(--color-muted)';
+          }}
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-            className={`transition-transform ${downloading ? 'animate-bounce' : 'group-hover:translate-y-0.5'}`}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M7 1v8M7 9l-3-3M7 9l3-3M1 12h12"
               stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -354,90 +346,101 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         </button>
       </motion.div>
 
-      {/* ── Viral teaser / Full report CTA ── */}
+      {/* ── Disclaimer ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+        className="mb-10 text-center"
+        style={{ borderTop: '1px solid var(--color-border)', paddingTop: 24 }}
+      >
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 300, lineHeight: 1.8, color: 'var(--color-disclaimer)', maxWidth: 520, margin: '0 auto 8px' }}>
+          This report is provided for entertainment and personal self-reflection purposes only.
+          Numerology is a centuries-old symbolic tradition and is not a science. Nothing in this
+          report constitutes medical, psychological, financial, or legal advice. Results are based
+          on numerological interpretation and should not be used as the basis for any life decision.
+          Individual results may vary. You remain solely responsible for any decisions you make.
+        </p>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 300, color: 'var(--color-border)' }}>
+          &copy; Life Path Numerology Calculator — for personal use only.
+        </p>
+      </motion.div>
+
+      {/* ── Full report upsell ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.85 }}
-        className="border border-white/8 bg-white/[0.015]"
       >
-        {/* Teaser header */}
-        <div className="border-b border-white/5 px-8 py-6">
-          <p className="mb-1 font-body text-xs uppercase tracking-widest text-[#c9a84c]/50">
-            There is more
+        {/* Hook */}
+        <div className="mb-px text-center px-8 py-7" style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12, fontWeight: 400 }}>
+            What you just received
           </p>
-          <p className="font-display text-2xl font-light text-[#f0ede8]">
-            What your life path number doesn&apos;t tell you — yet
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 300, fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 8 }}>
+            Your Life Path {lifePath} — the <em>foundation</em>.
+          </p>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 300, lineHeight: 1.65, color: 'var(--color-muted)', maxWidth: 420, margin: '0 auto' }}>
+            It describes the shape of your journey. But it cannot tell you where you are <em>right now</em>,
+            what is coming, or why this specific year feels the way it does.
           </p>
         </div>
 
-        {/* Locked previews */}
-        <div className="divide-y divide-white/5">
+        {/* Divider with label */}
+        <div className="flex items-center gap-4 py-6">
+          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 400 }}>The full picture</p>
+          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
+        </div>
+
+        {/* Benefit cards */}
+        <div className="mb-px" style={{ display: 'flex', flexDirection: 'column', gap: 1, background: 'var(--color-border)' }}>
           {[
-            {
-              label: 'Your core wound',
-              preview: meaning.coreWound,
-              locked: false,
-            },
-            {
-              label: 'Life Cycles',
-              preview: `Your life is divided into three major cycles, each spanning roughly 27 years. You are currently in your ${year >= 1970 && year <= 2000 ? 'second' : 'third'} cycle — and its number determines what this entire phase of your life is asking you to master.`,
-              locked: true,
-            },
-            {
-              label: 'Pinnacles',
-              preview: 'Four peak periods in your life — each with its own number, theme, and duration — reveal the major turning points you will face and what they demand of you.',
-              locked: true,
-            },
-            {
-              label: 'Personal Months',
-              preview: `Inside Personal Year ${personalYear}, each month carries its own sub-frequency. Some months this year will feel aligned and effortless. Others will push directly against your grain. Knowing which is which changes everything.`,
-              locked: true,
-            },
-            {
-              label: 'The integration — how it all connects',
-              preview: 'Your life path, personal year, cycles, and pinnacles do not exist in isolation. The full report shows you exactly how these numbers interact — where they amplify each other, where they create friction, and what that means for the decisions in front of you right now.',
-              locked: true,
-            },
-          ].map(({ label, preview, locked }) => (
-            <div key={label} className={`relative px-8 py-5 ${locked ? 'opacity-70' : ''}`}>
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <p className="mb-2 font-body text-xs uppercase tracking-widest text-[#c9a84c]/60">
-                    {label}
-                  </p>
-                  <p className={`font-body text-base leading-relaxed ${locked ? 'text-[#f0ede8]/40 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_40%,rgba(0,0,0,0)_100%)]' : 'text-[#f0ede8]/70'}`}>
-                    {preview}
-                  </p>
-                </div>
-                {locked && (
-                  <span className="mt-1 shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <rect x="2" y="6" width="10" height="7" rx="1" stroke="rgba(201,168,76,0.4)" strokeWidth="1.2"/>
-                      <path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" stroke="rgba(201,168,76,0.4)" strokeWidth="1.2" strokeLinecap="round"/>
-                    </svg>
-                  </span>
-                )}
+            { number: '01', title: 'Your Birthday Number', body: `Day 24 is not the same as day 6 — even if both reduce to 6. Your Birthday Number is the specific flavour of your gifts: how your strengths actually show up in the world, and what you are here to develop in this lifetime.`, tag: 'CORE GIFT' },
+            { number: '02', title: 'Your Active Life Cycle', body: `Life unfolds in three major cycles, each roughly 27 years long. The cycle you are in now has its own number — and it determines the dominant theme, challenge, and opportunity of this entire phase of your life. Not in the abstract. Right now.`, tag: 'ACTIVE PHASE' },
+            { number: '03', title: 'Your Current Pinnacle', body: `Four peak periods overlay your life like weather systems. Your active Pinnacle is the atmosphere you are living inside — the external conditions shaping what is easy, what resists, and what is asking to be built. If you are near a transition, the report will tell you.`, tag: 'BACKGROUND CLIMATE' },
+            { number: '04', title: `Personal Month Breakdown — all 12 months of ${year}`, body: `Inside Personal Year ${personalYear}, each month carries a distinct sub-frequency. Some months this year are designed for action. Others for rest, reflection, or course correction. The full report maps every month so you stop fighting the tide and start moving with it.`, tag: 'THIS MONTH & BEYOND' },
+            { number: '05', title: 'How It All Connects', body: `This is what separates a real reading from a generic one. Your Life Path, Birthday Number, active Cycle, Pinnacle, Personal Year, and Personal Month all interact. Where they amplify each other, the report shows you the open doors. Where they create friction, it shows you why — and what to do about it.`, tag: 'SYNTHESIS' },
+          ].map(({ number, title, body, tag }) => (
+            <div key={number} style={{ background: 'var(--color-bg-raised)' }}>
+              <div className="flex items-baseline gap-4 px-6 py-3" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 11, color: 'var(--color-accent)', letterSpacing: '2px', opacity: 0.6 }}>{number}</span>
+                <span style={{ flex: 1, fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, color: 'var(--color-ink)' }}>{title}</span>
+                <span className="hidden sm:block" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.5 }}>{tag}</span>
               </div>
+              <p className="px-6 py-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 300, lineHeight: 1.8, color: 'var(--color-muted)' }}>
+                {body}
+              </p>
             </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="border-t border-white/5 px-8 py-8 text-center">
-          <p className="mx-auto mb-6 max-w-md font-body text-base text-[#f0ede8]/50">
-            The full report unlocks everything above — plus your Expression number, Soul Urge number,
-            and a complete 2,000-word personalised analysis.
+        {/* Social proof */}
+        <div className="mb-px flex items-center justify-center py-4" style={{ border: '1px solid var(--color-border)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 300, color: 'var(--color-faint)', letterSpacing: '0.05em' }}>
+            2,000+ words &middot; Personalised to your exact birth date &middot; Ready in under 60 seconds
           </p>
-          <button
-            disabled
-            className="cursor-not-allowed border border-[#c9a84c]/60 bg-[#c9a84c]/8 px-10 py-3.5 font-body text-sm uppercase tracking-widest text-[#c9a84c]/70"
-          >
-            Coming soon
-          </button>
-          <p className="mt-3 font-body text-xs text-[#f0ede8]/40">
-            Full report — $19 &middot; Phase 2
+        </div>
+
+        {/* CTA block */}
+        <div className="px-8 py-8" style={{ border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)' }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 300, fontStyle: 'italic', color: 'var(--color-ink)', textAlign: 'center', maxWidth: 480, margin: '0 auto 6px', lineHeight: 1.6 }}>
+            &ldquo;Most people spend years feeling slightly out of sync with their own life.
+            Usually, the numbers explain exactly why.&rdquo;
           </p>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 300, color: 'var(--color-faint)', textAlign: 'center', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: 28 }}>
+            — from 2,300 readings
+          </p>
+
+          {/* Coming soon placeholder */}
+          <div style={{ opacity: 0.45, pointerEvents: 'none' }}>
+            <div style={{ background: 'var(--color-bg-muted)', border: '1px solid var(--color-border)', padding: '12px 16px', marginBottom: 16, fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 300, color: 'var(--color-faint)' }}>
+              Your email address
+            </div>
+            <div style={{ background: 'var(--color-bg-muted)', border: '1px solid var(--color-border)', padding: '14px 32px', textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', fontWeight: 400 }}>
+              Coming Soon
+            </div>
+          </div>
         </div>
       </motion.div>
     </motion.div>

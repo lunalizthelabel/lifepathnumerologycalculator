@@ -9,17 +9,14 @@ type Props = {
 
 export default function Hero({ onResult }: Props) {
   return (
-    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-[#0a0a0f] px-6 pt-20">
+    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-6 pt-20" style={{ background: 'var(--color-bg-muted)' }}>
       {/* Living canvas background */}
       <SacredGeometryCanvas />
 
-      {/* Radial vignette overlay */}
+      {/* Vignette */}
       <div
         className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 90% 75% at 50% 50%, transparent 30%, #0a0a0f 85%)',
-        }}
+        style={{ background: 'radial-gradient(ellipse 90% 75% at 50% 50%, transparent 30%, var(--color-bg-muted) 85%)' }}
       />
 
       {/* Content */}
@@ -28,7 +25,7 @@ export default function Hero({ onResult }: Props) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0 }}
-          className="mb-6 font-body text-xs uppercase tracking-[0.2em] text-[#c9a84c]/70"
+          style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 24, fontWeight: 400 }}
         >
           Free numerology calculator
         </motion.p>
@@ -36,7 +33,7 @@ export default function Hero({ onResult }: Props) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="mb-6 font-display text-[clamp(2.5rem,7vw,4.5rem)] font-light leading-tight text-[#f0ede8]"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 7vw, 4.5rem)', fontWeight: 300, lineHeight: 1.1, color: 'var(--color-ink)', marginBottom: 24, letterSpacing: '0.5px' }}
         >
           Discover your life path number
         </motion.h1>
@@ -44,7 +41,7 @@ export default function Hero({ onResult }: Props) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-12 max-w-md font-body text-lg leading-relaxed text-[#f0ede8]/55"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-muted)', marginBottom: 48, maxWidth: 420 }}
         >
           Enter your date of birth. In seconds, understand the core number that shapes your entire life.
         </motion.p>
@@ -58,7 +55,7 @@ export default function Hero({ onResult }: Props) {
         </motion.div>
       </div>
 
-      {/* Subtle scroll indicator */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -69,7 +66,8 @@ export default function Hero({ onResult }: Props) {
           <motion.div
             animate={{ y: ['-100%', '200%'] }}
             transition={{ repeat: Infinity, duration: 1.6, ease: 'linear' }}
-            className="h-full w-full bg-[#c9a84c]/40"
+            className="h-full w-full"
+            style={{ background: 'var(--color-accent)', opacity: 0.4 }}
           />
         </div>
       </motion.div>

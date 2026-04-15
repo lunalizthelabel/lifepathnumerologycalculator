@@ -29,16 +29,28 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <div className="divide-y divide-white/5">
+    <div style={{ borderTop: '1px solid var(--color-border)' }}>
       {FAQS.map((faq, i) => (
-        <div key={i}>
+        <div key={i} style={{ borderBottom: '1px solid var(--color-border)' }}>
           <button
             onClick={() => setOpen(open === i ? null : i)}
             className="flex w-full items-start justify-between gap-6 py-6 text-left"
           >
-            <span className="font-body text-lg text-[#f0ede8]">{faq.q}</span>
-            <span className="mt-0.5 shrink-0 font-body text-lg text-[#c9a84c] transition-transform duration-300"
-              style={{ transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)' }}>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 19, fontWeight: 300, color: 'var(--color-ink)' }}>
+              {faq.q}
+            </span>
+            <span
+              style={{
+                marginTop: 2,
+                flexShrink: 0,
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: 18,
+                color: 'var(--color-accent)',
+                transition: 'transform 0.3s',
+                transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)',
+                display: 'block',
+              }}
+            >
               +
             </span>
           </button>
@@ -52,7 +64,7 @@ export default function FAQ() {
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden"
               >
-                <p className="pb-6 font-body text-base leading-relaxed text-[#f0ede8]/60">
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-muted)', paddingBottom: 24 }}>
                   {faq.a}
                 </p>
               </motion.div>

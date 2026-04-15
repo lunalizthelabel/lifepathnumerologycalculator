@@ -21,7 +21,11 @@ export default function HomeContent() {
       <Hero onResult={handleResult} />
       <AnimatePresence>
         {result && (
-          <section ref={resultRef} className="scroll-mt-0 border-t border-white/5 bg-[#0a0a0f] px-6 py-24">
+          <section
+            ref={resultRef}
+            className="scroll-mt-0 px-6 py-24"
+            style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg)' }}
+          >
             <LifePathResult
               lifePath={result.lifePath}
               personalYear={result.personalYear}

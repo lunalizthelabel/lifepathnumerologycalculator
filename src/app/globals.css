@@ -1,13 +1,31 @@
 @import "tailwindcss";
 
+/* ── Design tokens ────────────────────────────── */
 :root {
-  --bg: #0a0a0f;
-  --fg: #f0ede8;
-  --gold: #c9a84c;
+  --color-bg:          #F7F4EF;
+  --color-bg-raised:   #FDFAF6;
+  --color-bg-muted:    #EDE7DE;
+  --color-border:      #DDD5C8;
+  --color-border-soft: #E8E2D8;
+
+  --color-ink:         #1E1A16;
+  --color-body:        #3A3028;
+  --color-muted:       #6B5F52;
+  --color-faint:       #9B8E82;
+  --color-disclaimer:  #A89E94;
+
+  --color-accent:      #C17F5A;
+  --color-accent-deep: #8B5A3A;
+  --color-accent-soft: rgba(193, 127, 90, 0.08);
+
+  /* legacy aliases kept for report page / canvas */
+  --bg: #F7F4EF;
+  --fg: #1E1A16;
+  --gold: #C17F5A;
 }
 
 @theme inline {
-  --color-bg: var(--bg);
+  --color-bg: var(--color-bg);
   --color-fg: var(--fg);
   --color-gold: var(--gold);
   --font-display: var(--font-cormorant);
@@ -19,17 +37,69 @@ html {
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-body);
+  font-family: 'DM Sans', var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 300;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Cormorant Garamond', var(--font-cormorant), serif;
+  font-weight: 300;
+  color: var(--color-ink);
+  line-height: 1.15;
+}
+
+h1 { font-size: clamp(32px, 5vw, 52px); letter-spacing: 0.5px; }
+h2 { font-size: clamp(24px, 3.5vw, 36px); }
+h3 { font-size: clamp(18px, 2.5vw, 24px); }
+
+p {
+  font-family: 'Cormorant Garamond', var(--font-cormorant), serif;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--color-body);
+}
+
+/* UI text utility */
+.ui-text {
+  font-family: 'DM Sans', var(--font-dm-sans), sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* Section eyebrow label */
+.eyebrow {
+  font-family: 'DM Sans', var(--font-dm-sans), sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
 }
 
 /* Date input cross-browser */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0.7) sepia(1) saturate(0.5) hue-rotate(5deg);
+  filter: invert(0.4) sepia(0.3) saturate(1) hue-rotate(330deg);
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 input[type="date"]::-webkit-inner-spin-button {
   display: none;

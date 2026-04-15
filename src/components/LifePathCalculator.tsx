@@ -34,22 +34,51 @@ export default function LifePathCalculator({ onResult }: Props) {
           required
           min="1900-01-01"
           max={new Date().toISOString().split('T')[0]}
-          className="w-full rounded-none border border-[#c9a84c]/30 bg-white/5 px-4 py-3 font-body text-base text-[#f0ede8] transition-colors focus:border-[#c9a84c]/70 focus:outline-none focus:ring-0 [color-scheme:dark]"
+          style={{
+            background: 'var(--color-bg-raised)',
+            border: '1px solid var(--color-border)',
+            borderRadius: 0,
+            padding: '12px 16px',
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 14,
+            fontWeight: 300,
+            color: 'var(--color-ink)',
+            width: '100%',
+            outline: 'none',
+            transition: 'border-color 0.2s',
+            colorScheme: 'light',
+          }}
+          onFocus={(e) => { e.target.style.borderColor = 'var(--color-accent)'; }}
+          onBlur={(e) => { e.target.style.borderColor = 'var(--color-border)'; }}
         />
       </div>
       <motion.button
         type="submit"
-        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        className="relative overflow-hidden border border-[#c9a84c] bg-transparent px-10 py-3.5 font-body text-sm uppercase tracking-widest text-[#c9a84c] transition-colors hover:bg-[#c9a84c] hover:text-[#0a0a0f]"
+        style={{
+          background: 'var(--color-accent)',
+          color: '#FDFAF6',
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: 10,
+          letterSpacing: '3px',
+          textTransform: 'uppercase',
+          padding: '14px 32px',
+          border: 'none',
+          borderRadius: 0,
+          cursor: 'pointer',
+          fontWeight: 400,
+          transition: 'background 0.2s',
+        }}
+        onMouseEnter={(e) => { (e.target as HTMLElement).style.background = 'var(--color-accent-deep)'; }}
+        onMouseLeave={(e) => { (e.target as HTMLElement).style.background = 'var(--color-accent)'; }}
       >
         Calculate my life path
       </motion.button>
-      <p className="font-body text-xs text-[#f0ede8]/55">
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 300, color: 'var(--color-faint)' }}>
         By calculating you agree to our{' '}
-        <Link href="/privacy" className="underline underline-offset-2 hover:text-[#f0ede8]/80 transition-colors">privacy policy</Link>
+        <Link href="/privacy" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>privacy policy</Link>
         {' '}and{' '}
-        <Link href="/disclaimer" className="underline underline-offset-2 hover:text-[#f0ede8]/80 transition-colors">disclaimer</Link>.
+        <Link href="/disclaimer" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>disclaimer</Link>.
       </p>
     </form>
   );

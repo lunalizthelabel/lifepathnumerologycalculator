@@ -13,7 +13,7 @@ export default function NumberGrid() {
   return (
     <div>
       {/* Grid of cards */}
-      <div className="mb-20 grid grid-cols-2 gap-px sm:grid-cols-3 lg:grid-cols-4">
+      <div className="mb-20 grid grid-cols-2 gap-px sm:grid-cols-3 lg:grid-cols-4" style={{ background: 'var(--color-border)' }}>
         {NUMBER_ORDER.map((num, i) => {
           const m = NUMBER_MEANINGS[num];
           const isMaster = [11, 22, 33].includes(num);
@@ -25,85 +25,85 @@ export default function NumberGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ delay: i * 0.04, duration: 0.5 }}
-              className="group border border-white/5 bg-white/[0.02] p-6 text-left transition-colors hover:border-[#c9a84c]/30 hover:bg-[#c9a84c]/5"
+              className="p-6 text-left transition-colors"
+              style={{ background: 'var(--color-bg-raised)' }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-muted)'; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-raised)'; }}
             >
               <div className="mb-3 flex items-end gap-2">
-                <span className="font-display text-4xl text-[#c9a84c] transition-all group-hover:text-[#e8c66a]">
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 36, color: 'var(--color-accent)', lineHeight: 1 }}>
                   {num}
                 </span>
                 {isMaster && (
-                  <span className="mb-1 font-body text-[10px] uppercase tracking-widest text-[#c9a84c]/50">
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', marginBottom: 4 }}>
                     Master
                   </span>
                 )}
               </div>
-              <p className="mb-1 font-display text-xl text-[#f0ede8]">{m.name}</p>
-              <p className="font-body text-sm leading-relaxed text-[#f0ede8]/40">{m.tagline}</p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400, color: 'var(--color-ink)', marginBottom: 4 }}>{m.name}</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 300, color: 'var(--color-faint)', lineHeight: 1.5 }}>{m.tagline}</p>
             </motion.button>
           );
         })}
       </div>
 
       {/* Detailed sections */}
-      <div className="space-y-20">
+      <div className="space-y-16">
         {NUMBER_ORDER.map((num) => {
           const m = NUMBER_MEANINGS[num];
           const isMaster = [11, 22, 33].includes(num);
           return (
             <motion.section
               key={num}
-              ref={(el) => {
-                sectionRefs.current[num] = el;
-              }}
+              ref={(el) => { sectionRefs.current[num] = el; }}
               id={`number-${num}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="scroll-mt-24 border-t border-white/5 pt-12"
+              className="scroll-mt-24"
+              style={{ borderTop: '1px solid var(--color-border)', paddingTop: 40 }}
             >
               <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-                {/* Number + name */}
                 <div className="lg:col-span-1">
                   <div className="flex items-end gap-3">
-                    <span className="font-display text-7xl leading-none text-[#c9a84c]">{num}</span>
+                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 72, color: 'var(--color-accent)', lineHeight: 1 }}>{num}</span>
                     {isMaster && (
-                      <span className="mb-2 font-body text-[10px] uppercase tracking-widest text-[#c9a84c]/50">
+                      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', marginBottom: 8 }}>
                         Master
                       </span>
                     )}
                   </div>
-                  <h3 className="mt-2 font-display text-3xl font-light italic text-[#f0ede8]">
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 300, fontStyle: 'italic', color: 'var(--color-ink)', marginTop: 8 }}>
                     {m.name}
                   </h3>
-                  <p className="mt-2 font-body text-base text-[#f0ede8]/40">{m.tagline}</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 300, color: 'var(--color-faint)', marginTop: 6 }}>{m.tagline}</p>
                 </div>
 
-                {/* Description + lists */}
                 <div className="lg:col-span-2">
-                  <p className="mb-8 font-body text-lg leading-relaxed text-[#f0ede8]/70">
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-body)', marginBottom: 32 }}>
                     {m.description}
                   </p>
                   <div className="grid grid-cols-2 gap-6">
                     <div>
-                      <h4 className="mb-3 font-body text-xs uppercase tracking-widest text-[#c9a84c]">
+                      <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12 }}>
                         Strengths
                       </h4>
                       <ul className="space-y-1">
                         {m.strengths.map((s) => (
-                          <li key={s} className="font-body text-base text-[#f0ede8]/60">
+                          <li key={s} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 300, color: 'var(--color-body)' }}>
                             {s}
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div>
-                      <h4 className="mb-3 font-body text-xs uppercase tracking-widest text-[#c9a84c]">
+                      <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12 }}>
                         Challenges
                       </h4>
                       <ul className="space-y-1">
                         {m.challenges.map((c) => (
-                          <li key={c} className="font-body text-base text-[#f0ede8]/60">
+                          <li key={c} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 300, color: 'var(--color-body)' }}>
                             {c}
                           </li>
                         ))}

@@ -54,17 +54,18 @@ export default function CookieBanner() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 80, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-[#0d0d14]/96 px-6 py-5 backdrop-blur-md"
+            className="fixed bottom-0 left-0 right-0 z-50 px-6 py-5"
+            style={{ background: 'var(--color-bg-raised)', borderTop: '1px solid var(--color-border)' }}
             role="dialog"
             aria-label="Cookie consent"
           >
             <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-2xl font-body text-sm leading-relaxed text-[#f0ede8]/65">
+              <p className="max-w-2xl text-sm leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, color: 'var(--color-muted)' }}>
                 We use Google Analytics to understand how visitors use this site. No personal data is
                 sold or shared with third parties. You can read more in our{' '}
                 <Link
                   href="/privacy"
-                  className="text-[#c9a84c] underline underline-offset-2 transition-colors hover:text-[#e8c66a]"
+                  style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}
                 >
                   Privacy Policy
                 </Link>
@@ -72,7 +73,10 @@ export default function CookieBanner() {
               </p>
               <button
                 onClick={accept}
-                className="shrink-0 border border-[#c9a84c] px-8 py-2.5 font-body text-sm uppercase tracking-widest text-[#c9a84c] transition-colors hover:bg-[#c9a84c] hover:text-[#0a0a0f]"
+                className="shrink-0 px-8 py-2.5 text-sm uppercase tracking-widest transition-colors"
+                style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, border: '1px solid var(--color-accent)', color: 'var(--color-accent)', background: 'transparent', cursor: 'pointer' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--color-accent)'; (e.currentTarget as HTMLElement).style.color = 'var(--color-bg-raised)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)'; }}
               >
                 Got it!
               </button>

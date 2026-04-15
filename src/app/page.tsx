@@ -81,33 +81,22 @@ export default function HomePage() {
         <HomeContent />
 
         {/* How it works */}
-        <section className="border-t border-white/5 bg-[#0a0a0f] px-6 py-24" aria-labelledby="how-it-works">
+        <section className="px-6 py-24" aria-labelledby="how-it-works" style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg)' }}>
           <div className="mx-auto max-w-5xl">
-            <h2 id="how-it-works" className="mb-16 text-center font-display text-3xl font-light text-[#f0ede8]">
+            <p className="eyebrow mb-4 justify-center">How it works</p>
+            <h2 id="how-it-works" className="mb-16 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 300, color: 'var(--color-ink)' }}>
               How the numerology calculator works
             </h2>
-            <ol className="grid grid-cols-1 gap-px sm:grid-cols-3">
+            <ol className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: 1, background: 'var(--color-border)' }}>
               {[
-                {
-                  n: '01',
-                  title: 'Enter your birth date',
-                  body: 'Select your full date of birth using the date picker. Day, month, year — all three are required for an accurate calculation.',
-                },
-                {
-                  n: '02',
-                  title: 'We calculate your number',
-                  body: 'Every digit in your date of birth is summed and reduced to a single core number — unless it is a Master Number: 11, 22, or 33.',
-                },
-                {
-                  n: '03',
-                  title: 'Understand yourself more clearly',
-                  body: 'Receive your life path number, its archetype name, a detailed description, and your Personal Year — the energy shaping this specific year of your life.',
-                },
+                { n: '01', title: 'Enter your birth date', body: 'Select your full date of birth using the date picker. Day, month, year — all three are required for an accurate calculation.' },
+                { n: '02', title: 'We calculate your number', body: 'Every digit in your date of birth is summed and reduced to a single core number — unless it is a Master Number: 11, 22, or 33.' },
+                { n: '03', title: 'Understand yourself more clearly', body: 'Receive your life path number, its archetype name, a detailed description, and your Personal Year — the energy shaping this specific year of your life.' },
               ].map(({ n, title, body }) => (
-                <li key={n} className="border border-white/5 bg-white/[0.02] p-8">
-                  <span className="mb-4 block font-body text-sm text-[#c9a84c]/50">{n}</span>
-                  <h3 className="mb-3 font-display text-xl text-[#f0ede8]">{title}</h3>
-                  <p className="font-body text-base leading-relaxed text-[#f0ede8]/50">{body}</p>
+                <li key={n} style={{ background: 'var(--color-bg-raised)', padding: 32 }}>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '2px', color: 'var(--color-accent)', display: 'block', marginBottom: 16, fontWeight: 400 }}>{n}</span>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 300, color: 'var(--color-ink)', marginBottom: 12 }}>{title}</h3>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 300, lineHeight: 1.8, color: 'var(--color-muted)' }}>{body}</p>
                 </li>
               ))}
             </ol>
@@ -115,12 +104,13 @@ export default function HomePage() {
         </section>
 
         {/* All numbers */}
-        <section className="border-t border-white/5 px-6 py-24" aria-labelledby="all-numbers">
+        <section className="px-6 py-24" aria-labelledby="all-numbers" style={{ borderTop: '1px solid var(--color-border)' }}>
           <div className="mx-auto max-w-6xl">
-            <h2 id="all-numbers" className="mb-4 text-center font-display text-3xl font-light text-[#f0ede8]">
+            <p className="eyebrow mb-4 justify-center">All numbers</p>
+            <h2 id="all-numbers" className="mb-4 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: 'var(--color-ink)' }}>
               All life path numbers
             </h2>
-            <p className="mx-auto mb-16 max-w-xl text-center font-body text-base text-[#f0ede8]/50">
+            <p className="mx-auto mb-16 max-w-xl text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 300, color: 'var(--color-faint)' }}>
               Select any number to read its full profile — archetype, description, strengths, and challenges.
             </p>
             <NumberGrid />
@@ -128,15 +118,16 @@ export default function HomePage() {
         </section>
 
         {/* Ad */}
-        <div className="border-t border-white/5 px-6 py-8">
+        <div className="px-6 py-8" style={{ borderTop: '1px solid var(--color-border)' }}>
           <div className="mx-auto max-w-6xl" ta-ad-container=""></div>
         </div>
 
         {/* FAQ */}
-        <section className="border-t border-white/5 bg-white/[0.01] px-6 py-24" aria-labelledby="faq">
+        <section className="px-6 py-24" aria-labelledby="faq" style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
           <div className="mx-auto max-w-3xl">
-            <h2 id="faq" className="mb-12 font-display text-3xl font-light text-[#f0ede8]">
-              Frequently asked questions
+            <p className="eyebrow mb-4">Frequently asked questions</p>
+            <h2 id="faq" className="mb-12" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: 'var(--color-ink)' }}>
+              Common questions
             </h2>
             <FAQ />
           </div>
