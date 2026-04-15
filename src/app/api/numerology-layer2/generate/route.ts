@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPurchaseByToken, saveReportData } from '@/lib/db/purchases';
 import { generateLayer2Report } from '@/lib/numerology/generate';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   const { token } = await request.json();
   if (!token) {

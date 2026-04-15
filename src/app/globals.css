@@ -95,6 +95,26 @@ p {
   opacity: 0.5;
 }
 
+/* Learn more link on life path calculator page */
+.lp-learn-more-link {
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  padding: 12px 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-weight: 400;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+  text-decoration: none;
+}
+.lp-learn-more-link:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 /* Date input cross-browser */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(0.4) sepia(0.3) saturate(1) hue-rotate(330deg);

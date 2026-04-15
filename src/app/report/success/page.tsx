@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const MESSAGES = [
-  'Je geboortedag wordt geanalyseerd...',
-  'Je levenscycli worden berekend...',
-  'Je Pinnacles worden in kaart gebracht...',
-  'Laatste details worden toegevoegd...',
+  'Analysing your birth date...',
+  'Calculating your life cycles...',
+  'Mapping your Pinnacles...',
+  'Adding the final details...',
 ];
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const sessionId = searchParams.get('session_id');
@@ -81,15 +81,27 @@ export default function SuccessPage() {
       <div className="mb-10">
         <div className="mx-auto mb-8 h-16 w-16 animate-spin rounded-full" style={{ border: '2px solid var(--color-border)', borderTopColor: 'var(--color-accent)' }} />
         <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, fontWeight: 300, color: 'var(--color-ink)', marginBottom: 16 }}>
-          Je rapport wordt gegenereerd...
+          Your report is being generated...
         </p>
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 300, color: 'var(--color-muted)', transition: 'all 0.7s' }}>
           {MESSAGES[messageIndex]}
         </p>
       </div>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 300, color: 'var(--color-faint)' }}>
-        Dit duurt gemiddeld 30–60 seconden. Sluit dit venster niet.
+        This usually takes 30–60 seconds. Please do not close this window.
       </p>
     </main>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center" style={{ background: 'var(--color-bg-muted)' }}>
+        <div className="mx-auto mb-8 h-16 w-16 animate-spin rounded-full" style={{ border: '2px solid var(--color-border)', borderTopColor: 'var(--color-accent)' }} />
+      </main>
+    }>
+      <SuccessContent />
+    </Suspense>
   );
 }

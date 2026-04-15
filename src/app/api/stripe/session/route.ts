@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTokenBySessionId } from '@/lib/db/purchases';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   const sessionId = request.nextUrl.searchParams.get('session_id');
   if (!sessionId) {

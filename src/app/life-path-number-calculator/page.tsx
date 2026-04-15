@@ -287,9 +287,7 @@ export default function CalculatorPage() {
               </div>
               <Link
                 href="/numerology-calculator-name"
-                style={{ flexShrink: 0, border: '1px solid var(--color-border)', padding: '12px 28px', fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-muted)', fontWeight: 400, transition: 'all 0.2s', display: 'inline-block' }}
-                onMouseEnter={(e) => { (e.target as HTMLElement).style.borderColor = 'var(--color-accent)'; (e.target as HTMLElement).style.color = 'var(--color-accent)'; }}
-                onMouseLeave={(e) => { (e.target as HTMLElement).style.borderColor = 'var(--color-border)'; (e.target as HTMLElement).style.color = 'var(--color-muted)'; }}
+                className="lp-learn-more-link"
               >
                 Learn more
               </Link>

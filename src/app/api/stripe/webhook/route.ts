@@ -3,9 +3,10 @@ import Stripe from 'stripe';
 import { createPurchase, saveReportData } from '@/lib/db/purchases';
 import { generateLayer2Report } from '@/lib/numerology/generate';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const rawBody = await request.text();
   const signature = request.headers.get('stripe-signature');
 
