@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     'Life Path Numerology Calculator — numerology without the mysticism. Structured self-insight based on your date of birth.',
   alternates: {
-    canonical: 'https://yournumerologyreport.com/about',
+    canonical: 'https://lifepathnumerologycalculator.com/about',
   },
 };
 

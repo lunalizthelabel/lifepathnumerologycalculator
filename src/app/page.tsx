@@ -4,23 +4,23 @@ import NumberGrid from '@/components/NumberGrid';
 import FAQ from '@/components/FAQ';
 
 export const metadata: Metadata = {
-  title: 'Numerology Calculator — Free Life Path Number | YourNumerologyReport',
+  title: 'Life Path Calculator — Free Life Path Number Calculator | Numerology',
   description:
-    'Free numerology calculator. Enter your date of birth to instantly calculate your life path number — the core number that shapes your personality, strengths, and life direction.',
+    'Free life path calculator. Enter your date of birth and instantly calculate your life path number — the core numerology number that shapes your personality, strengths, and life direction.',
   alternates: {
-    canonical: 'https://yournumerologyreport.com',
+    canonical: 'https://lifepathnumerologycalculator.com',
   },
 };
 
 const webAppLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Numerology Calculator — Life Path Number',
-  url: 'https://yournumerologyreport.com',
+  name: 'Life Path Calculator — Free Numerology Life Path Number Calculator',
+  url: 'https://lifepathnumerologycalculator.com',
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'All',
   description:
-    'Free numerology calculator. Computes life path number and personal year number from date of birth using Pythagorean digit reduction.',
+    'Free life path calculator. Computes your life path number and personal year number from date of birth using Pythagorean numerology digit reduction.',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
 };
 

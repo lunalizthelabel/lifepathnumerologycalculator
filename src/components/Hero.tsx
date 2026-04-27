@@ -27,7 +27,7 @@ export default function Hero({ onResult }: Props) {
           transition={{ duration: 0.6, delay: 0 }}
           style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 24, fontWeight: 400 }}
         >
-          Free numerology calculator
+          Free life path calculator
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 16 }}

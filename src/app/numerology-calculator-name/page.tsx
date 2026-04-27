@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   description:
     'Name numerology calculator — calculate your Expression number and Soul Urge number from your full birth name. Learn what your name reveals about your talents, desires, and direction.',
   alternates: {
-    canonical: 'https://yournumerologyreport.com/numerology-calculator-name',
+    canonical: 'https://lifepathnumerologycalculator.com/numerology-calculator-name',
   },
   openGraph: {
-    title: 'Numerology Calculator by Name — Expression & Soul Urge Numbers | YourNumerologyReport',
+    title: 'Numerology Calculator by Name — Expression & Soul Urge Numbers | Life Path Numerology Calculator',
     description:
       'Name numerology calculator — calculate your Expression number and Soul Urge number from your full birth name.',
-    url: 'https://yournumerologyreport.com/numerology-calculator-name',
+    url: 'https://lifepathnumerologycalculator.com/numerology-calculator-name',
   },
 };
 
@@ -20,8 +20,8 @@ const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://yournumerologyreport.com' },
-    { '@type': 'ListItem', position: 2, name: 'Numerology Calculator by Name', item: 'https://yournumerologyreport.com/numerology-calculator-name' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://lifepathnumerologycalculator.com' },
+    { '@type': 'ListItem', position: 2, name: 'Numerology Calculator by Name', item: 'https://lifepathnumerologycalculator.com/numerology-calculator-name' },
   ],
 };
 
@@ -192,7 +192,7 @@ export default function NameCalculatorPage() {
                 { q: 'What if I have a hyphenated surname?', a: 'Include all parts of a hyphenated surname. Treat the name as written on your birth certificate. If your certificate uses a hyphen, include both parts; if not, follow the document exactly.' },
                 { q: 'Does a changed name affect my numerology?', a: 'In classical numerology, the birth name is primary. Changed names — married names, legal name changes, or professional names — are sometimes analysed separately as secondary influences, but the birth name remains the foundation of a core reading.' },
                 { q: 'Is the name calculator different from the life path calculator?', a: 'Yes. The life path calculator uses your date of birth only. The name calculator uses your full birth name to compute your Expression number and Soul Urge number. Both are part of a complete numerology profile, but they are calculated independently.' },
-                { q: 'When will the name calculator be available?', a: 'The name numerology calculator is in active development as Phase 2 of YourNumerologyReport. It will include Expression number, Soul Urge number, and a full personalised report. In the meantime, you can use the free life path calculator to get started.' },
+                { q: 'When will the name calculator be available?', a: 'The name numerology calculator is in active development as Phase 2 of Life Path Numerology Calculator. It will include Expression number, Soul Urge number, and a full personalised report. In the meantime, you can use the free life path calculator to get started.' },
               ].map(({ q, a }) => (
                 <details key={q} className="group py-6" style={{ borderBottom: '1px solid var(--color-border)' }}>
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-6">

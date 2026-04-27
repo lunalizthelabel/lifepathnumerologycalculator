@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Disclaimer',
   description: 'Disclaimer for Life Path Numerology Calculator. Please read before using this site.',
-  alternates: { canonical: 'https://yournumerologyreport.com/disclaimer' },
+  alternates: { canonical: 'https://lifepathnumerologycalculator.com/disclaimer' },
   robots: { index: false, follow: false },
 };
 

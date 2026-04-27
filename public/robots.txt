@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://yournumerologyreport.com
+Host: https://lifepathnumerologycalculator.com
 
 # Sitemaps
-Sitemap: https://yournumerologyreport.com/sitemap.xml
+Sitemap: https://lifepathnumerologycalculator.com/sitemap.xml

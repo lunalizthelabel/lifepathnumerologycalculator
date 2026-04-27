@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Privacy Policy for Life Path Numerology Calculator — how we handle your data and your rights under GDPR.',
-  alternates: { canonical: 'https://yournumerologyreport.com/privacy' },
+  alternates: { canonical: 'https://lifepathnumerologycalculator.com/privacy' },
   robots: { index: false, follow: false },
 };
 

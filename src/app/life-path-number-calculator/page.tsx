@@ -5,17 +5,17 @@ import NumberGrid from '@/components/NumberGrid';
 import FAQ from '@/components/FAQ';
 
 export const metadata: Metadata = {
-  title: 'Numerology Calculator Life Path — Free & Instant',
+  title: 'Life Path Number Calculator — Free Numerology Calculator Life Path',
   description:
-    'Free numerology calculator for life path numbers. Enter your date of birth and instantly calculate your life path number with a full meaning, strengths, challenges, and personal year.',
+    'Free life path number calculator. The numerology life path calculator computes your life path number from your date of birth — full meaning, strengths, challenges, and personal year, instantly.',
   alternates: {
-    canonical: 'https://yournumerologyreport.com/life-path-number-calculator',
+    canonical: 'https://lifepathnumerologycalculator.com/life-path-number-calculator',
   },
   openGraph: {
-    title: 'Numerology Calculator Life Path — Free & Instant | YourNumerologyReport',
+    title: 'Life Path Number Calculator — Free Numerology Life Path Calculator',
     description:
-      'Free numerology calculator. Calculate your life path number from your date of birth — instant results with full meaning and personal year.',
-    url: 'https://yournumerologyreport.com/life-path-number-calculator',
+      'Free life path number calculator. Calculate your life path number from your date of birth — instant numerology results with full meaning and personal year.',
+    url: 'https://lifepathnumerologycalculator.com/life-path-number-calculator',
   },
 };
 
@@ -23,12 +23,12 @@ const breadcrumbLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://yournumerologyreport.com' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://lifepathnumerologycalculator.com' },
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Numerology Calculator — Life Path Number',
-      item: 'https://yournumerologyreport.com/life-path-number-calculator',
+      name: 'Life Path Number Calculator',
+      item: 'https://lifepathnumerologycalculator.com/life-path-number-calculator',
     },
   ],
 };
@@ -36,12 +36,12 @@ const breadcrumbLd = {
 const webAppLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Numerology Calculator — Life Path Number',
-  url: 'https://yournumerologyreport.com/life-path-number-calculator',
+  name: 'Life Path Number Calculator — Free Numerology Calculator',
+  url: 'https://lifepathnumerologycalculator.com/life-path-number-calculator',
   applicationCategory: 'LifestyleApplication',
   operatingSystem: 'All',
   description:
-    'Free numerology calculator that computes your life path number from your date of birth using Pythagorean digit reduction.',
+    'Free life path number calculator that computes your life path number from your date of birth using Pythagorean numerology digit reduction.',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
 };
 
@@ -140,12 +140,12 @@ export default function CalculatorPage() {
         {/* ── Header ── */}
         <section className="px-6 py-20" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
           <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow mb-4 justify-center">Free numerology calculator</p>
+            <p className="eyebrow mb-4 justify-center">Free life path calculator</p>
             <h1 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: 'var(--color-ink)', lineHeight: 1.1 }}>
-              Numerology Calculator — Life Path Number
+              Life Path Number Calculator
             </h1>
             <p className="mx-auto max-w-lg" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-muted)' }}>
-              Enter your date of birth to instantly calculate your life path number — the single most important number in numerology.
+              Free numerology life path calculator. Enter your date of birth to instantly calculate your life path number — the single most important number in numerology.
             </p>
           </div>
         </section>
