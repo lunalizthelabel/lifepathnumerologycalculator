@@ -168,7 +168,7 @@ export default async function ReportPage({
       <div className="rw-hero">
         <div className="rw-wordmark">Life Path Numerology</div>
         <h1 className="rw-title">Your Personal Report</h1>
-        <div className="rw-sub">Layer 2 — Deep Analysis</div>
+        <div className="rw-sub">Layer 2 · Deep Analysis</div>
         <div className="rw-chips">
           <div className="rw-chip">Generated <span>{generatedDate}</span></div>
           <div className="rw-chip">Personalised <span>to your birth date</span></div>
@@ -240,7 +240,7 @@ export default async function ReportPage({
             Individual results may vary. You remain solely responsible for any decisions you make.
           </p>
           <p style={{ marginTop: 8 }}>
-            &copy; Life Path Numerology Calculator — for personal use only.
+            &copy; Life Path Numerology Calculator. For personal use only.
           </p>
         </div>
 

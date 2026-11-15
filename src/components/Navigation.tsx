@@ -6,7 +6,7 @@ export default function Navigation() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 300, color: 'var(--color-ink)', letterSpacing: '0.5px' }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 400, color: 'var(--color-ink)', letterSpacing: '0.5px' }}
           className="transition-opacity hover:opacity-60"
         >
           Life Path Numerology

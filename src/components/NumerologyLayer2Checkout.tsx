@@ -52,7 +52,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
     padding: '12px 16px',
     fontFamily: "'DM Sans', sans-serif",
     fontSize: 14,
-    fontWeight: 300,
+    fontWeight: 400,
     color: 'var(--color-ink)',
     width: '100%',
     outline: 'none',
@@ -85,7 +85,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           disabled={loading}
           style={{ marginTop: 2, width: 16, height: 16, flexShrink: 0, accentColor: 'var(--color-accent)', cursor: 'pointer' }}
         />
-        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 300, lineHeight: 1.6, color: 'var(--color-faint)' }}>
+        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, lineHeight: 1.6, color: 'var(--color-faint)' }}>
           I understand this report is for entertainment and self-reflection purposes only.
         </span>
       </label>
@@ -109,10 +109,10 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           width: '100%',
         }}
       >
-        {loading ? 'Redirecting...' : `Get Full Report — ${price}`}
+        {loading ? 'Redirecting...' : `Get Full Report · ${price}`}
       </button>
 
-      <p style={{ textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 300, color: 'var(--color-faint)' }}>
+      <p style={{ textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
         Secure payment via Stripe &middot; Instant delivery after purchase
       </p>
     </form>

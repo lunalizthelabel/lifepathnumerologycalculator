@@ -60,7 +60,7 @@ export default function CookieBanner() {
             aria-label="Cookie consent"
           >
             <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-2xl text-sm leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, color: 'var(--color-muted)' }}>
+              <p className="max-w-2xl text-sm leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, color: 'var(--color-muted)' }}>
                 We use Google Analytics to understand how visitors use this site. No personal data is
                 sold or shared with third parties. You can read more in our{' '}
                 <Link

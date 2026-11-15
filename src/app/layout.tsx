@@ -27,11 +27,11 @@ const siteUrl = 'https://lifepathnumerologycalculator.com';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Life Path Calculator — Free Life Path Number Calculator | Numerology',
+    default: 'Life Path Calculator: Free Life Path Number Calculator | Numerology',
     template: '%s | Life Path Numerology Calculator',
   },
   description:
-    'Free life path calculator. Enter your date of birth and instantly calculate your life path number — the core numerology number that shapes your personality, strengths, and life direction.',
+    'Free life path calculator. Enter your date of birth and instantly calculate your life path number, the core numerology number that shapes your personality, strengths, and life direction.',
   keywords: [
     'life path calculator',
     'life path number calculator',
@@ -49,23 +49,23 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Life Path Numerology Calculator',
-    title: 'Life Path Calculator — Free Life Path Number Calculator | Numerology',
+    title: 'Life Path Calculator: Free Life Path Number Calculator | Numerology',
     description:
-      'Free life path calculator. Enter your date of birth and instantly calculate your life path number — the core numerology number that shapes your personality, strengths, and life direction.',
+      'Free life path calculator. Enter your date of birth and instantly calculate your life path number, the core numerology number that shapes your personality, strengths, and life direction.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Life Path Number Calculator — Free Numerology Calculator',
+        alt: 'Life Path Number Calculator: Free Numerology Calculator',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Life Path Calculator — Free Life Path Number Calculator | Numerology',
+    title: 'Life Path Calculator: Free Life Path Number Calculator | Numerology',
     description:
-      'Free life path calculator. Enter your date of birth and instantly calculate your life path number — the core numerology number that shapes your personality, strengths, and life direction.',
+      'Free life path calculator. Enter your date of birth and instantly calculate your life path number, the core numerology number that shapes your personality, strengths, and life direction.',
     images: ['/og-image.png'],
   },
   robots: {

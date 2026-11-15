@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy Policy for Life Path Numerology Calculator — how we handle your data and your rights under GDPR.',
+  description: 'Privacy Policy for Life Path Numerology Calculator: how we handle your data and your rights under GDPR.',
   alternates: { canonical: 'https://lifepathnumerologycalculator.com/privacy' },
   robots: { index: false, follow: false },
 };
@@ -33,16 +33,16 @@ Legal basis: Consent (Art. 6(1)(a) GDPR). Analytics are only activated after you
 **Server logs**
 Like all websites, our hosting provider may automatically record standard server log data (IP address, browser type, referring URL, time of request). This data is used only for security and operational purposes and is retained for a maximum of 30 days before being automatically deleted. We do not use this data to identify individuals.
 
-Legal basis: Legitimate interests (Art. 6(1)(f) GDPR) — maintaining a secure and functioning website.`,
+Legal basis: Legitimate interests (Art. 6(1)(f) GDPR): maintaining a secure and functioning website.`,
   },
   {
     id: 'cookies',
     heading: 'Cookies',
     body: `We use the following cookies on this site:
 
-**ynr_cookie_consent** — a first-party cookie stored in your browser's localStorage that records whether you have accepted analytics cookies. It does not expire and contains no personal data. It is set only when you click "Got it!" on the cookie banner.
+**ynr_cookie_consent**: a first-party cookie stored in your browser's localStorage that records whether you have accepted analytics cookies. It does not expire and contains no personal data. It is set only when you click "Got it!" on the cookie banner.
 
-**Google Analytics cookies (_ga, _ga_*)** — these are set only after you have given consent. They are used by Google Analytics to distinguish visitors and track session data. They expire after 13 months (_ga) and 13 months (_ga_*). These cookies are set by Google and are subject to Google's Privacy Policy.
+**Google Analytics cookies (_ga, _ga_*)**: these are set only after you have given consent. They are used by Google Analytics to distinguish visitors and track session data. They expire after 13 months (_ga) and 13 months (_ga_*). These cookies are set by Google and are subject to Google's Privacy Policy.
 
 We do not use advertising cookies, tracking pixels, or any cookies that identify you personally.`,
   },
@@ -67,21 +67,21 @@ We do not use any other third-party data processors at this time. If this change
     heading: 'Your rights under GDPR',
     body: `Under the General Data Protection Regulation, you have the following rights regarding your personal data:
 
-**Right of access (Art. 15)** — You may request a copy of any personal data we hold about you.
+**Right of access (Art. 15)**: You may request a copy of any personal data we hold about you.
 
-**Right to rectification (Art. 16)** — You may request that any inaccurate personal data be corrected.
+**Right to rectification (Art. 16)**: You may request that any inaccurate personal data be corrected.
 
-**Right to erasure (Art. 17)** — You may request that we delete your personal data where there is no legitimate reason for us to continue holding it.
+**Right to erasure (Art. 17)**: You may request that we delete your personal data where there is no legitimate reason for us to continue holding it.
 
-**Right to restriction of processing (Art. 18)** — You may request that we restrict the processing of your data in certain circumstances.
+**Right to restriction of processing (Art. 18)**: You may request that we restrict the processing of your data in certain circumstances.
 
-**Right to data portability (Art. 20)** — Where processing is based on consent and carried out by automated means, you may request your data in a structured, machine-readable format.
+**Right to data portability (Art. 20)**: Where processing is based on consent and carried out by automated means, you may request your data in a structured, machine-readable format.
 
-**Right to object (Art. 21)** — You may object at any time to processing based on our legitimate interests.
+**Right to object (Art. 21)**: You may object at any time to processing based on our legitimate interests.
 
-**Right to withdraw consent (Art. 7(3))** — Where processing is based on consent, you may withdraw that consent at any time. Withdrawal does not affect the lawfulness of processing prior to withdrawal. To withdraw analytics consent, clear your browser's localStorage key ynr_cookie_consent.
+**Right to withdraw consent (Art. 7(3))**: Where processing is based on consent, you may withdraw that consent at any time. Withdrawal does not affect the lawfulness of processing prior to withdrawal. To withdraw analytics consent, clear your browser's localStorage key ynr_cookie_consent.
 
-**Right to lodge a complaint** — If you believe we are handling your data unlawfully, you have the right to lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens) at autoriteitpersoonsgegevens.nl, or with the supervisory authority in your country of residence.`,
+**Right to lodge a complaint**: If you believe we are handling your data unlawfully, you have the right to lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens) at autoriteitpersoonsgegevens.nl, or with the supervisory authority in your country of residence.`,
   },
   {
     id: 'exercise-rights',
@@ -123,10 +123,10 @@ export default function PrivacyPage() {
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
             Legal
           </p>
-          <h1 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: 'var(--color-ink)' }}>
+          <h1 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
             Privacy Policy
           </h1>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 300, color: 'var(--color-faint)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 400, color: 'var(--color-faint)' }}>
             Last updated: {LAST_UPDATED}
           </p>
         </div>
@@ -135,11 +135,11 @@ export default function PrivacyPage() {
       {/* Intro */}
       <section className="px-6 py-12" style={{ borderBottom: '1px solid var(--color-border)' }}>
         <div className="mx-auto max-w-3xl">
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-body)' }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
             Your privacy matters to us. This policy explains exactly what data Life Path Numerology Calculator
             collects, why we collect it, how long we keep it, and what rights you have under the
-            General Data Protection Regulation (GDPR). We have written it in plain language — not
-            legalese — because we believe you deserve to understand it.
+            General Data Protection Regulation (GDPR). We have written it in plain language, not
+            legalese, because we believe you deserve to understand it.
           </p>
         </div>
       </section>
@@ -149,12 +149,12 @@ export default function PrivacyPage() {
         <div className="mx-auto max-w-3xl space-y-12">
           {sections.map(({ id, heading, body }) => (
             <section key={id} id={id} className="scroll-mt-28 pt-10" style={{ borderTop: '1px solid var(--color-border)' }}>
-              <h2 className="mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, color: 'var(--color-ink)' }}>{heading}</h2>
+              <h2 className="mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>{heading}</h2>
               <div className="space-y-4">
                 {body.split('\n\n').map((para, i) => {
                   const parts = para.split(/\*\*(.+?)\*\*/g);
                   return (
-                    <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 300, lineHeight: 1.85, color: 'var(--color-body)' }}>
+                    <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
                       {parts.map((part, j) =>
                         j % 2 === 1 ? (
                           <strong key={j} style={{ fontWeight: 500, color: 'var(--color-ink)' }}>{part}</strong>

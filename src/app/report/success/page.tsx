@@ -80,15 +80,15 @@ function SuccessContent() {
     <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center" style={{ background: 'var(--color-bg-muted)' }}>
       <div className="mb-10">
         <div className="mx-auto mb-8 h-16 w-16 animate-spin rounded-full" style={{ border: '2px solid var(--color-border)', borderTopColor: 'var(--color-accent)' }} />
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, fontWeight: 300, color: 'var(--color-ink)', marginBottom: 16 }}>
+        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, fontWeight: 400, color: 'var(--color-ink)', marginBottom: 16 }}>
           Your report is being generated...
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 300, color: 'var(--color-muted)', transition: 'all 0.7s' }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, color: 'var(--color-muted)', transition: 'all 0.7s' }}>
           {MESSAGES[messageIndex]}
         </p>
       </div>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 300, color: 'var(--color-faint)' }}>
-        This usually takes 30–60 seconds. Please do not close this window.
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
+        This usually takes 30 to 60 seconds. Please do not close this window.
       </p>
     </main>
   );
