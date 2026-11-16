@@ -18,6 +18,24 @@
   --color-accent-deep: #8B5A3A;
   --color-accent-soft: rgba(193, 127, 90, 0.08);
 
+  /* ── Report palette (paid report). Same system, richer range. ──
+     Contrast (WCAG): camel-deep on paper 4.2:1 (large numbers only),
+     camel-ink on paper 5.4:1 / panel 4.8:1 (small labels OK),
+     paper on espresso 11.8:1, sand on espresso 8.3:1.
+     Plain camel (2.99:1 on paper) is for lines and shapes, never text. */
+  --color-paper:       #F3EDE2;
+  --color-panel:       #E8DFD0;
+  --color-sand:        #D9C7AE;
+  --color-espresso:    #3A2A20;
+  --color-deep:        #2B1D14;
+  --color-deep-body:   #4A3A2E;
+  --color-camel:       #A9825A;
+  --color-camel-deep:  #8E6A46;
+  --color-camel-ink:   #7A5A38;
+  --color-olive:       #6B6B47;
+  --color-on-dark:     #F3EDE2;
+  --color-on-dark-muted: #BBA88E;
+
   /* legacy aliases kept for report page / canvas */
   --bg: #F7F4EF;
   --fg: #1E1A16;

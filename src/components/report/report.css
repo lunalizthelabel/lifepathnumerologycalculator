@@ -1,0 +1,347 @@
+/* ==========================================================================
+   Paid report: editorial template
+   One stylesheet for the web page and the A4 PDF (print media).
+   Colours come from the Warm Stone tokens in src/app/globals.css.
+   ========================================================================== */
+
+/* ── Spacing scale (4 · 8 · 12 · 16 · 24 · 32 · 48 · 72 · 96 · 144) ── */
+.rp {
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 72px; --s9: 96px; --s10: 144px;
+  --gutter: clamp(20px, 7vw, 112px);
+  --measure: 66ch;
+  --serif: 'Cormorant Garamond', var(--font-cormorant), Georgia, serif;
+  --sans: 'DM Sans', var(--font-dm-sans), system-ui, sans-serif;
+  --hairline: 1px solid color-mix(in srgb, var(--color-camel) 45%, transparent);
+  --site-nav-h: 63px; /* the site's fixed <header> (Navigation.tsx) */
+
+  background: var(--color-paper);
+  color: var(--color-deep);
+  font-family: var(--serif);
+  padding-top: var(--site-nav-h); /* start below the fixed site navigation */
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+
+/* Reset: no browser defaults anywhere inside the report. */
+.rp *, .rp *::before, .rp *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.rp ul, .rp ol { list-style: none; }
+/* globals.css styles bare p / h1–h4 for the site; inside the report, classes decide. */
+.rp p, .rp h1, .rp h2, .rp h3, .rp h4, .rp blockquote, .rp dd, .rp dt, .rp li {
+  color: inherit; font-family: inherit; font-size: inherit; font-weight: inherit; line-height: inherit; letter-spacing: inherit;
+}
+.rp figure, .rp blockquote { margin: 0; }
+.rp button { font: inherit; color: inherit; background: none; border: 0; }
+.rp svg { display: block; }
+
+/* ── Type primitives ─────────────────────────────────────────────────── */
+.rp .rp-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--color-camel-ink);
+}
+.rp .rp-marker { /* 01 · BIRTHDAY NUMBER */
+  display: flex; align-items: center; gap: var(--s3);
+}
+.rp .rp-marker::after {
+  content: ''; flex: 0 0 var(--s7); height: 0; border-top: var(--hairline);
+}
+.rp .rp-num {
+  font-family: var(--serif);
+  font-variant-numeric: lining-nums; /* Cormorant's default old-style 1 reads as "I" */
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: var(--color-camel-deep);
+}
+.rp .rp-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(38px, 5.6vw, 68px);
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+  color: var(--color-deep);
+  text-wrap: balance;
+}
+.rp .rp-lead {
+  font-family: var(--serif);
+  font-size: clamp(21px, 2.2vw, 25px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--color-deep);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+.rp .rp-body p {
+  font-family: var(--serif);
+  font-size: clamp(19px, 1.7vw, 21px);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-deep-body);
+  max-width: var(--measure);
+  text-wrap: pretty;
+  hyphens: manual;
+  orphans: 3; widows: 3;
+}
+.rp .rp-body p + p { margin-top: 1.1em; }
+.rp .rp-small {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-deep-body);
+}
+
+/* ── Page shell ──────────────────────────────────────────────────────── */
+.rp .rp-page {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(56px, 9vw, 128px) var(--gutter);
+  overflow: hidden;
+}
+.rp .rp-page + .rp-page { border-top: var(--hairline); }
+.rp .rp-fixed { min-height: min(100svh, 920px); display: flex; flex-direction: column; }
+.rp .rp-inner { position: relative; z-index: 1; width: 100%; max-width: 1040px; margin: 0 auto; }
+.rp .rp-fixed > .rp-inner { flex: 1; display: flex; flex-direction: column; }
+
+/* Surfaces */
+.rp .rp-on-paper { background: var(--color-paper); }
+.rp .rp-on-panel { background: var(--color-panel); }
+.rp .rp-on-sand { background: var(--color-sand); }
+.rp .rp-on-dark { background: var(--color-espresso); color: var(--color-on-dark); }
+.rp .rp-on-dark .rp-label { color: var(--color-sand); }
+.rp .rp-on-dark .rp-num { color: var(--color-camel); } /* 3.9:1 on espresso, large text only */
+.rp .rp-on-dark .rp-title, .rp .rp-on-dark .rp-lead { color: var(--color-on-dark); }
+.rp .rp-on-dark .rp-small { color: var(--color-on-dark-muted); }
+.rp .rp-on-sand .rp-label { color: var(--color-deep); }
+.rp .rp-on-sand .rp-num { color: var(--color-deep); }
+
+/* Paper grain: inline SVG noise, no external image. */
+.rp .rp-grain::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .23 0 0 0 0 .16 0 0 0 0 .12 0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.rp .rp-on-dark.rp-grain::before { opacity: 0.6; mix-blend-mode: screen; }
+
+/* Decorative shapes */
+.rp .rp-shape { position: absolute; z-index: 0; pointer-events: none; }
+.rp .rp-arch {
+  border: 1px solid color-mix(in srgb, var(--color-camel) 55%, transparent);
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+}
+.rp .rp-arch-fill {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-sand) 70%, transparent), transparent 85%);
+  border-radius: 999px 999px 0 0;
+}
+.rp .rp-ring { border: 1px solid color-mix(in srgb, var(--color-camel) 50%, transparent); border-radius: 50%; }
+.rp .rp-glow {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-camel) 30%, transparent), transparent);
+}
+
+/* ── Toolbar (screen only) ───────────────────────────────────────────── */
+.rp .rp-toolbar {
+  position: sticky; top: var(--site-nav-h); z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding: var(--s3) var(--gutter);
+  background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--hairline);
+}
+.rp .rp-btn {
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 12px 22px; cursor: pointer;
+  background: var(--color-espresso); color: var(--color-on-dark);
+  transition: background 0.2s;
+}
+.rp .rp-btn:hover { background: var(--color-deep); }
+.rp .rp-btn:focus-visible { outline: 2px solid var(--color-camel-deep); outline-offset: 3px; }
+.rp .rp-btn[aria-busy='true'] { opacity: 0.6; cursor: progress; }
+
+/* ── Cover ───────────────────────────────────────────────────────────── */
+.rp .rp-cover .rp-inner { justify-content: space-between; gap: var(--s8); }
+.rp .rp-cover-head { display: flex; justify-content: space-between; gap: var(--s5); flex-wrap: wrap; }
+.rp .rp-cover-hero { display: grid; gap: var(--s5); justify-items: start; }
+.rp .rp-cover-num { font-size: clamp(200px, 42vw, 420px); }
+.rp .rp-cover-title { font-size: clamp(44px, 7vw, 92px); max-width: 12ch; }
+.rp .rp-cover-meta {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--s5);
+  border-top: var(--hairline); padding-top: var(--s5);
+}
+.rp .rp-meta-value { font-family: var(--serif); font-size: 22px; color: var(--color-deep); margin-top: var(--s1); font-variant-numeric: lining-nums; }
+
+/* ── Overview ────────────────────────────────────────────────────────── */
+.rp .rp-overview-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  border-top: var(--hairline); margin-top: var(--s7);
+}
+.rp .rp-ov-item {
+  padding: var(--s6) var(--s5) var(--s6) 0;
+  border-bottom: var(--hairline);
+  display: grid; grid-template-rows: auto auto 1fr; gap: var(--s3);
+}
+.rp .rp-ov-num { font-size: clamp(72px, 9vw, 112px); }
+.rp .rp-ov-text {
+  font-family: var(--serif); font-size: 19px; line-height: 1.45; color: var(--color-deep-body);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ── Timeline ────────────────────────────────────────────────────────── */
+.rp .rp-timeline-chart { margin-top: var(--s7); width: 100%; height: auto; }
+.rp .rp-timeline-chart text { font-family: var(--sans); }
+.rp .rp-timeline-chart text.rp-chart-num { font-family: var(--serif); font-variant-numeric: lining-nums; font-weight: 400; }
+.rp .rp-tl-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--s6); margin-top: var(--s7); }
+.rp .rp-tl-row { display: grid; grid-template-columns: 56px 1fr; gap: var(--s3); padding: var(--s3) 0; border-bottom: var(--hairline); align-items: baseline; }
+.rp .rp-tl-row .rp-num { font-size: 40px; }
+.rp .rp-tl-row[data-active='true'] .rp-small { color: var(--color-deep); font-weight: 500; }
+
+/* ── Section opener ──────────────────────────────────────────────────── */
+.rp .rp-opener .rp-inner { justify-content: space-between; gap: var(--s7); }
+.rp .rp-opener-num { font-size: clamp(220px, 46vw, 480px); }
+.rp .rp-opener-num .rp-num-sep { font-size: 0.3em; letter-spacing: 0; margin: 0 0.12em; opacity: 0.7; vertical-align: middle; }
+.rp .rp-opener-essence {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: clamp(26px, 3.4vw, 40px); line-height: 1.3; max-width: 24ch; text-wrap: balance;
+}
+.rp .rp-opener-essence[data-size='m'] { font-size: clamp(22px, 2.8vw, 32px); max-width: 30ch; }
+.rp .rp-opener-essence[data-size='s'] { font-size: clamp(20px, 2.2vw, 26px); max-width: 40ch; }
+
+/* ── Reading ─────────────────────────────────────────────────────────── */
+.rp .rp-reading .rp-inner { display: grid; gap: var(--s7); }
+.rp .rp-reading-head { display: grid; gap: var(--s5); }
+.rp .rp-reading-head .rp-title { max-width: 18ch; } /* ch of the title's own size */
+.rp .rp-reading-cols { display: grid; gap: var(--s8); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1000px) {
+  .rp .rp-reading-cols.has-aside { grid-template-columns: minmax(0, 1fr) 260px; }
+}
+.rp .rp-aside { display: grid; gap: var(--s6); align-content: start; }
+.rp .rp-points { border-top: var(--hairline); }
+.rp .rp-points li {
+  font-family: var(--serif); font-size: 20px; line-height: 1.35; color: var(--color-deep);
+  padding: var(--s3) 0; border-bottom: var(--hairline);
+  display: grid; grid-template-columns: 28px 1fr; gap: var(--s2);
+}
+.rp .rp-points li span { font-family: var(--sans); font-size: 11px; letter-spacing: 0.12em; color: var(--color-camel-ink); padding-top: 5px; }
+.rp .rp-inline-quote {
+  border-left: 1px solid var(--color-camel); padding-left: var(--s5);
+  font-family: var(--serif); font-style: italic; font-size: 26px; line-height: 1.35; color: var(--color-deep);
+}
+
+/* ── Quote page ──────────────────────────────────────────────────────── */
+.rp .rp-quote .rp-inner { justify-content: center; align-items: center; text-align: center; gap: var(--s6); }
+.rp .rp-quote-mark { font-family: var(--serif); font-size: 120px; line-height: 0.5; color: var(--color-camel); }
+.rp .rp-quote-text {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: clamp(34px, 5vw, 64px); line-height: 1.2; letter-spacing: -0.01em;
+  max-width: 20ch; text-wrap: balance; color: var(--color-deep);
+}
+.rp .rp-quote-text[data-size='m'] { font-size: clamp(28px, 3.8vw, 46px); max-width: 26ch; }
+.rp .rp-quote-text[data-size='s'] { font-size: clamp(24px, 3vw, 34px); max-width: 34ch; }
+.rp .rp-on-dark .rp-quote-text { color: var(--color-on-dark); }
+
+/* ── Closing ─────────────────────────────────────────────────────────── */
+.rp .rp-closing .rp-inner { justify-content: space-between; gap: var(--s8); }
+.rp .rp-legal { border-top: 1px solid color-mix(in srgb, var(--color-sand) 35%, transparent); padding-top: var(--s5); display: grid; gap: var(--s3); max-width: 78ch; }
+.rp .rp-legal .rp-small { font-size: 12px; }
+
+/* ── Phone ───────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .rp .rp-fixed { min-height: auto; }
+  .rp .rp-toolbar .rp-label { display: none; }
+  .rp .rp-ov-item { padding-right: 0; }
+}
+
+/* ==========================================================================
+   PRINT / PDF: fixed A4 pages
+   Default pages (readings) flow across pages with margins and page numbers.
+   "bleed" pages (cover, openers, quotes, closing) are exactly one A4 sheet.
+   ========================================================================== */
+@page {
+  size: A4;
+  margin: 24mm 22mm 26mm;
+  background: #F3EDE2; /* paper, including the margins */
+  @bottom-left {
+    content: 'Life Path Numerology';
+    font-family: 'DM Sans', sans-serif; font-size: 7pt; letter-spacing: 0.2em; text-transform: uppercase; color: #7A5A38;
+  }
+  @bottom-right {
+    content: counter(page);
+    font-family: 'Cormorant Garamond', serif; font-size: 10pt; color: #7A5A38;
+  }
+}
+@page bleed { margin: 0; @bottom-left { content: none; } @bottom-right { content: none; } }
+
+@media print {
+  html, body { background: var(--color-paper) !important; }
+  .rp { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: transparent; padding-top: 0; }
+  .rp .rp-screen-only { display: none !important; }
+  .rp .rp-grain::before { display: none; } /* would be rasterised into every page */
+  /* Only the report prints: hide site navigation, footer, cookie banner. */
+  body:has(.rp) > *:not(.rp) { display: none !important; }
+
+  .rp .rp-page { overflow: visible; padding: 0; border-top: 0 !important; }
+  .rp .rp-page + .rp-page { break-before: page; }
+
+  /* One-sheet pages */
+  .rp .rp-fixed {
+    page: bleed;
+    width: 210mm; height: 297mm; min-height: 0;
+    padding: 26mm 24mm 24mm;
+    overflow: hidden; /* never spill onto an extra, empty page */
+    break-inside: avoid;
+  }
+  .rp .rp-inner { max-width: none; }
+
+  /* Flowing reading pages */
+  .rp .rp-flow { background: transparent; }
+  .rp .rp-reading .rp-inner { gap: 10mm; }
+  .rp .rp-reading-head { break-inside: avoid; break-after: avoid; }
+  /* In print the side block sits above the text, so a reading never ends on a near-empty page. */
+  .rp .rp-reading-cols, .rp .rp-reading-cols.has-aside { display: flex; flex-direction: column; gap: 0; }
+  .rp .rp-aside {
+    order: -1; break-inside: avoid; margin: 0 0 10mm;
+    grid-template-columns: 1fr 1fr; gap: 9mm; display: grid;
+    padding-bottom: 8mm; border-bottom: var(--hairline);
+  }
+  .rp .rp-aside .rp-label { break-after: avoid; }
+  .rp .rp-points li { break-inside: avoid; }
+  .rp .rp-aside > :only-child { grid-column: 1 / -1; }
+  .rp .rp-lead { font-size: 13.5pt; break-after: avoid; }
+  .rp .rp-body p { font-size: 11.5pt; line-height: 1.62; max-width: none; }
+  .rp .rp-title { font-size: 32pt; }
+  .rp .rp-label { font-size: 7pt; }
+  .rp .rp-small { font-size: 8.5pt; }
+  .rp .rp-points li { font-size: 12pt; }
+  .rp .rp-inline-quote { font-size: 15pt; break-inside: avoid; }
+
+  /* Sizes on one-sheet pages (mm-based so they never depend on the viewport) */
+  .rp .rp-cover-num { font-size: 230pt; }
+  .rp .rp-cover-title { font-size: 46pt; }
+  .rp .rp-meta-value { font-size: 13pt; }
+  .rp .rp-opener-num { font-size: 260pt; }
+  .rp .rp-opener-essence { font-size: 22pt; }
+  .rp .rp-opener-essence[data-size='m'] { font-size: 18pt; }
+  .rp .rp-opener-essence[data-size='s'] { font-size: 15pt; }
+  .rp .rp-quote-text { font-size: 34pt; }
+  .rp .rp-quote-text[data-size='m'] { font-size: 26pt; }
+  .rp .rp-quote-text[data-size='s'] { font-size: 20pt; }
+  .rp .rp-quote-mark { font-size: 80pt; }
+  .rp .rp-overview-grid { grid-template-columns: 1fr 1fr; margin-top: 10mm; }
+  .rp .rp-ov-item { padding: 6mm 6mm 6mm 0; }
+  .rp .rp-ov-num { font-size: 58pt; }
+  .rp .rp-ov-text { font-size: 11.5pt; }
+  .rp .rp-tl-list { grid-template-columns: 1fr 1fr; gap: 8mm; margin-top: 8mm; }
+  .rp .rp-tl-row .rp-num { font-size: 22pt; }
+  .rp .rp-timeline-chart { margin-top: 8mm; }
+  .rp .rp-legal .rp-small { font-size: 7.5pt; }
+  .rp .rp-closing .rp-inner { gap: 10mm; }
+}

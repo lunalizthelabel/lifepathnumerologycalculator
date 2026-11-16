@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import SampleCarousel from '@/components/report/SampleCarousel';
 
 const MESSAGES = [
   'Analysing your birth date...',
@@ -77,18 +78,21 @@ function SuccessContent() {
   }, [sessionId, router]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-6 text-center" style={{ background: 'var(--color-bg-muted)' }}>
+    <main className="flex min-h-screen flex-col items-center justify-center px-4 pb-12 pt-24 text-center" style={{ background: 'var(--color-bg-muted)' }}>
       <div className="mb-10">
-        <div className="mx-auto mb-8 h-16 w-16 animate-spin rounded-full" style={{ border: '2px solid var(--color-border)', borderTopColor: 'var(--color-accent)' }} />
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, fontWeight: 400, color: 'var(--color-ink)', marginBottom: 16 }}>
+        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, color: 'var(--color-ink)', marginBottom: 12 }}>
           Your report is being generated...
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, color: 'var(--color-muted)', transition: 'all 0.7s' }}>
+        <p className="flex items-center justify-center gap-3" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, color: 'var(--color-muted)' }} aria-live="polite">
+          <span className="inline-block h-4 w-4 animate-spin rounded-full" style={{ border: '1.5px solid var(--color-border)', borderTopColor: 'var(--color-accent)' }} aria-hidden="true" />
           {MESSAGES[messageIndex]}
         </p>
       </div>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
-        This usually takes 30 to 60 seconds. Please do not close this window.
+
+      <SampleCarousel />
+
+      <p className="mt-10" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
+        This usually takes about 2 minutes. Please do not close this window.
       </p>
     </main>
   );

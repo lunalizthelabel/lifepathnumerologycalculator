@@ -1,4 +1,11 @@
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
+
+// The Upstash database connected via Vercel uses the "STORAGE_" prefix.
+// Fall back to the plain KV_ names for older setups.
+const kv = createClient({
+  url: process.env.STORAGE_KV_REST_API_URL ?? process.env.KV_REST_API_URL ?? '',
+  token: process.env.STORAGE_KV_REST_API_TOKEN ?? process.env.KV_REST_API_TOKEN ?? '',
+});
 
 export type Purchase = {
   reportToken: string;
@@ -12,6 +19,11 @@ export type Purchase = {
   reportData: string | null;
   createdAt: string;
   used: boolean;
+  // Proof of withdrawal-waiver consent (see src/lib/legal/withdrawalConsent.ts).
+  // Optional only because records created before v1-2026-11 lack them.
+  withdrawalWaiverConsent?: boolean;
+  consentTimestamp?: string;
+  consentTextVersion?: string;
 };
 
 const TOKEN_PREFIX = 'report:token:';

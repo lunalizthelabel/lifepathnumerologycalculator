@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const LAST_UPDATED = '1 April 2025';
+const LAST_UPDATED = '16 November 2026';
 
 const sections = [
   {
@@ -51,6 +51,15 @@ If you find value in numerology as a lens through which to understand your patte
     body: `This website may in the future contain links to third-party websites for reference or additional reading. These links are provided for convenience only. Life Path Numerology Calculator has no control over the content of external sites and accepts no responsibility for their accuracy, legality, or any other aspect of their content or privacy practices.
 
 The inclusion of any link does not constitute an endorsement of that site or its operators.`,
+  },
+  {
+    id: 'right-of-withdrawal',
+    heading: 'Paid reports and your right of withdrawal',
+    body: `Our full numerology report is digital content that we generate and deliver to you immediately after payment.
+
+Under EU consumer law you normally have 14 days to withdraw from an online purchase. For digital content that is delivered straight away, this right ends once delivery starts, but only if you agree to that beforehand. That is why, before you pay, we ask you to tick a separate box confirming that you want your report delivered immediately and that you understand you lose your 14-day right of withdrawal as a result. You cannot buy the report without ticking it.
+
+We record the date, time, and wording of your consent, and confirm it on the invoice that Stripe emails to you after payment. If your report is not delivered or is faulty, you keep all your other legal rights. Contact us and we will put it right.`,
   },
   {
     id: 'intellectual-property',

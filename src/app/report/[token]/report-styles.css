@@ -399,11 +399,6 @@
     padding: 0 !important;
   }
 
-  @page {
-    margin: 18mm 16mm;
-    size: A4;
-  }
-
   html {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;

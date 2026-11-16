@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useRef, useState } from 'react';
+import { WITHDRAWAL_CONSENT_TEXT } from '@/lib/legal/withdrawalConsent';
 
 type Props = {
   birthDate: string;
@@ -11,16 +12,27 @@ type Props = {
 export default function NumerologyLayer2Checkout({ birthDate, lifePath, personalYear }: Props) {
   const [email, setEmail] = useState('');
   const [agreed, setAgreed] = useState(false);
+  // Withdrawal-waiver consent: separate from the disclaimer checkbox, never pre-ticked.
+  const [waiverConsent, setWaiverConsent] = useState(false);
+  const [waiverError, setWaiverError] = useState(false);
+  const waiverRef = useRef<HTMLInputElement>(null);
+  const waiverId = useId();
+  const waiverErrorId = `${waiverId}-error`;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const price = process.env.NEXT_PUBLIC_LAYER2_PRICE_DISPLAY ?? '$19';
+  const price = process.env.NEXT_PUBLIC_LAYER2_PRICE_DISPLAY || '$11';
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!waiverConsent) {
+      setWaiverError(true);
+      waiverRef.current?.focus();
+      return;
+    }
+    if (!email.trim() || !agreed) return;
     setLoading(true);
     setError('');
     try {
@@ -34,6 +46,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           currentYear,
           currentMonth,
           email: email.trim(),
+          withdrawalWaiverConsent: waiverConsent,
         }),
       });
       if (!res.ok) throw new Error('Could not create checkout session');
@@ -90,12 +103,55 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
         </span>
       </label>
 
+      {/* Withdrawal-waiver consent (EU right of withdrawal). Required, separate, never pre-ticked. */}
+      <div>
+        <div className="flex items-start gap-3">
+          <input
+            ref={waiverRef}
+            id={waiverId}
+            type="checkbox"
+            aria-required="true"
+            checked={waiverConsent}
+            onChange={(e) => {
+              setWaiverConsent(e.target.checked);
+              if (e.target.checked) setWaiverError(false);
+            }}
+            disabled={loading}
+            aria-invalid={waiverError}
+            aria-describedby={waiverError ? waiverErrorId : undefined}
+            style={{ marginTop: 2, width: 16, height: 16, flexShrink: 0, accentColor: 'var(--color-accent)', cursor: 'pointer' }}
+          />
+          <label
+            htmlFor={waiverId}
+            className="cursor-pointer"
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, lineHeight: 1.6, color: 'var(--color-faint)' }}
+          >
+            {WITHDRAWAL_CONSENT_TEXT}
+          </label>
+        </div>
+        {waiverError && (
+          <p
+            id={waiverErrorId}
+            role="alert"
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: '#c0392b', marginTop: 6, marginLeft: 28 }}
+          >
+            Please tick this box to continue. Your report is delivered immediately, so we need your consent first.
+          </p>
+        )}
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)', marginTop: 6, marginLeft: 28 }}>
+          <a href="/disclaimer#right-of-withdrawal" target="_blank" rel="noopener" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
+            About your right of withdrawal
+          </a>
+        </p>
+      </div>
+
       <button
         type="submit"
         disabled={loading || !email.trim() || !agreed}
+        aria-disabled={loading || !email.trim() || !agreed || !waiverConsent}
         style={{
-          background: loading || !email.trim() || !agreed ? 'var(--color-bg-muted)' : 'var(--color-ink)',
-          color: loading || !email.trim() || !agreed ? 'var(--color-faint)' : 'var(--color-bg)',
+          background: loading || !email.trim() || !agreed || !waiverConsent ? 'var(--color-bg-muted)' : 'var(--color-ink)',
+          color: loading || !email.trim() || !agreed || !waiverConsent ? 'var(--color-faint)' : 'var(--color-bg)',
           fontFamily: "'DM Sans', sans-serif",
           fontSize: 10,
           letterSpacing: '3px',
@@ -103,7 +159,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           padding: '14px 32px',
           border: 'none',
           borderRadius: 0,
-          cursor: loading || !email.trim() || !agreed ? 'not-allowed' : 'pointer',
+          cursor: loading || !email.trim() || !agreed || !waiverConsent ? 'not-allowed' : 'pointer',
           fontWeight: 400,
           transition: 'background 0.2s, color 0.2s',
           width: '100%',

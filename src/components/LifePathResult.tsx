@@ -436,7 +436,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         {/* Social proof */}
         <div className="mb-px flex items-center justify-center py-4" style={{ border: '1px solid var(--color-border)' }}>
           <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)', letterSpacing: '0.05em' }}>
-            2,000+ words &middot; Personalised to your exact birth date &middot; Ready in under 60 seconds
+            2,000+ words &middot; Personalised to your exact birth date &middot; Ready in about 2 minutes
           </p>
         </div>
 
@@ -450,15 +450,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
             From 2,300 readings
           </p>
 
-          {/* Coming soon placeholder */}
-          <div style={{ opacity: 0.45, pointerEvents: 'none' }}>
-            <div style={{ background: 'var(--color-bg-muted)', border: '1px solid var(--color-border)', padding: '12px 16px', marginBottom: 16, fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, color: 'var(--color-faint)' }}>
-              Your email address
-            </div>
-            <div style={{ background: 'var(--color-bg-muted)', border: '1px solid var(--color-border)', padding: '14px 32px', textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', fontWeight: 400 }}>
-              Coming Soon
-            </div>
-          </div>
+          <NumerologyLayer2Checkout birthDate={birthDate} lifePath={lifePath} personalYear={personalYear} />
         </div>
       </motion.div>
     </motion.div>
