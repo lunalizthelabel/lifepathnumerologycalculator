@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { NUMBER_MEANINGS, PERSONAL_YEAR_THEMES } from '@/lib/numberMeanings';
 import { formatBirthDate } from '@/lib/numerology';
 import NumerologyLayer2Checkout from './NumerologyLayer2Checkout';
+import SampleCarousel from './report/SampleCarousel';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function loadScript(src: string, globalKey: string): Promise<any> {
@@ -336,7 +337,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.75 }}
-        className="mb-10 flex justify-center"
+        className="mb-10 flex flex-col items-center gap-5"
       >
         <button
           onClick={handleDownload}
@@ -366,6 +367,31 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           </svg>
           {downloading ? 'Generating PDF…' : 'Download as PDF'}
         </button>
+
+        {/* Jump to the full report order box */}
+        <a
+          href="#full-report"
+          onClick={(e) => {
+            e.preventDefault();
+            const box = document.getElementById('full-report');
+            if (!box) return;
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+            // Put the cursor in the email field without interrupting the scroll.
+            box.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
+          }}
+          className="transition-opacity hover:opacity-70"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            fontFamily: "'Cormorant Garamond', serif", fontSize: 21, fontStyle: 'italic', fontWeight: 500,
+            color: 'var(--color-accent-deep)', textDecoration: 'underline', textUnderlineOffset: 5, textDecorationThickness: 1,
+          }}
+        >
+          I want a full numerology report
+          <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+            <path d="M6 1v11M6 12l-4-4M6 12l4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
       </motion.div>
 
       {/* ── Disclaimer ── */}
@@ -441,14 +467,32 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         </div>
 
         {/* CTA block */}
-        <div className="px-8 py-8" style={{ border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)' }}>
+        {/* Quote */}
+        <div className="mb-px px-8 py-7" style={{ border: '1px solid var(--color-border)' }}>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 400, fontStyle: 'italic', color: 'var(--color-ink)', textAlign: 'center', maxWidth: 480, margin: '0 auto 6px', lineHeight: 1.6 }}>
             &ldquo;Most people spend years feeling slightly out of sync with their own life.
             Usually, the numbers explain exactly why.&rdquo;
           </p>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 400, color: 'var(--color-faint)', textAlign: 'center', letterSpacing: '3px', textTransform: 'uppercase', marginBottom: 28 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 400, color: 'var(--color-faint)', textAlign: 'center', letterSpacing: '3px', textTransform: 'uppercase' }}>
             From 2,300 readings
           </p>
+        </div>
+
+        <div id="full-report" className="px-6 py-10 sm:px-8" style={{ border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)', scrollMarginTop: 84 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500, color: 'var(--color-accent-deep)', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: 12 }}>
+            Order here
+          </p>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 30, fontWeight: 500, color: 'var(--color-ink)', textAlign: 'center', lineHeight: 1.2, marginBottom: 12 }}>
+            Your Full Numerology Report
+          </h3>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, lineHeight: 1.65, color: 'var(--color-muted)', textAlign: 'center', maxWidth: 440, margin: '0 auto 28px' }}>
+            A personal report of about 20 pages, written for your birth date. Enter your email below,
+            pay securely, and read it online or download it as a PDF about 2 minutes later.
+          </p>
+
+          <div style={{ marginBottom: 28 }}>
+            <SampleCarousel compact />
+          </div>
 
           <NumerologyLayer2Checkout birthDate={birthDate} lifePath={lifePath} personalYear={personalYear} />
         </div>

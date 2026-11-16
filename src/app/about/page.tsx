@@ -34,6 +34,39 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Contact */}
+      <section id="contact" className="px-6 py-16" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-raised)', scrollMarginTop: 84 }}>
+        <div className="mx-auto max-w-3xl">
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
+            Contact
+          </p>
+          <h2 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            Get in touch
+          </h2>
+          <p className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+            Questions about the calculator, your report or a payment? Send us an email and we will do our best to reply within 5 business days.
+          </p>
+          <dl style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.8, color: 'var(--color-body)' }}>
+            <div className="flex gap-4">
+              <dt style={{ width: 64, color: 'var(--color-muted)' }}>Name</dt>
+              <dd>Life Path Numerology Calculator</dd>
+            </div>
+            <div className="flex gap-4">
+              <dt style={{ width: 64, color: 'var(--color-muted)' }}>Email</dt>
+              <dd>
+                <a href="mailto:info@lunalizbv.nl" style={{ color: 'var(--color-accent-deep)', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                  info@lunalizbv.nl
+                </a>
+              </dd>
+            </div>
+            <div className="flex gap-4">
+              <dt style={{ width: 64, color: 'var(--color-muted)' }}>KvK</dt>
+              <dd>80799175</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
       <section className="px-6 py-16" style={{ background: 'var(--color-bg)' }}>
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>

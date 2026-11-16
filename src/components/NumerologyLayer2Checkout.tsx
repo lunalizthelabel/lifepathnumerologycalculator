@@ -58,6 +58,8 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
     }
   }
 
+  const notReady = loading || !email.trim() || !agreed || !waiverConsent;
+
   const inputStyle = {
     background: 'var(--color-bg-raised)',
     border: '1px solid var(--color-border)',
@@ -150,17 +152,19 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
         disabled={loading || !email.trim() || !agreed}
         aria-disabled={loading || !email.trim() || !agreed || !waiverConsent}
         style={{
-          background: loading || !email.trim() || !agreed || !waiverConsent ? 'var(--color-bg-muted)' : 'var(--color-ink)',
-          color: loading || !email.trim() || !agreed || !waiverConsent ? 'var(--color-faint)' : 'var(--color-bg)',
+          // Not ready yet: sand with dark text (about 7:1). Ready: near-black with cream text (about 16:1).
+          background: notReady ? 'var(--color-sand)' : 'var(--color-ink)',
+          color: notReady ? 'var(--color-deep-body)' : 'var(--color-bg-raised)',
           fontFamily: "'DM Sans', sans-serif",
-          fontSize: 10,
-          letterSpacing: '3px',
+          fontSize: 15,
+          letterSpacing: '1.5px',
           textTransform: 'uppercase',
-          padding: '14px 32px',
+          padding: '18px 24px',
           border: 'none',
           borderRadius: 0,
-          cursor: loading || !email.trim() || !agreed || !waiverConsent ? 'not-allowed' : 'pointer',
-          fontWeight: 400,
+          cursor: notReady ? 'not-allowed' : 'pointer',
+          fontWeight: 600,
+          lineHeight: 1.3,
           transition: 'background 0.2s, color 0.2s',
           width: '100%',
         }}

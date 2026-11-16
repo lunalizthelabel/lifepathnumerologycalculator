@@ -20,7 +20,7 @@ const SAMPLES = [
 
 const INTERVAL_MS = 3500;
 
-export default function SampleCarousel() {
+export default function SampleCarousel({ compact = false }: { compact?: boolean }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const n = SAMPLES.length;
@@ -32,7 +32,7 @@ export default function SampleCarousel() {
   }, [paused, n]);
 
   return (
-    <section aria-roledescription="carousel" aria-label="Sample pages from a report" className="sample-carousel">
+    <section aria-roledescription="carousel" aria-label="Sample pages from a report" className={compact ? 'sample-carousel is-compact' : 'sample-carousel'}>
       <div
         className="sc-stage"
         onMouseEnter={() => setPaused(true)}
@@ -49,7 +49,7 @@ export default function SampleCarousel() {
               className="sc-card"
               aria-hidden={offset !== 0}
               style={{
-                transform: `translateX(${offset * 58}%) translateZ(${-abs * 140}px) rotateY(${offset * -24}deg)`,
+                transform: `translateX(${offset * 58}%) translateZ(${-abs * (compact ? 80 : 140)}px) rotateY(${offset * -24}deg)`,
                 opacity: abs > 2 ? 0 : abs === 2 ? 0.5 : 1,
                 zIndex: 10 - abs,
                 filter: abs ? `saturate(0.8) brightness(${abs === 1 ? 0.94 : 0.9})` : 'none',
@@ -82,17 +82,21 @@ export default function SampleCarousel() {
       </div>
 
       <style>{`
-        .sample-carousel { width: 100%; max-width: 760px; margin: 0 auto; overflow-x: clip; padding: 8px 0 4px; }
+        .sample-carousel { --sc-w: min(240px, 52vw); width: 100%; max-width: 760px; margin: 0 auto; overflow-x: clip; padding: 8px 0 4px; }
+        .sample-carousel.is-compact { --sc-w: min(132px, 34vw); max-width: 460px; }
+        .sample-carousel.is-compact .sc-caption { margin-top: 16px; font-size: 16px; }
+        .sample-carousel.is-compact .sc-dots { display: none; }
+        .sample-carousel.is-compact .sc-stage { perspective: 900px; }
         .sc-stage {
           position: relative;
-          height: calc(min(240px, 52vw) * 1.415);
+          height: calc(var(--sc-w) * 1.415);
           perspective: 1400px;
           transform-style: preserve-3d;
         }
         .sc-card {
           position: absolute; left: 50%; top: 0;
-          width: min(240px, 52vw);
-          margin: 0 0 0 calc(min(240px, 52vw) / -2);
+          width: var(--sc-w);
+          margin: 0 0 0 calc(var(--sc-w) / -2);
           transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.9s ease, filter 0.9s ease;
           cursor: pointer;
           box-shadow: 0 18px 40px -18px rgba(43, 29, 20, 0.45), 0 2px 6px rgba(43, 29, 20, 0.12);
