@@ -18,8 +18,8 @@ import {
 const QUOTE_PAGE_SECTIONS = new Set(['cycle', 'connection']);
 
 export default function ReportDocument({
-  report, pdfUrl, fileName = 'numerology-report.pdf',
-}: { report: StoredReport; pdfUrl?: string; fileName?: string }) {
+  report, pdfUrl, fileName = 'numerology-report.pdf', availableUntil,
+}: { report: StoredReport; pdfUrl?: string; fileName?: string; availableUntil?: string }) {
   const { numbers: n, content: c } = report;
   const generated = new Date(report.generatedAt);
   const generatedLabel = generated.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -49,6 +49,11 @@ export default function ReportDocument({
           <p className="rp-label">Your personal report</p>
           <DownloadPdfButton pdfUrl={pdfUrl} fileName={fileName} />
         </div>
+      )}
+      {availableUntil && (
+        <p className="rp-keep rp-screen-only">
+          This page stays online until {availableUntil}. Bookmark it to come back, and download the PDF to keep your report for longer.
+        </p>
       )}
 
       <CoverPage n={n} birthDateLabel={formatBirthDate(n.birthDate)} generatedLabel={generatedLabel} />

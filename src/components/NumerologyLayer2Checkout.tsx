@@ -174,6 +174,11 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
 
       <p style={{ textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
         Secure payment via Stripe &middot; Instant delivery after purchase
+        <br />
+        How we handle your data:{' '}
+        <a href="/privacy" target="_blank" rel="noopener" style={{ color: 'var(--color-accent-deep)', textDecoration: 'underline' }}>
+          Privacy Policy
+        </a>
       </p>
     </form>
   );

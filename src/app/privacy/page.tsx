@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const LAST_UPDATED = '1 April 2025';
+const LAST_UPDATED = '16 November 2026';
 
 const sections = [
   {
@@ -20,10 +20,27 @@ If you have any questions about how we handle your data, you can contact us at: 
   {
     id: 'data-we-collect',
     heading: 'What data we collect and why',
-    body: `We collect as little data as possible. Below is a complete overview of what this site collects and on what legal basis.
+    body: `We collect as little data as possible. Below is a complete overview of what this site collects and on what legal basis. The free calculator and the paid report are handled differently, so they are described separately.
 
-**Date of birth (calculator input)**
-When you enter a date of birth into the life path calculator, it is processed entirely within your browser. It is never transmitted to our servers, never stored in a database, and never associated with any other data. We do not see it, log it, or retain it in any form.
+**Date of birth (free calculator)**
+When you enter a date of birth into the free life path calculator, it is processed entirely within your browser. It is not transmitted to our servers and not stored in a database. We do not see it, log it, or retain it in any form. This changes only if you order a full report, as described next.
+
+**Full report (paid)**
+If you order the full numerology report, we process the following data:
+
+Your email address, which you enter in the order form. It is used to identify your purchase and is passed to our payment provider so that you receive your payment confirmation and invoice.
+
+Your date of birth, together with the numerology numbers calculated from it (such as your Life Path and Personal Year). These are needed to write your report.
+
+The text of your report, which is stored so that you can read it online and download it as a PDF.
+
+Payment details. Your payment is handled by Stripe. Card and bank details are entered on Stripe's own payment page and never reach our servers. We receive only a confirmation that the payment succeeded, the amount, and your email address.
+
+A record of your consent. Before payment you confirm that your report is delivered immediately and that you thereby lose your 14-day right of withdrawal. We keep a record of this confirmation, including the date and time and the version of the text you agreed to, as proof.
+
+Your report is written with the help of an artificial intelligence service. For this purpose your date of birth and the calculated numbers are sent to that service. Your email address, name and payment details are not sent to it. The report is for entertainment and self-reflection and has no legal or similarly significant effect on you.
+
+Legal basis: Performance of a contract (Art. 6(1)(b) GDPR) for creating and delivering your report and handling your payment. Legal obligation (Art. 6(1)(c) GDPR) for keeping payment and invoice records as required by tax law. Legitimate interests (Art. 6(1)(f) GDPR) for keeping the record of your consent as proof.
 
 **Analytics data (Google Analytics, with consent)**
 If you consent to analytics cookies via the cookie banner, we use Google Analytics 4 to collect anonymised information about how visitors use the site. This includes pages visited, time on site, general geographic region (country level), device type, and browser. We have enabled IP anonymisation, which means your full IP address is never stored by Google Analytics.
@@ -53,14 +70,30 @@ We do not use advertising cookies, tracking pixels, or any cookies that identify
 
 Server log data is retained for a maximum of 30 days.
 
-Calculator inputs (date of birth) are never stored and therefore have no retention period.`,
+Inputs to the free calculator (date of birth) are never stored and therefore have no retention period.
+
+Full report purchases: your email address, date of birth, calculated numbers and the report itself are kept for 12 months after your purchase, so that you can return to your report. After 12 months they are deleted automatically from our database and the link to your report stops working. The report page shows the date until which it stays online. We recommend downloading the PDF if you want to keep your report for longer. You can also ask us to delete your report earlier.
+
+Payment and invoice records, including the record of your consent, are kept for 7 years, as required by Dutch tax law.`,
   },
   {
     id: 'third-parties',
     heading: 'Third-party services',
     body: `When analytics are enabled, data is processed by Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Ireland) under the terms of Google's Data Processing Agreement. Google may transfer data to countries outside the EEA. Where this occurs, Google relies on Standard Contractual Clauses approved by the European Commission as the lawful transfer mechanism.
 
-We do not use any other third-party data processors at this time. If this changes, this policy will be updated.`,
+For the full report we use the following service providers, each of which only receives the data it needs for its task:
+
+**Stripe** (Stripe Payments Europe, Limited, Ireland) handles the payment, sends your payment confirmation and invoice by email, and stores the payment record including your email address and the record of your consent. Stripe is an independent controller for the payment data it processes and has its own privacy policy.
+
+**Anthropic** (Anthropic PBC, United States) provides the artificial intelligence service that helps write your report. It receives your date of birth and the calculated numbers, and no other data about you. Under Anthropic's commercial terms, data sent to this service is not used to train its models.
+
+**Upstash** (Upstash, Inc., United States) provides the database in which your purchase and your report are stored.
+
+**Vercel** (Vercel Inc., United States) hosts this website and runs the code that creates your report and its PDF.
+
+Some of these providers process data outside the European Economic Area, mainly in the United States. Where this occurs, the transfer relies on the Standard Contractual Clauses approved by the European Commission or on an adequacy decision of the European Commission.
+
+We do not sell your data and we do not share it with anyone for advertising. If the list of service providers changes, this policy will be updated.`,
   },
   {
     id: 'your-rights',
@@ -88,7 +121,7 @@ We do not use any other third-party data processors at this time. If this change
     heading: 'How to exercise your rights',
     body: `To exercise any of the rights listed above, please contact us at info@lunalizbv.nl. We will respond within 30 days. We may need to verify your identity before processing certain requests.
 
-Because we collect very little data and none of it is tied to an identity, most requests will be straightforward to fulfil.`,
+If you only used the free calculator, we hold no data that is tied to you. If you ordered a full report, please write to us from the email address you used for your order, so that we can find your purchase. On request we will send you a copy of your data, correct it, or delete your report before the 12 months have passed. Payment and invoice records must be kept for the legal retention period and cannot be deleted earlier.`,
   },
   {
     id: 'children',
@@ -98,7 +131,7 @@ Because we collect very little data and none of it is tied to an identity, most 
   {
     id: 'changes',
     heading: 'Changes to this policy',
-    body: `We may update this Privacy Policy from time to time, for example when we add new features (such as the paid report functionality planned for Phase 2), when legal requirements change, or when we change our data processing practices.
+    body: `We may update this Privacy Policy from time to time, for example when we add new features, when legal requirements change, or when we change our data processing practices.
 
 Any material changes will be reflected on this page with an updated date. We encourage you to review this page periodically. Continued use of the site after changes are posted constitutes acceptance of the revised policy.`,
   },
