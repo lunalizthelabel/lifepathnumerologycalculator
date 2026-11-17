@@ -153,13 +153,13 @@ export default function PrivacyPage() {
       {/* Header */}
       <section className="px-6 py-20" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
         <div className="mx-auto max-w-3xl">
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 'var(--fw-400)' }}>
             Legal
           </p>
-          <h1 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+          <h1 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
             Privacy Policy
           </h1>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 400, color: 'var(--color-faint)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
             Last updated: {LAST_UPDATED}
           </p>
         </div>
@@ -168,7 +168,7 @@ export default function PrivacyPage() {
       {/* Intro */}
       <section className="px-6 py-12" style={{ borderBottom: '1px solid var(--color-border)' }}>
         <div className="mx-auto max-w-3xl">
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
             Your privacy matters to us. This policy explains exactly what data Life Path Numerology Calculator
             collects, why we collect it, how long we keep it, and what rights you have under the
             General Data Protection Regulation (GDPR). We have written it in plain language, not
@@ -182,15 +182,15 @@ export default function PrivacyPage() {
         <div className="mx-auto max-w-3xl space-y-12">
           {sections.map(({ id, heading, body }) => (
             <section key={id} id={id} className="scroll-mt-28 pt-10" style={{ borderTop: '1px solid var(--color-border)' }}>
-              <h2 className="mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>{heading}</h2>
+              <h2 className="mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>{heading}</h2>
               <div className="space-y-4">
                 {body.split('\n\n').map((para, i) => {
                   const parts = para.split(/\*\*(.+?)\*\*/g);
                   return (
-                    <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+                    <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
                       {parts.map((part, j) =>
                         j % 2 === 1 ? (
-                          <strong key={j} style={{ fontWeight: 500, color: 'var(--color-ink)' }}>{part}</strong>
+                          <strong key={j} style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>{part}</strong>
                         ) : part
                       )}
                     </p>

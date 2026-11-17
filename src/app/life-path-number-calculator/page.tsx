@@ -141,10 +141,10 @@ export default function CalculatorPage() {
         <section className="px-6 py-20" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
           <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow mb-4 justify-center">Free life path calculator</p>
-            <h1 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)', lineHeight: 1.1 }}>
+            <h1 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)', lineHeight: 1.1 }}>
               Life Path Number Calculator
             </h1>
-            <p className="mx-auto max-w-lg" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-muted)' }}>
+            <p className="mx-auto max-w-lg" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)' }}>
               Free numerology life path calculator. Enter your date of birth to instantly calculate your life path number, the single most important number in numerology.
             </p>
           </div>
@@ -153,12 +153,12 @@ export default function CalculatorPage() {
         {/* ── Quick answer ── */}
         <section className="px-6 py-10" aria-label="Quick answer" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-accent-soft)' }}>
           <div className="mx-auto max-w-3xl">
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 8, fontWeight: 400 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 8, fontWeight: 'var(--fw-400)' }}>
               Quick answer
             </p>
-            <p id="quick-answer" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
-              A <strong style={{ fontWeight: 500 }}>numerology calculator</strong> determines your{' '}
-              <strong style={{ fontWeight: 500 }}>life path number</strong> by summing every digit in
+            <p id="quick-answer" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
+              A <strong style={{ fontWeight: 'var(--fw-500)' }}>numerology calculator</strong> determines your{' '}
+              <strong style={{ fontWeight: 'var(--fw-500)' }}>life path number</strong> by summing every digit in
               your complete date of birth and reducing the result to a single digit between 1 and 9,
               or one of three Master Numbers (11, 22, or 33). The calculation takes under ten seconds
               and requires only your date of birth.
@@ -169,7 +169,7 @@ export default function CalculatorPage() {
         {/* ── Calculator ── */}
         <section className="px-6 py-20" id="calculator" aria-label="Numerology calculator" style={{ borderBottom: '1px solid var(--color-border)' }}>
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-10" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 className="mb-10" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               Calculate your life path number
             </h2>
             <CalculatorSection />
@@ -179,26 +179,26 @@ export default function CalculatorPage() {
         {/* ── What is a numerology calculator ── */}
         <section className="px-6 py-16" aria-labelledby="what-is-calculator" style={{ borderBottom: '1px solid var(--color-border)' }}>
           <article className="mx-auto max-w-3xl">
-            <h2 id="what-is-calculator" className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="what-is-calculator" className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               What is a numerology calculator?
             </h2>
             <div className="space-y-4">
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
                 A numerology calculator is a tool that computes your core numerology numbers from
                 numerical or alphabetical data, most commonly your date of birth or full name. The
-                most widely used result is the <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>life path number</strong>,
+                most widely used result is the <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>life path number</strong>,
                 which comes from your date of birth. A name-based numerology calculator can additionally
-                calculate your <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>Expression number</strong> (your
-                full name at birth) and your <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>Soul Urge number</strong>{' '}
+                calculate your <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>Expression number</strong> (your
+                full name at birth) and your <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>Soul Urge number</strong>{' '}
                 (the vowels of your full name).
               </p>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
                 Numerology is rooted in Pythagorean mathematics and has been used across cultures
                 for thousands of years as a framework for self-understanding. This calculator uses
                 the classical digit reduction method: each digit in your date of birth is summed,
                 and the total is reduced repeatedly until a single digit or Master Number is reached.
               </p>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
                 The numerology calculator on this page is free, requires no account, and processes
                 your date of birth entirely within your browser. Nothing is stored or transmitted.{' '}
                 <Link href="/numerology-calculator-name" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>
@@ -213,7 +213,7 @@ export default function CalculatorPage() {
         {/* ── What is a life path number ── */}
         <section className="px-6 py-16" aria-labelledby="what-is-lp" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-raised)' }}>
           <article className="mx-auto max-w-3xl">
-            <h2 id="what-is-lp" className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="what-is-lp" className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               What is a life path number?
             </h2>
             <div className="space-y-4">
@@ -222,7 +222,7 @@ export default function CalculatorPage() {
                 `There are 12 possible life path numbers: 1 through 9, plus the three Master Numbers 11, 22, and 33. Each carries a distinct archetype, a set of core strengths, and a set of defining challenges. Understanding yours is a starting point, not a fixed verdict, but most people find it describes a great deal about how they move through the world.`,
                 `Alongside your life path number, this numerology calculator also computes your Personal Year number, a secondary result that reveals the dominant energy and theme of the current calendar year for you specifically. Personal Year numbers cycle from 1 (new beginnings) to 9 (completion and release), giving you a practical lens on what any given year is asking of you.`,
               ].map((text, i) => (
-                <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>{text}</p>
+                <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>{text}</p>
               ))}
             </div>
           </article>
@@ -231,7 +231,7 @@ export default function CalculatorPage() {
         {/* ── How to calculate ── */}
         <section className="px-6 py-16" aria-labelledby="how-to-calculate" style={{ borderBottom: '1px solid var(--color-border)' }}>
           <div className="mx-auto max-w-3xl">
-            <h2 id="how-to-calculate" className="mb-10" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="how-to-calculate" className="mb-10" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               How to calculate a life path number
             </h2>
             <ol className="space-y-6">
@@ -242,12 +242,12 @@ export default function CalculatorPage() {
                 { n: '4', title: 'Read your result', body: 'The final digit (or Master Number) is your life path number. In this example: Life Path 9, The Humanitarian.' },
               ].map(({ n, title, body }) => (
                 <li key={n} className="flex gap-6">
-                  <span className="mt-1 flex shrink-0 items-center justify-center" style={{ width: 28, height: 28, border: '1px solid var(--color-accent)', fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: 'var(--color-accent)', fontWeight: 400 }}>
+                  <span className="mt-1 flex shrink-0 items-center justify-center" style={{ width: 28, height: 28, border: '1px solid var(--color-accent)', fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', color: 'var(--color-accent)', fontWeight: 'var(--fw-400)' }}>
                     {n}
                   </span>
                   <div>
-                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 500, color: 'var(--color-ink)', marginBottom: 4 }}>{title}</p>
-                    <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-muted)' }}>{body}</p>
+                    <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-500)', color: 'var(--color-ink)', marginBottom: 4 }}>{title}</p>
+                    <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)' }}>{body}</p>
                   </div>
                 </li>
               ))}
@@ -258,10 +258,10 @@ export default function CalculatorPage() {
         {/* ── All numbers ── */}
         <section className="px-6 py-24" aria-labelledby="all-numbers-calc" style={{ borderBottom: '1px solid var(--color-border)' }}>
           <div className="mx-auto max-w-6xl">
-            <h2 id="all-numbers-calc" className="mb-4 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="all-numbers-calc" className="mb-4 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               All 12 life path numbers
             </h2>
-            <p className="mx-auto mb-16 max-w-xl text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, color: 'var(--color-faint)' }}>
+            <p className="mx-auto mb-16 max-w-xl text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
               Click any card to jump to its full profile: archetype, description, strengths, and challenges.
             </p>
             <NumberGrid />
@@ -273,16 +273,16 @@ export default function CalculatorPage() {
           <div className="mx-auto max-w-3xl">
             <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
               <div className="flex-1">
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 8, fontWeight: 400 }}>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 8, fontWeight: 'var(--fw-400)' }}>
                   Coming soon
                 </p>
-                <h2 className="mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+                <h2 className="mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
                   Numerology calculator by name
                 </h2>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-muted)' }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)' }}>
                   The next phase adds a full name numerology calculator, computing your{' '}
-                  <strong style={{ fontWeight: 500 }}>Expression number</strong> and{' '}
-                  <strong style={{ fontWeight: 500 }}>Soul Urge number</strong> from your birth name.
+                  <strong style={{ fontWeight: 'var(--fw-500)' }}>Expression number</strong> and{' '}
+                  <strong style={{ fontWeight: 'var(--fw-500)' }}>Soul Urge number</strong> from your birth name.
                 </p>
               </div>
               <Link
@@ -304,7 +304,7 @@ export default function CalculatorPage() {
         <section className="px-6 py-24" aria-labelledby="faq-calc" style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
           <div className="mx-auto max-w-3xl">
             <p className="eyebrow mb-4">Questions</p>
-            <h2 id="faq-calc" className="mb-12" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="faq-calc" className="mb-12" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               Frequently asked questions
             </h2>
             <FAQ />

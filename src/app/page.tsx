@@ -84,7 +84,7 @@ export default function HomePage() {
         <section className="px-6 py-24" aria-labelledby="how-it-works" style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg)' }}>
           <div className="mx-auto max-w-5xl">
             <p className="eyebrow mb-4 justify-center">How it works</p>
-            <h2 id="how-it-works" className="mb-16 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="how-it-works" className="mb-16 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               How the numerology calculator works
             </h2>
             <ol className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: 1, background: 'var(--color-border)' }}>
@@ -94,9 +94,9 @@ export default function HomePage() {
                 { n: '03', title: 'Understand yourself more clearly', body: 'Receive your life path number, its archetype name, a detailed description, and your Personal Year: the energy shaping this specific year of your life.' },
               ].map(({ n, title, body }) => (
                 <li key={n} style={{ background: 'var(--color-bg-raised)', padding: 32 }}>
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '2px', color: 'var(--color-accent)', display: 'block', marginBottom: 16, fontWeight: 400 }}>{n}</span>
-                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 400, color: 'var(--color-ink)', marginBottom: 12 }}>{title}</h3>
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 400, lineHeight: 1.8, color: 'var(--color-muted)' }}>{body}</p>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '2px', color: 'var(--color-accent)', display: 'block', marginBottom: 16, fontWeight: 'var(--fw-400)' }}>{n}</span>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)', marginBottom: 12 }}>{title}</h3>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', lineHeight: 1.8, color: 'var(--color-muted)' }}>{body}</p>
                 </li>
               ))}
             </ol>
@@ -107,10 +107,10 @@ export default function HomePage() {
         <section className="px-6 py-24" aria-labelledby="all-numbers" style={{ borderTop: '1px solid var(--color-border)' }}>
           <div className="mx-auto max-w-6xl">
             <p className="eyebrow mb-4 justify-center">All numbers</p>
-            <h2 id="all-numbers" className="mb-4 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="all-numbers" className="mb-4 text-center" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               All life path numbers
             </h2>
-            <p className="mx-auto mb-16 max-w-xl text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, color: 'var(--color-faint)' }}>
+            <p className="mx-auto mb-16 max-w-xl text-center" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
               Select any number to read its full profile: archetype, description, strengths, and challenges.
             </p>
             <NumberGrid />
@@ -126,7 +126,7 @@ export default function HomePage() {
         <section className="px-6 py-24" aria-labelledby="faq" style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
           <div className="mx-auto max-w-3xl">
             <p className="eyebrow mb-4">Frequently asked questions</p>
-            <h2 id="faq" className="mb-12" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+            <h2 id="faq" className="mb-12" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               Common questions
             </h2>
             <FAQ />

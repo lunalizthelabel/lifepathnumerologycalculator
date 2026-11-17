@@ -88,13 +88,13 @@ export default function DisclaimerPage() {
       {/* Header */}
       <section className="px-6 py-20" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
         <div className="mx-auto max-w-3xl">
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 'var(--fw-400)' }}>
             Legal
           </p>
-          <h1 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+          <h1 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
             Disclaimer
           </h1>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 400, color: 'var(--color-faint)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
             Last updated: {LAST_UPDATED}
           </p>
         </div>
@@ -103,7 +103,7 @@ export default function DisclaimerPage() {
       {/* Intro */}
       <section className="px-6 py-12" style={{ borderBottom: '1px solid var(--color-border)' }}>
         <div className="mx-auto max-w-3xl">
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
             By using Life Path Numerology Calculator you agree to the terms set out in this disclaimer. Please
             read it carefully before using any content or results provided on this site. If you do
             not agree with any part of this disclaimer, please do not use this website.
@@ -116,10 +116,10 @@ export default function DisclaimerPage() {
         <div className="mx-auto max-w-3xl space-y-12">
           {sections.map(({ id, heading, body }) => (
             <section key={id} id={id} className="scroll-mt-28 pt-10" style={{ borderTop: '1px solid var(--color-border)' }}>
-              <h2 className="mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>{heading}</h2>
+              <h2 className="mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>{heading}</h2>
               <div className="space-y-4">
                 {body.split('\n\n').map((para, i) => (
-                  <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+                  <p key={i} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
                     {para}
                   </p>
                 ))}

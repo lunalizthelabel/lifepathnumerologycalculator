@@ -15,10 +15,10 @@ export default function AboutPage() {
     <main className="pt-24">
       <section className="px-6 py-20" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
         <div className="mx-auto max-w-3xl">
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 'var(--fw-400)' }}>
             About
           </p>
-          <h1 className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)', lineHeight: 1.1 }}>
+          <h1 className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)', lineHeight: 1.1 }}>
             Numerology without the mysticism
           </h1>
           {[
@@ -27,7 +27,7 @@ export default function AboutPage() {
             `The calculation method we use is grounded in classical Pythagorean numerology, as codified and expanded by researchers including Dan Millman and Matthew Oliver Goodwin. All digit reductions preserve Master Numbers (11, 22, 33) rather than reducing them further, a distinction that matters for roughly 10% of people who calculate their life path number.`,
             `The site offers a free life path calculator with your personal year number. For those who want to go deeper, there is a full personal report with a detailed written analysis based on your date of birth.`,
           ].map((text, i) => (
-            <p key={i} className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+            <p key={i} className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
               {text}
             </p>
           ))}
@@ -37,16 +37,16 @@ export default function AboutPage() {
       {/* Contact */}
       <section id="contact" className="px-6 py-16" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-raised)', scrollMarginTop: 84 }}>
         <div className="mx-auto max-w-3xl">
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 'var(--fw-400)' }}>
             Contact
           </p>
-          <h2 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+          <h2 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
             Get in touch
           </h2>
-          <p className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+          <p className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
             Questions about the calculator, your report or a payment? Send us an email and we will do our best to reply within 5 business days.
           </p>
-          <dl style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.8, color: 'var(--color-body)' }}>
+          <dl style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-14)', lineHeight: 1.8, color: 'var(--color-body)' }}>
             <div className="flex gap-4">
               <dt style={{ width: 64, color: 'var(--color-muted)' }}>Name</dt>
               <dd>Life Path Numerology Calculator</dd>
@@ -69,7 +69,7 @@ export default function AboutPage() {
 
       <section className="px-6 py-16" style={{ background: 'var(--color-bg)' }}>
         <div className="mx-auto max-w-3xl">
-          <h2 className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' }}>
+          <h2 className="mb-8" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
             Start with your life path number
           </h2>
           <Link
@@ -79,11 +79,11 @@ export default function AboutPage() {
               background: 'var(--color-ink)',
               color: 'var(--color-bg)',
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: 10,
+              fontSize: 'var(--fs-10)',
               letterSpacing: '3px',
               textTransform: 'uppercase',
               padding: '14px 32px',
-              fontWeight: 400,
+              fontWeight: 'var(--fw-400)',
               transition: 'background 0.2s',
             }}
           >

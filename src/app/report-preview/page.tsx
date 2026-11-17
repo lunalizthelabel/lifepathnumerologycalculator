@@ -22,10 +22,10 @@ export default function ReportPreviewIndex() {
         <ul style={{ marginTop: 40, listStyle: 'none', padding: 0 }}>
           {Object.keys(REPORT_FIXTURES).map((name) => (
             <li key={name} style={{ borderTop: '1px solid var(--color-border)', padding: '20px 0' }}>
-              <Link href={`/report-preview/${name}`} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 26, color: 'var(--color-deep)' }}>
+              <Link href={`/report-preview/${name}`} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-26)', color: 'var(--color-deep)' }}>
                 {name}
               </Link>
-              <p style={{ fontSize: 16, margin: 0 }}>{NOTES[name]}</p>
+              <p style={{ fontSize: 'var(--fs-16)', margin: 0 }}>{NOTES[name]}</p>
             </li>
           ))}
         </ul>

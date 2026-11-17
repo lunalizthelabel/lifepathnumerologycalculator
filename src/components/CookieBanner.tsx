@@ -60,7 +60,7 @@ export default function CookieBanner() {
             aria-label="Cookie consent"
           >
             <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-2xl text-sm leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, color: 'var(--color-muted)' }}>
+              <p className="max-w-2xl text-sm leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 'var(--fw-400)', color: 'var(--color-muted)' }}>
                 We use Google Analytics to understand how visitors use this site. No personal data is
                 sold or shared with third parties. You can read more in our{' '}
                 <Link
@@ -74,7 +74,7 @@ export default function CookieBanner() {
               <button
                 onClick={accept}
                 className="shrink-0 px-8 py-2.5 text-sm uppercase tracking-widest transition-colors"
-                style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 400, border: '1px solid var(--color-accent)', color: 'var(--color-accent)', background: 'transparent', cursor: 'pointer' }}
+                style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 'var(--fw-400)', border: '1px solid var(--color-accent)', color: 'var(--color-accent)', background: 'transparent', cursor: 'pointer' }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--color-accent)'; (e.currentTarget as HTMLElement).style.color = 'var(--color-bg-raised)'; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)'; }}
               >

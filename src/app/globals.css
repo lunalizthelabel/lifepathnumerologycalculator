@@ -36,10 +36,63 @@
   --color-on-dark:     #F3EDE2;
   --color-on-dark-muted: #BBA88E;
 
+  /* ── Type tokens. Inline styles use fontSize: 'var(--fs-17)' etc. so that
+     phones can get larger, heavier text (see the media query below). ── */
+  --fs-9: 9px;
+  --fs-10: 10px;
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-15: 15px;
+  --fs-16: 16px;
+  --fs-17: 17px;
+  --fs-18: 18px;
+  --fs-19: 19px;
+  --fs-20: 20px;
+  --fs-21: 21px;
+  --fs-22: 22px;
+  --fs-24: 24px;
+  --fs-26: 26px;
+  --fs-28: 28px;
+  --fs-30: 30px;
+  --fs-36: 36px;
+  --fs-48: 48px;
+  --fs-72: 72px;
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+
   /* legacy aliases kept for report page / canvas */
   --bg: #F7F4EF;
   --fg: #1E1A16;
   --gold: #C17F5A;
+}
+
+/* Phones: slightly larger and heavier text for readability. */
+@media (max-width: 640px) {
+  :root {
+    --fs-9: 11px;
+    --fs-10: 12px;
+    --fs-11: 13px;
+    --fs-12: 13.5px;
+    --fs-13: 14.5px;
+    --fs-14: 15.5px;
+    --fs-15: 16.5px;
+    --fs-16: 18px;
+    --fs-17: 19px;
+    --fs-18: 20px;
+    --fs-19: 21px;
+    --fs-20: 22px;
+    --fs-21: 23px;
+    --fs-22: 24px;
+    --fs-24: 25px;
+    --fs-26: 27px;
+    --fs-28: 29px;
+    --fs-30: 31px;
+    --fw-400: 500;
+    --fw-500: 600;
+  }
 }
 
 @theme inline {
@@ -58,13 +111,15 @@ body {
   background: var(--color-bg);
   color: var(--color-body);
   font-family: 'DM Sans', var(--font-dm-sans), system-ui, sans-serif;
-  font-weight: 400;
+  font-weight: var(--fw-400);
+  /* Cormorant's default old-style numerals make "1" look like the letter "I". */
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
   font-family: 'Cormorant Garamond', var(--font-cormorant), serif;
-  font-weight: 400;
+  font-weight: var(--fw-400);
   color: var(--color-ink);
   line-height: 1.15;
 }
@@ -75,8 +130,8 @@ h3 { font-size: clamp(18px, 2.5vw, 24px); }
 
 p {
   font-family: 'Cormorant Garamond', var(--font-cormorant), serif;
-  font-size: 17px;
-  font-weight: 400;
+  font-size: var(--fs-17);
+  font-weight: var(--fw-400);
   line-height: 1.85;
   color: var(--color-body);
 }
@@ -84,8 +139,8 @@ p {
 /* UI text utility */
 .ui-text {
   font-family: 'DM Sans', var(--font-dm-sans), sans-serif;
-  font-size: 11px;
-  font-weight: 400;
+  font-size: var(--fs-11);
+  font-weight: var(--fw-400);
   letter-spacing: 3px;
   text-transform: uppercase;
 }
@@ -93,8 +148,8 @@ p {
 /* Section eyebrow label */
 .eyebrow {
   font-family: 'DM Sans', var(--font-dm-sans), sans-serif;
-  font-size: 10px;
-  font-weight: 400;
+  font-size: var(--fs-10);
+  font-weight: var(--fw-400);
   letter-spacing: 5px;
   color: var(--color-accent);
   text-transform: uppercase;
@@ -119,11 +174,11 @@ p {
   border: 1px solid var(--color-border);
   padding: 12px 28px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
+  font-size: var(--fs-10);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--color-muted);
-  font-weight: 400;
+  font-weight: var(--fw-400);
   transition: border-color 0.2s, color 0.2s;
   display: inline-block;
   text-decoration: none;

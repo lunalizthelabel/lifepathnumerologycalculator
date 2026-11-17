@@ -12,11 +12,11 @@ const LINKS = [
 
 const linkStyle = {
   fontFamily: "'DM Sans', sans-serif",
-  fontSize: 10,
+  fontSize: 'var(--fs-10)',
   letterSpacing: '4px',
   textTransform: 'uppercase' as const,
   color: 'var(--color-muted)',
-  fontWeight: 400,
+  fontWeight: 'var(--fw-400)',
 };
 
 export default function Navigation() {
@@ -39,7 +39,7 @@ export default function Navigation() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 400, color: 'var(--color-ink)', letterSpacing: '0.5px' }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)', letterSpacing: '0.5px' }}
           className="transition-opacity hover:opacity-60"
         >
           Life Path Numerology
@@ -94,7 +94,7 @@ export default function Navigation() {
             <li key={href} className="border-b border-[var(--color-border-soft)] last:border-b-0">
               <Link
                 href={href}
-                style={{ ...linkStyle, fontSize: 11, color: pathname === href ? 'var(--color-accent)' : 'var(--color-muted)' }}
+                style={{ ...linkStyle, fontSize: 'var(--fs-11)', color: pathname === href ? 'var(--color-accent)' : 'var(--color-muted)' }}
                 className="block py-4"
                 aria-current={pathname === href ? 'page' : undefined}
                 onClick={() => setOpen(false)}

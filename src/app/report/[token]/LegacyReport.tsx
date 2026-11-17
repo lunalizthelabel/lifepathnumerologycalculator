@@ -102,15 +102,15 @@ function MarkdownBlock({ children, pClass = 'rw-p' }: { children: string; pClass
     <ReactMarkdown
       components={{
         p: ({ children }) => <p className={pClass}>{children}</p>,
-        strong: ({ children }) => <strong style={{ fontWeight: 500, color: 'inherit' }}>{children}</strong>,
+        strong: ({ children }) => <strong style={{ fontWeight: 'var(--fw-500)', color: 'inherit' }}>{children}</strong>,
         em: ({ children }) => <em className="rw-em">{children}</em>,
         blockquote: ({ children }) => (
           <div className="rw-callout">
             <div className="rw-callout-text">{children}</div>
           </div>
         ),
-        h3: ({ children }) => <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#C17F5A', margin: '20px 0 8px' }}>{children}</p>,
-        h4: ({ children }) => <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: '#C17F5A', margin: '20px 0 8px' }}>{children}</p>,
+        h3: ({ children }) => <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'var(--fs-10)', letterSpacing: '2px', textTransform: 'uppercase', color: '#C17F5A', margin: '20px 0 8px' }}>{children}</p>,
+        h4: ({ children }) => <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 'var(--fs-10)', letterSpacing: '2px', textTransform: 'uppercase', color: '#C17F5A', margin: '20px 0 8px' }}>{children}</p>,
         ul: ({ children }) => <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 16px' }}>{children}</ul>,
         li: ({ children }) => <li className="rw-p" style={{ paddingLeft: 16, position: 'relative' }}>{children}</li>,
       }}

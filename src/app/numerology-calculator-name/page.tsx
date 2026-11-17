@@ -49,9 +49,9 @@ const PYTHAGOREAN = [
   { letters: 'I, R', value: 9 },
 ];
 
-const pStyle = { fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' } as const;
-const h2Style = { fontFamily: "'Cormorant Garamond', serif", fontWeight: 400, color: 'var(--color-ink)' } as const;
-const labelStyle = { fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'var(--color-accent)', fontWeight: 400 };
+const pStyle = { fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' } as const;
+const h2Style = { fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' } as const;
+const labelStyle = { fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase' as const, color: 'var(--color-accent)', fontWeight: 'var(--fw-400)' };
 
 export default function NameCalculatorPage() {
   return (
@@ -78,13 +78,13 @@ export default function NameCalculatorPage() {
           <div className="mx-auto flex max-w-3xl flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="mb-2" style={labelStyle}>Coming soon</p>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, color: 'var(--color-body)', lineHeight: 1.7 }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', color: 'var(--color-body)', lineHeight: 1.7 }}>
                 The name numerology calculator is in development. In the meantime, calculate your life path number instantly.
               </p>
             </div>
             <Link
               href="/life-path-number-calculator"
-              style={{ flexShrink: 0, display: 'inline-block', background: 'var(--color-ink)', color: 'var(--color-bg)', fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', padding: '12px 24px', fontWeight: 400 }}
+              style={{ flexShrink: 0, display: 'inline-block', background: 'var(--color-ink)', color: 'var(--color-bg)', fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '3px', textTransform: 'uppercase', padding: '12px 24px', fontWeight: 'var(--fw-400)' }}
             >
               Life path calculator
             </Link>
@@ -97,9 +97,9 @@ export default function NameCalculatorPage() {
             <h2 id="what-is-name" className="mb-8" style={h2Style}>What is a numerology calculator by name?</h2>
             <div className="space-y-4">
               {[
-                <>A numerology calculator by name converts the letters of your full birth name into numerical values using the Pythagorean alphabet chart, then reduces the total to a core number. The two most significant results are the <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>Expression number</strong> and the <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>Soul Urge number</strong>.</>,
+                <>A numerology calculator by name converts the letters of your full birth name into numerical values using the Pythagorean alphabet chart, then reduces the total to a core number. The two most significant results are the <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>Expression number</strong> and the <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>Soul Urge number</strong>.</>,
                 `Where your life path number (calculated from your date of birth) describes the overall journey and purpose of your life, your name numbers describe the qualities and desires you bring to that journey. Together, the three core numbers (life path, Expression, and Soul Urge) form the foundation of a complete numerology reading.`,
-                <>The name used in the calculation is always your <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>full birth name</strong> as it appears on your birth certificate, including middle names. Married names, nicknames, and shortened names are not used in classical numerology, as the birth name is considered the energetically significant one.</>,
+                <>The name used in the calculation is always your <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>full birth name</strong> as it appears on your birth certificate, including middle names. Married names, nicknames, and shortened names are not used in classical numerology, as the birth name is considered the energetically significant one.</>,
               ].map((text, i) => <p key={i} style={pStyle}>{text}</p>)}
             </div>
           </article>
@@ -111,7 +111,7 @@ export default function NameCalculatorPage() {
             <h2 id="expression" className="mb-8" style={h2Style}>The Expression number</h2>
             <div className="space-y-4">
               {[
-                <>Your <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>Expression number</strong> (also known as the Destiny number) is calculated from every letter of your full birth name. It reveals the natural talents, abilities, and potential you carry into this lifetime: the full range of what you are capable of expressing in the world.</>,
+                <>Your <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>Expression number</strong> (also known as the Destiny number) is calculated from every letter of your full birth name. It reveals the natural talents, abilities, and potential you carry into this lifetime: the full range of what you are capable of expressing in the world.</>,
                 `Each letter in the Pythagorean system is assigned a value from 1 to 9. All values are summed across your complete name and reduced to a single digit or Master Number (11, 22, or 33). The result describes not what you have achieved, but what you are naturally equipped to become.`,
               ].map((text, i) => <p key={i} style={pStyle}>{text}</p>)}
             </div>
@@ -124,7 +124,7 @@ export default function NameCalculatorPage() {
             <h2 id="soul-urge" className="mb-8" style={h2Style}>The Soul Urge number</h2>
             <div className="space-y-4">
               {[
-                <>Your <strong style={{ fontWeight: 500, color: 'var(--color-ink)' }}>Soul Urge number</strong> (also called the Heart&rsquo;s Desire number) is calculated from the vowels only in your full birth name. The vowels in numerology are A, E, I, O, U, and in some traditions, Y when it functions as a vowel sound.</>,
+                <>Your <strong style={{ fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>Soul Urge number</strong> (also called the Heart&rsquo;s Desire number) is calculated from the vowels only in your full birth name. The vowels in numerology are A, E, I, O, U, and in some traditions, Y when it functions as a vowel sound.</>,
                 `Because vowels carry the sound and breath of a name, they are considered to reflect the inner self: the private motivations, deepest desires, and emotional needs that drive your choices beneath the surface. Your Soul Urge number often explains the gap between what you show the world and what you truly want from it.`,
               ].map((text, i) => <p key={i} style={pStyle}>{text}</p>)}
             </div>
@@ -141,12 +141,12 @@ export default function NameCalculatorPage() {
             <div className="grid grid-cols-3 sm:grid-cols-9" style={{ gap: 1, background: 'var(--color-border)' }}>
               {PYTHAGOREAN.map(({ value, letters }) => (
                 <div key={value} className="p-4 text-center" style={{ background: 'var(--color-bg-muted)' }}>
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, color: 'var(--color-accent)', marginBottom: 6 }}>{value}</p>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-muted)', lineHeight: 1.4 }}>{letters}</p>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-24)', color: 'var(--color-accent)', marginBottom: 6 }}>{value}</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-muted)', lineHeight: 1.4 }}>{letters}</p>
                 </div>
               ))}
             </div>
-            <p className="mt-4" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
+            <p className="mt-4" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
               Example: ANNA = A(1) + N(5) + N(5) + A(1) = 12 → 1+2 = 3. Expression number: 3.
             </p>
           </div>
@@ -166,8 +166,8 @@ export default function NameCalculatorPage() {
                   <dl className="space-y-3">
                     {[{ dt: 'Calculated from', dd: source }, { dt: 'Reveals', dd: reveals }, { dt: 'Permanence', dd: fixed }].map(({ dt, dd }) => (
                       <div key={dt}>
-                        <dt style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 400, color: 'var(--color-faint)', marginBottom: 2 }}>{dt}</dt>
-                        <dd style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 400, color: 'var(--color-body)' }}>{dd}</dd>
+                        <dt style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', marginBottom: 2 }}>{dt}</dt>
+                        <dd style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', color: 'var(--color-body)' }}>{dd}</dd>
                       </div>
                     ))}
                   </dl>
@@ -196,8 +196,8 @@ export default function NameCalculatorPage() {
               ].map(({ q, a }) => (
                 <details key={q} className="group py-6" style={{ borderBottom: '1px solid var(--color-border)' }}>
                   <summary className="flex cursor-pointer list-none items-start justify-between gap-6">
-                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 19, fontWeight: 400, color: 'var(--color-ink)' }}>{q}</span>
-                    <span style={{ flexShrink: 0, fontFamily: "'DM Sans', sans-serif", fontSize: 18, color: 'var(--color-accent)', marginTop: 2 }}>+</span>
+                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-19)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>{q}</span>
+                    <span style={{ flexShrink: 0, fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-18)', color: 'var(--color-accent)', marginTop: 2 }}>+</span>
                   </summary>
                   <p className="mt-4" style={pStyle}>{a}</p>
                 </details>
@@ -215,7 +215,7 @@ export default function NameCalculatorPage() {
             </p>
             <Link
               href="/life-path-number-calculator"
-              style={{ display: 'inline-block', background: 'var(--color-ink)', color: 'var(--color-bg)', fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase', padding: '14px 32px', fontWeight: 400 }}
+              style={{ display: 'inline-block', background: 'var(--color-ink)', color: 'var(--color-bg)', fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '3px', textTransform: 'uppercase', padding: '14px 32px', fontWeight: 'var(--fw-400)' }}
             >
               Free life path calculator
             </Link>

@@ -66,8 +66,8 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
     borderRadius: 0,
     padding: '12px 16px',
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: 14,
-    fontWeight: 400,
+    fontSize: 'var(--fs-14)',
+    fontWeight: 'var(--fw-400)',
     color: 'var(--color-ink)',
     width: '100%',
     outline: 'none',
@@ -88,7 +88,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
         onBlur={(e) => { e.target.style.borderColor = 'var(--color-border)'; }}
       />
       {error && (
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: '#c0392b' }}>{error}</p>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', color: '#c0392b' }}>{error}</p>
       )}
 
       {/* Disclaimer checkbox */}
@@ -100,7 +100,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           disabled={loading}
           style={{ marginTop: 2, width: 16, height: 16, flexShrink: 0, accentColor: 'var(--color-accent)', cursor: 'pointer' }}
         />
-        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, lineHeight: 1.6, color: 'var(--color-faint)' }}>
+        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', lineHeight: 1.6, color: 'var(--color-faint)' }}>
           I understand this report is for entertainment and self-reflection purposes only.
         </span>
       </label>
@@ -126,7 +126,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           <label
             htmlFor={waiverId}
             className="cursor-pointer"
-            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, lineHeight: 1.6, color: 'var(--color-faint)' }}
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', lineHeight: 1.6, color: 'var(--color-faint)' }}
           >
             {WITHDRAWAL_CONSENT_TEXT}
           </label>
@@ -135,12 +135,12 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           <p
             id={waiverErrorId}
             role="alert"
-            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, color: '#c0392b', marginTop: 6, marginLeft: 28 }}
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', color: '#c0392b', marginTop: 6, marginLeft: 28 }}
           >
             Please tick this box to continue. Your report is delivered immediately, so we need your consent first.
           </p>
         )}
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)', marginTop: 6, marginLeft: 28 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', marginTop: 6, marginLeft: 28 }}>
           <a href="/disclaimer#right-of-withdrawal" target="_blank" rel="noopener" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
             About your right of withdrawal
           </a>
@@ -156,14 +156,14 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           background: notReady ? 'var(--color-sand)' : 'var(--color-ink)',
           color: notReady ? 'var(--color-deep-body)' : 'var(--color-bg-raised)',
           fontFamily: "'DM Sans', sans-serif",
-          fontSize: 15,
+          fontSize: 'var(--fs-15)',
           letterSpacing: '1.5px',
           textTransform: 'uppercase',
           padding: '18px 24px',
           border: 'none',
           borderRadius: 0,
           cursor: notReady ? 'not-allowed' : 'pointer',
-          fontWeight: 600,
+          fontWeight: 'var(--fw-600)',
           lineHeight: 1.3,
           transition: 'background 0.2s, color 0.2s',
           width: '100%',
@@ -172,7 +172,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
         {loading ? 'Redirecting...' : `Get Full Report · ${price}`}
       </button>
 
-      <p style={{ textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
+      <p style={{ textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
         Secure payment via Stripe &middot; Instant delivery after purchase
         <br />
         How we handle your data:{' '}

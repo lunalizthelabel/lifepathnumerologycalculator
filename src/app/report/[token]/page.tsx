@@ -29,7 +29,7 @@ export default async function ReportPage({ params }: { params: Promise<{ token: 
     const gone = !purchase && !lookupFailed
     return (
       <main className="flex min-h-screen items-center justify-center px-6 text-center" style={{ background: 'var(--color-paper)' }}>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, lineHeight: 1.7, color: 'var(--color-deep-body)', maxWidth: 440 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-14)', lineHeight: 1.7, color: 'var(--color-deep-body)', maxWidth: 440 }}>
           {gone
             ? `This report is not available. Reports stay online for 12 months after purchase and are then deleted. If you think this is a mistake, email info@lunalizbv.nl.`
             : 'Your report is being prepared…'}

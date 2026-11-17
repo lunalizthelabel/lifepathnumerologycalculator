@@ -31,17 +31,17 @@ export default function NumberGrid() {
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-raised)'; }}
             >
               <div className="mb-3 flex items-end gap-2">
-                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 36, color: 'var(--color-accent)', lineHeight: 1 }}>
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-36)', color: 'var(--color-accent)', lineHeight: 1 }}>
                   {num}
                 </span>
                 {isMaster && (
-                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', marginBottom: 4 }}>
+                  <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', marginBottom: 4 }}>
                     Master
                   </span>
                 )}
               </div>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 400, color: 'var(--color-ink)', marginBottom: 4 }}>{m.name}</p>
-              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 400, color: 'var(--color-faint)', lineHeight: 1.5 }}>{m.tagline}</p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)', marginBottom: 4 }}>{m.name}</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', lineHeight: 1.5 }}>{m.tagline}</p>
             </motion.button>
           );
         })}
@@ -67,43 +67,43 @@ export default function NumberGrid() {
               <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
                 <div className="lg:col-span-1">
                   <div className="flex items-end gap-3">
-                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 72, color: 'var(--color-accent)', lineHeight: 1 }}>{num}</span>
+                    <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-72)', color: 'var(--color-accent)', lineHeight: 1 }}>{num}</span>
                     {isMaster && (
-                      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', marginBottom: 8 }}>
+                      <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-faint)', marginBottom: 8 }}>
                         Master
                       </span>
                     )}
                   </div>
-                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 400, fontStyle: 'italic', color: 'var(--color-ink)', marginTop: 8 }}>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-28)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', marginTop: 8 }}>
                     {m.name}
                   </h3>
-                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, color: 'var(--color-faint)', marginTop: 6 }}>{m.tagline}</p>
+                  <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', marginTop: 6 }}>{m.tagline}</p>
                 </div>
 
                 <div className="lg:col-span-2">
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)', marginBottom: 32 }}>
+                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)', marginBottom: 32 }}>
                     {m.description}
                   </p>
                   <div className="grid grid-cols-2 gap-6">
                     <div>
-                      <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12 }}>
+                      <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12 }}>
                         Strengths
                       </h4>
                       <ul className="space-y-1">
                         {m.strengths.map((s) => (
-                          <li key={s} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 400, color: 'var(--color-body)' }}>
+                          <li key={s} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', color: 'var(--color-body)' }}>
                             {s}
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div>
-                      <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12 }}>
+                      <h4 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12 }}>
                         Challenges
                       </h4>
                       <ul className="space-y-1">
                         {m.challenges.map((c) => (
-                          <li key={c} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 400, color: 'var(--color-body)' }}>
+                          <li key={c} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', color: 'var(--color-body)' }}>
                             {c}
                           </li>
                         ))}

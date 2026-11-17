@@ -40,8 +40,8 @@ export default function LifePathCalculator({ onResult }: Props) {
             borderRadius: 0,
             padding: '12px 16px',
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: 14,
-            fontWeight: 400,
+            fontSize: 'var(--fs-14)',
+            fontWeight: 'var(--fw-400)',
             color: 'var(--color-ink)',
             width: '100%',
             outline: 'none',
@@ -59,14 +59,14 @@ export default function LifePathCalculator({ onResult }: Props) {
           background: 'var(--color-accent)',
           color: '#FDFAF6',
           fontFamily: "'DM Sans', sans-serif",
-          fontSize: 10,
+          fontSize: 'var(--fs-10)',
           letterSpacing: '3px',
           textTransform: 'uppercase',
           padding: '14px 32px',
           border: 'none',
           borderRadius: 0,
           cursor: 'pointer',
-          fontWeight: 400,
+          fontWeight: 'var(--fw-400)',
           transition: 'background 0.2s',
         }}
         onMouseEnter={(e) => { (e.target as HTMLElement).style.background = 'var(--color-accent-deep)'; }}
@@ -74,7 +74,7 @@ export default function LifePathCalculator({ onResult }: Props) {
       >
         Calculate my life path
       </motion.button>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)' }}>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
         By calculating you agree to our{' '}
         <Link href="/privacy" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>privacy policy</Link>
         {' '}and{' '}

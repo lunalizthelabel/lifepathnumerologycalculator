@@ -225,7 +225,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
     >
       {/* ── Primary result ── */}
       <div className="mb-10 text-center">
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 400 }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 'var(--fw-400)' }}>
           Born {formatBirthDate(birthDate)}
           {isMaster && <span style={{ marginLeft: 12 }}> · Master Number</span>}
         </p>
@@ -241,7 +241,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 400, fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 24 }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 24 }}
         >
           {meaning.name}
         </motion.h2>
@@ -251,7 +251,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 19, fontWeight: 400, fontStyle: 'italic', color: 'var(--color-accent-deep)', borderLeft: '2px solid var(--color-accent)', paddingLeft: 20, textAlign: 'left', maxWidth: 560, margin: '0 auto 24px', lineHeight: 1.75 }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-19)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-accent-deep)', borderLeft: '2px solid var(--color-accent)', paddingLeft: 20, textAlign: 'left', maxWidth: 560, margin: '0 auto 24px', lineHeight: 1.75 }}
         >
           {meaning.hook}
         </motion.p>
@@ -260,7 +260,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)', maxWidth: 560, margin: '0 auto' }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)', maxWidth: 560, margin: '0 auto' }}
         >
           {meaning.description}
         </motion.p>
@@ -275,22 +275,22 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         style={{ border: '1px solid var(--color-border)', gap: 1, background: 'var(--color-border)' }}
       >
         <div style={{ background: 'var(--color-bg-raised)', padding: 24 }}>
-          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
             Strengths
           </h3>
           <ul className="space-y-2">
             {meaning.strengths.map((s) => (
-              <li key={s} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 400, color: 'var(--color-body)' }}>{s}</li>
+              <li key={s} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', color: 'var(--color-body)' }}>{s}</li>
             ))}
           </ul>
         </div>
         <div style={{ background: 'var(--color-bg-raised)', padding: 24 }}>
-          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
+          <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
             Challenges
           </h3>
           <ul className="space-y-2">
             {meaning.challenges.map((c) => (
-              <li key={c} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 400, color: 'var(--color-body)' }}>{c}</li>
+              <li key={c} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', color: 'var(--color-body)' }}>{c}</li>
             ))}
           </ul>
         </div>
@@ -305,15 +305,15 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-raised)' }}
       >
         <div className="flex items-start gap-6 p-6" style={{ borderBottom: '1px solid var(--color-border)' }}>
-          <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 48, lineHeight: 1, color: 'var(--color-accent)', opacity: 0.6 }}>{personalYear}</span>
+          <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-48)', lineHeight: 1, color: 'var(--color-accent)', opacity: 0.6 }}>{personalYear}</span>
           <div>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6, fontWeight: 400 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 6, fontWeight: 'var(--fw-400)' }}>
               Personal Year {year}
             </p>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 400, color: 'var(--color-ink)', marginBottom: 4 }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-22)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)', marginBottom: 4 }}>
               {pyMeaning.name}: {pyTheme?.theme}
             </p>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 400, color: 'var(--color-faint)' }}>{pyMeaning.tagline}</p>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>{pyMeaning.tagline}</p>
           </div>
         </div>
         {[
@@ -322,10 +322,10 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           { label: 'Watch for', text: pyTheme?.watch ?? '' },
         ].map(({ label, text }, i, arr) => (
           <div key={label} className="px-6 py-5" style={{ borderBottom: i < arr.length - 1 ? '1px solid var(--color-border)' : 'none' }}>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.6, marginBottom: 8, fontWeight: 400 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.6, marginBottom: 8, fontWeight: 'var(--fw-400)' }}>
               {label}
             </p>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-body)' }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
               {text}
             </p>
           </div>
@@ -348,9 +348,9 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
             border: '1px solid var(--color-border)',
             color: 'var(--color-muted)',
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: 10, letterSpacing: '3px', textTransform: 'uppercase',
+            fontSize: 'var(--fs-10)', letterSpacing: '3px', textTransform: 'uppercase',
             padding: '12px 28px', borderRadius: 0, cursor: downloading ? 'wait' : 'pointer',
-            fontWeight: 400, transition: 'all 0.2s', opacity: downloading ? 0.5 : 1,
+            fontWeight: 'var(--fw-400)', transition: 'all 0.2s', opacity: downloading ? 0.5 : 1,
           }}
           onMouseEnter={(e) => {
             (e.currentTarget as HTMLElement).style.borderColor = 'var(--color-accent)';
@@ -383,7 +383,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           className="transition-opacity hover:opacity-70"
           style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontFamily: "'Cormorant Garamond', serif", fontSize: 21, fontStyle: 'italic', fontWeight: 500,
+            fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-21)', fontStyle: 'italic', fontWeight: 'var(--fw-500)',
             color: 'var(--color-accent-deep)', textDecoration: 'underline', textUnderlineOffset: 5, textDecorationThickness: 1,
           }}
         >
@@ -402,10 +402,10 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         className="mb-10 text-center"
         style={{ borderTop: '1px solid var(--color-border)', paddingTop: 24 }}
       >
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, lineHeight: 1.8, color: 'var(--color-disclaimer)', maxWidth: 520, margin: '0 auto 8px' }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', lineHeight: 1.8, color: 'var(--color-disclaimer)', maxWidth: 520, margin: '0 auto 8px' }}>
           {DISCLAIMER}
         </p>
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 400, color: 'var(--color-border)' }}>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-400)', color: 'var(--color-border)' }}>
           &copy; Life Path Numerology Calculator. For personal use only.
         </p>
       </motion.div>
@@ -418,13 +418,13 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
       >
         {/* Hook */}
         <div className="mb-px text-center px-8 py-7" style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12, fontWeight: 400 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12, fontWeight: 'var(--fw-400)' }}>
             What you just received
           </p>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 400, fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 8 }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 8 }}>
             Your Life Path {lifePath}: the <em>foundation</em>.
           </p>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, lineHeight: 1.65, color: 'var(--color-muted)', maxWidth: 420, margin: '0 auto' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', lineHeight: 1.65, color: 'var(--color-muted)', maxWidth: 420, margin: '0 auto' }}>
             It describes the shape of your journey. But it cannot tell you where you are <em>right now</em>,
             what is coming, or why this specific year feels the way it does.
           </p>
@@ -433,7 +433,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         {/* Divider with label */}
         <div className="flex items-center gap-4 py-6">
           <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 400 }}>The full picture</p>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 'var(--fw-400)' }}>The full picture</p>
           <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
         </div>
 
@@ -448,11 +448,11 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           ].map(({ number, title, body, tag }) => (
             <div key={number} style={{ background: 'var(--color-bg-raised)' }}>
               <div className="flex items-baseline gap-4 px-6 py-3" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
-                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 11, color: 'var(--color-accent)', letterSpacing: '2px', opacity: 0.6 }}>{number}</span>
-                <span style={{ flex: 1, fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, color: 'var(--color-ink)' }}>{title}</span>
-                <span className="hidden sm:block" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.5 }}>{tag}</span>
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-11)', color: 'var(--color-accent)', letterSpacing: '2px', opacity: 0.6 }}>{number}</span>
+                <span style={{ flex: 1, fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>{title}</span>
+                <span className="hidden sm:block" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.5 }}>{tag}</span>
               </div>
-              <p className="px-6 py-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 400, lineHeight: 1.8, color: 'var(--color-muted)' }}>
+              <p className="px-6 py-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', lineHeight: 1.8, color: 'var(--color-muted)' }}>
                 {body}
               </p>
             </div>
@@ -460,8 +460,8 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         </div>
 
         {/* Social proof */}
-        <div className="mb-px flex items-center justify-center py-4" style={{ border: '1px solid var(--color-border)' }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 400, color: 'var(--color-faint)', letterSpacing: '0.05em' }}>
+        <div className="mb-px flex items-center justify-center px-5 py-4 text-center" style={{ border: '1px solid var(--color-border)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', letterSpacing: '0.05em' }}>
             2,000+ words &middot; Personalised to your exact birth date &middot; Ready in about 2 minutes
           </p>
         </div>
@@ -469,23 +469,23 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         {/* CTA block */}
         {/* Quote */}
         <div className="mb-px px-8 py-7" style={{ border: '1px solid var(--color-border)' }}>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 400, fontStyle: 'italic', color: 'var(--color-ink)', textAlign: 'center', maxWidth: 480, margin: '0 auto 6px', lineHeight: 1.6 }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', textAlign: 'center', maxWidth: 480, margin: '0 auto 6px', lineHeight: 1.6 }}>
             &ldquo;Most people spend years feeling slightly out of sync with their own life.
             Usually, the numbers explain exactly why.&rdquo;
           </p>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 400, color: 'var(--color-faint)', textAlign: 'center', letterSpacing: '3px', textTransform: 'uppercase' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', textAlign: 'center', letterSpacing: '3px', textTransform: 'uppercase' }}>
             From 2,300 readings
           </p>
         </div>
 
         <div id="full-report" className="px-6 py-10 sm:px-8" style={{ border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)', scrollMarginTop: 84 }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 500, color: 'var(--color-accent-deep)', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: 12 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-500)', color: 'var(--color-accent-deep)', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: 12 }}>
             Order here
           </p>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 30, fontWeight: 500, color: 'var(--color-ink)', textAlign: 'center', lineHeight: 1.2, marginBottom: 12 }}>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-30)', fontWeight: 'var(--fw-500)', color: 'var(--color-ink)', textAlign: 'center', lineHeight: 1.2, marginBottom: 12 }}>
             Your Full Numerology Report
           </h3>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 400, lineHeight: 1.65, color: 'var(--color-muted)', textAlign: 'center', maxWidth: 440, margin: '0 auto 28px' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-14)', fontWeight: 'var(--fw-400)', lineHeight: 1.65, color: 'var(--color-muted)', textAlign: 'center', maxWidth: 440, margin: '0 auto 28px' }}>
             A personal report of about 20 pages, written for your birth date. Enter your email below,
             pay securely, and read it online or download it as a PDF about 2 minutes later.
           </p>

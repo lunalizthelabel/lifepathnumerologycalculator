@@ -36,7 +36,7 @@ export default function FAQ() {
             onClick={() => setOpen(open === i ? null : i)}
             className="flex w-full items-start justify-between gap-6 py-6 text-left"
           >
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 19, fontWeight: 400, color: 'var(--color-ink)' }}>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-19)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
               {faq.q}
             </span>
             <span
@@ -44,7 +44,7 @@ export default function FAQ() {
                 marginTop: 2,
                 flexShrink: 0,
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: 18,
+                fontSize: 'var(--fs-18)',
                 color: 'var(--color-accent)',
                 transition: 'transform 0.3s',
                 transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)',
@@ -64,7 +64,7 @@ export default function FAQ() {
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden"
               >
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, fontWeight: 400, lineHeight: 1.85, color: 'var(--color-muted)', paddingBottom: 24 }}>
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)', paddingBottom: 24 }}>
                   {faq.a}
                 </p>
               </motion.div>
