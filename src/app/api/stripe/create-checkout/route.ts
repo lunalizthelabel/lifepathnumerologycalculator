@@ -35,8 +35,11 @@ export async function POST(request: NextRequest) {
   const origin = request.headers.get('origin') ?? process.env.NEXT_PUBLIC_BASE_URL ?? '';
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
+    // No payment_method_types: Stripe then offers every method enabled in the
+    // Stripe dashboard (cards, PayPal, iDEAL, ...) that fits the buyer and currency.
     mode: 'payment',
+    // Shows the "Add promotion code" field. Codes are managed in the Stripe dashboard.
+    allow_promotion_codes: true,
     customer_email: String(email),
     line_items: [
       {

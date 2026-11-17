@@ -5,6 +5,7 @@ const mocks = vi.hoisted(() => ({
   constructEvent: vi.fn(),
   retrieveSession: vi.fn(),
   createPurchase: vi.fn(),
+  getTokenBySessionId: vi.fn(),
   saveReportData: vi.fn(),
   generateLayer2Report: vi.fn(),
 }));
@@ -17,6 +18,7 @@ vi.mock('stripe', () => ({
 }));
 vi.mock('@/lib/db/purchases', () => ({
   createPurchase: mocks.createPurchase,
+  getTokenBySessionId: mocks.getTokenBySessionId,
   saveReportData: mocks.saveReportData,
 }));
 vi.mock('@/lib/numerology/generate', () => ({
@@ -46,9 +48,9 @@ function webhookRequest() {
   });
 }
 
-function givenSession(session: Record<string, unknown>) {
+function givenSession(session: Record<string, unknown>, type = 'checkout.session.completed') {
   mocks.constructEvent.mockReturnValue({
-    type: 'checkout.session.completed',
+    type,
     data: { object: { id: 'cs_test_1' } },
   });
   mocks.retrieveSession.mockResolvedValue({
@@ -64,6 +66,7 @@ describe('POST /api/stripe/webhook fulfilment guard', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     vi.spyOn(console, 'error').mockImplementation(() => {});
     mocks.generateLayer2Report.mockResolvedValue('# report');
+    mocks.getTokenBySessionId.mockResolvedValue(null);
   });
 
   it('skips fulfilment when consent metadata is missing', async () => {
@@ -109,6 +112,29 @@ describe('POST /api/stripe/webhook fulfilment guard', () => {
       })
     );
     expect(mocks.generateLayer2Report).toHaveBeenCalledOnce();
+  });
+
+  it('fulfils a free order paid fully with a promotion code', async () => {
+    givenSession({ payment_status: 'no_payment_required', metadata: { ...birthMeta, ...consentMeta } });
+    const res = await POST(webhookRequest());
+    expect(await res.json()).toMatchObject({ fulfilled: true });
+    expect(mocks.generateLayer2Report).toHaveBeenCalledOnce();
+  });
+
+  it('fulfils a delayed payment method once the payment succeeds', async () => {
+    givenSession({ payment_status: 'paid', metadata: { ...birthMeta, ...consentMeta } }, 'checkout.session.async_payment_succeeded');
+    const res = await POST(webhookRequest());
+    expect(await res.json()).toMatchObject({ fulfilled: true });
+    expect(mocks.createPurchase).toHaveBeenCalledOnce();
+  });
+
+  it('does not create a second report when Stripe repeats an event', async () => {
+    mocks.getTokenBySessionId.mockResolvedValue('existing-token');
+    givenSession({ payment_status: 'paid', metadata: { ...birthMeta, ...consentMeta } });
+    const res = await POST(webhookRequest());
+    expect(await res.json()).toMatchObject({ fulfilled: true, duplicate: true });
+    expect(mocks.createPurchase).not.toHaveBeenCalled();
+    expect(mocks.generateLayer2Report).not.toHaveBeenCalled();
   });
 
   it('rejects an invalid signature', async () => {

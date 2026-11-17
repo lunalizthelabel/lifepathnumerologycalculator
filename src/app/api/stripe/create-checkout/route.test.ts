@@ -101,4 +101,11 @@ describe('POST /api/stripe/create-checkout', () => {
     await POST(post({ ...validBody, withdrawalWaiverConsent: true }));
     expect(createSession.mock.calls[0][0].line_items).toEqual([{ price: 'price_test_123', quantity: 1 }]);
   });
+
+  it('offers all dashboard payment methods and the promotion code field', async () => {
+    await POST(post({ ...validBody, withdrawalWaiverConsent: true }));
+    const params = createSession.mock.calls[0][0];
+    expect(params.payment_method_types).toBeUndefined();
+    expect(params.allow_promotion_codes).toBe(true);
+  });
 });

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { createPurchase, saveReportData } from '@/lib/db/purchases';
+import { createPurchase, getTokenBySessionId, saveReportData } from '@/lib/db/purchases';
 import { generateLayer2Report } from '@/lib/numerology/generate';
 import { consentFromMetadata } from '@/lib/legal/withdrawalConsent';
 
@@ -22,15 +22,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
   }
 
-  if (event.type === 'checkout.session.completed') {
+  // `completed` covers cards, PayPal, iDEAL and free (100% discount) orders.
+  // `async_payment_succeeded` covers delayed methods such as bank debits, where
+  // `completed` arrives first with payment_status "unpaid".
+  if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
     const session = await stripe.checkout.sessions.retrieve(event.data.object.id);
     const meta = session.metadata ?? {};
 
     // Fulfilment guard: only deliver when payment succeeded AND consent was recorded.
     // Return 200 either way so Stripe doesn't keep retrying an event we chose to skip.
-    if (session.payment_status !== 'paid') {
+    // "no_payment_required" = the total was 0 after a 100% promotion code.
+    if (session.payment_status !== 'paid' && session.payment_status !== 'no_payment_required') {
       console.warn(`[webhook] Skipping fulfilment for ${session.id}: payment_status=${session.payment_status}`);
       return NextResponse.json({ received: true, fulfilled: false });
+    }
+    // Stripe can deliver an event more than once: never create a second report.
+    if (await getTokenBySessionId(session.id)) {
+      return NextResponse.json({ received: true, fulfilled: true, duplicate: true });
     }
     const consent = consentFromMetadata(meta);
     if (!consent) {
@@ -39,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     const reportToken = crypto.randomUUID();
-    const email = session.customer_email ?? meta.email ?? '';
+    const email = session.customer_email ?? session.customer_details?.email ?? meta.email ?? '';
 
     await createPurchase({
       reportToken,
