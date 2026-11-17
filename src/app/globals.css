@@ -112,8 +112,6 @@ body {
   color: var(--color-body);
   font-family: 'DM Sans', var(--font-dm-sans), system-ui, sans-serif;
   font-weight: var(--fw-400);
-  /* Cormorant's default old-style numerals make "1" look like the letter "I". */
-  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
 }
 

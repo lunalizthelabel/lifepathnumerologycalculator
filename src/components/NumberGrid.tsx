@@ -25,7 +25,7 @@ export default function NumberGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ delay: i * 0.04, duration: 0.5 }}
-              className="p-6 text-left transition-colors"
+              className="flex h-full flex-col items-start justify-start p-6 text-left transition-colors"
               style={{ background: 'var(--color-bg-raised)' }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-muted)'; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--color-bg-raised)'; }}
