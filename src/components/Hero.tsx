@@ -5,9 +5,17 @@ import SacredGeometryCanvas from './SacredGeometryCanvas';
 
 type Props = {
   onResult: (result: CalcResult) => void;
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
 };
 
-export default function Hero({ onResult }: Props) {
+export default function Hero({
+  onResult,
+  eyebrow = 'Free life path calculator',
+  title = 'Discover your life path number',
+  subtitle = 'Enter your date of birth. In seconds, understand the core number that shapes your entire life.',
+}: Props) {
   return (
     <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-6 pt-20" style={{ background: 'var(--color-bg-muted)' }}>
       {/* Living canvas background */}
@@ -27,7 +35,7 @@ export default function Hero({ onResult }: Props) {
           transition={{ duration: 0.6, delay: 0 }}
           style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 24, fontWeight: 'var(--fw-400)' }}
         >
-          Free life path calculator
+          {eyebrow}
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
@@ -35,15 +43,15 @@ export default function Hero({ onResult }: Props) {
           transition={{ duration: 0.7, delay: 0.15 }}
           style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 7vw, 4.5rem)', fontWeight: 'var(--fw-400)', lineHeight: 1.1, color: 'var(--color-ink)', marginBottom: 24, letterSpacing: '0.5px' }}
         >
-          Discover your life path number
+          {title}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)', marginBottom: 48, maxWidth: 420 }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)', marginBottom: 48, maxWidth: 460 }}
         >
-          Enter your date of birth. In seconds, understand the core number that shapes your entire life.
+          {subtitle}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}

@@ -195,3 +195,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 input[type="date"]::-webkit-inner-spin-button {
   display: none;
 }
+
+/* iOS Safari gives date inputs a native width that ignores width: 100%, so the
+   field grew past its container and ran off the right edge of the screen. */
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 46px;
+}
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.4em;
+}
+
+/* iOS zooms the page when a focused field has text smaller than 16px. */
+@media (max-width: 640px) {
+  input[type="date"],
+  input[type="email"] {
+    font-size: 16px !important;
+  }
+}

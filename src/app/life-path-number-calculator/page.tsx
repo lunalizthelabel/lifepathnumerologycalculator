@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import CalculatorSection from '@/components/CalculatorSection';
+import HomeContent from '@/components/HomeContent';
+import SampleCarousel from '@/components/report/SampleCarousel';
 import NumberGrid from '@/components/NumberGrid';
 import FAQ from '@/components/FAQ';
 
@@ -127,6 +128,48 @@ const faqLd = {
   ],
 };
 
+const PRICE = process.env.NEXT_PUBLIC_LAYER2_PRICE_DISPLAY || '$11';
+
+const sans = "'DM Sans', sans-serif";
+const serif = "'Cormorant Garamond', serif";
+
+const ctaStyle = {
+  display: 'inline-block',
+  background: 'var(--color-ink)',
+  color: 'var(--color-bg-raised)',
+  fontFamily: sans,
+  fontSize: 'var(--fs-13)',
+  fontWeight: 'var(--fw-600)',
+  letterSpacing: '1.5px',
+  textTransform: 'uppercase' as const,
+  padding: '16px 28px',
+  textDecoration: 'none',
+};
+
+function ReportTeaser() {
+  return (
+    <section className="px-6 py-20" aria-labelledby="full-report-teaser" style={{ borderTop: '1px solid var(--color-border)', background: 'var(--color-bg-raised)' }}>
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="eyebrow mb-4 justify-center">Go deeper</p>
+        <h2 id="full-report-teaser" className="mb-4" style={{ fontFamily: serif, fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
+          Your full numerology report
+        </h2>
+        <p className="mx-auto mb-10 max-w-lg" style={{ fontFamily: serif, fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.75, color: 'var(--color-muted)' }}>
+          Your life path number is free. The full report is a personal document of about 20 pages,
+          written for your birth date. Read it online or download it as a PDF about 2 minutes after ordering.
+        </p>
+        <div className="mb-10">
+          <SampleCarousel />
+        </div>
+        <a href="#calculator" style={ctaStyle}>Start with your birth date</a>
+        <p style={{ fontFamily: sans, fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', marginTop: 14 }}>
+          Free result first. Full report {PRICE}, optional.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export default function CalculatorPage() {
   return (
     <>
@@ -135,20 +178,17 @@ export default function CalculatorPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
-      <main className="pt-24">
+      <main>
 
-        {/* ── Header ── */}
-        <section className="px-6 py-20" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow mb-4 justify-center">Free life path calculator</p>
-            <h1 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)', lineHeight: 1.1 }}>
-              Life Path Number Calculator
-            </h1>
-            <p className="mx-auto max-w-lg" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)' }}>
-              Free numerology life path calculator. Enter your date of birth to instantly calculate your life path number, the single most important number in numerology.
-            </p>
-          </div>
-        </section>
+        {/* ── Calculator (same animated opening as the homepage) ── */}
+        <div id="calculator">
+          <HomeContent
+            eyebrow="Free life path calculator"
+            title="Life Path Number Calculator"
+            subtitle="Free numerology life path calculator. Enter your date of birth to instantly calculate your life path number, the single most important number in numerology."
+            teaser={<ReportTeaser />}
+          />
+        </div>
 
         {/* ── Quick answer ── */}
         <section className="px-6 py-10" aria-label="Quick answer" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-accent-soft)' }}>
@@ -163,16 +203,6 @@ export default function CalculatorPage() {
               or one of three Master Numbers (11, 22, or 33). The calculation takes under ten seconds
               and requires only your date of birth.
             </p>
-          </div>
-        </section>
-
-        {/* ── Calculator ── */}
-        <section className="px-6 py-20" id="calculator" aria-label="Numerology calculator" style={{ borderBottom: '1px solid var(--color-border)' }}>
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-10" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
-              Calculate your life path number
-            </h2>
-            <CalculatorSection />
           </div>
         </section>
 
@@ -199,8 +229,13 @@ export default function CalculatorPage() {
                 and the total is reduced repeatedly until a single digit or Master Number is reached.
               </p>
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
-                The numerology calculator on this page is free, requires no account, and processes
-                your date of birth entirely within your browser. Nothing is stored or transmitted.{' '}
+                The numerology calculator on this page is free, requires no account, and works out
+                your number within your browser. If you order the full report, your date of birth and
+                email address are sent to us to create it, as described in the{' '}
+                <Link href="/privacy" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>
+                  privacy policy
+                </Link>
+                .{' '}
                 <Link href="/numerology-calculator-name" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>
                   A name-based numerology calculator
                 </Link>{' '}
@@ -268,30 +303,16 @@ export default function CalculatorPage() {
           </div>
         </section>
 
-        {/* ── Name calculator CTA ── */}
-        <section className="px-6 py-16" aria-label="Name numerology calculator" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
-          <div className="mx-auto max-w-3xl">
-            <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
-              <div className="flex-1">
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 8, fontWeight: 'var(--fw-400)' }}>
-                  Coming soon
-                </p>
-                <h2 className="mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
-                  Numerology calculator by name
-                </h2>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-muted)' }}>
-                  The next phase adds a full name numerology calculator, computing your{' '}
-                  <strong style={{ fontWeight: 'var(--fw-500)' }}>Expression number</strong> and{' '}
-                  <strong style={{ fontWeight: 'var(--fw-500)' }}>Soul Urge number</strong> from your birth name.
-                </p>
-              </div>
-              <Link
-                href="/numerology-calculator-name"
-                className="lp-learn-more-link"
-              >
-                Learn more
-              </Link>
-            </div>
+        {/* ── Closing call to action ── */}
+        <section className="px-6 py-20" aria-labelledby="calculate-cta" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 id="calculate-cta" className="mb-4" style={{ fontFamily: serif, fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>
+              Calculate your life path number
+            </h2>
+            <p className="mx-auto mb-8 max-w-md" style={{ fontFamily: serif, fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-400)', lineHeight: 1.75, color: 'var(--color-muted)' }}>
+              It takes ten seconds and only needs your date of birth.
+            </p>
+            <a href="#calculator" style={ctaStyle}>Back to the calculator</a>
           </div>
         </section>
 

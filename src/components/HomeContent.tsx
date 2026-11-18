@@ -5,7 +5,15 @@ import Hero from './Hero';
 import LifePathResult from './LifePathResult';
 import type { CalcResult } from './LifePathCalculator';
 
-export default function HomeContent() {
+type Props = {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  /** Shown under the hero until the visitor has a result (the result has its own order box). */
+  teaser?: React.ReactNode;
+};
+
+export default function HomeContent({ eyebrow, title, subtitle, teaser }: Props) {
   const [result, setResult] = useState<CalcResult | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -18,7 +26,7 @@ export default function HomeContent() {
 
   return (
     <>
-      <Hero onResult={handleResult} />
+      <Hero onResult={handleResult} eyebrow={eyebrow} title={title} subtitle={subtitle} />
       <AnimatePresence>
         {result && (
           <section
@@ -34,6 +42,7 @@ export default function HomeContent() {
           </section>
         )}
       </AnimatePresence>
+      {!result && teaser}
     </>
   );
 }
