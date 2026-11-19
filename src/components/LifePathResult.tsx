@@ -339,6 +339,57 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         transition={{ delay: 0.75 }}
         className="mb-10 flex flex-col items-center gap-5"
       >
+        {/* Jump to the full report order box */}
+        <a
+          href="#full-report"
+          onClick={(e) => {
+            e.preventDefault();
+            const box = document.getElementById('full-report');
+            if (!box) return;
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+            // Put the cursor in the email field without interrupting the scroll.
+            box.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
+          }}
+          className="transition-opacity hover:opacity-90"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 20, width: '100%',
+            padding: '22px 20px', textAlign: 'left', textDecoration: 'none',
+            border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)',
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/report-samples/page-2.jpg"
+            alt=""
+            width={600}
+            height={849}
+            style={{ width: 84, height: 'auto', flexShrink: 0, transform: 'rotate(-3deg)', boxShadow: '0 8px 20px rgba(30, 26, 22, 0.2)' }}
+          />
+          <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', minWidth: 0 }}>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-500)', letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent-deep)', marginBottom: 6 }}>
+              Go deeper
+            </span>
+            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-24)', fontWeight: 'var(--fw-500)', lineHeight: 1.15, color: 'var(--color-ink)', marginBottom: 8 }}>
+              I want a full numerology report
+            </span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', lineHeight: 1.5, color: 'var(--color-muted)', marginBottom: 14 }}>
+              About 20 pages, written for your birth date. {process.env.NEXT_PUBLIC_LAYER2_PRICE_DISPLAY || '$11'}.
+            </span>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              background: 'var(--color-ink)', color: 'var(--color-bg-raised)',
+              fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-600)',
+              letterSpacing: '1.2px', textTransform: 'uppercase', padding: '12px 16px',
+            }}>
+              See the report
+              <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
+                <path d="M6 1v11M6 12l-4-4M6 12l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </span>
+        </a>
+
         <button
           onClick={handleDownload}
           disabled={downloading}
@@ -367,31 +418,6 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
           </svg>
           {downloading ? 'Generating PDF…' : 'Download as PDF'}
         </button>
-
-        {/* Jump to the full report order box */}
-        <a
-          href="#full-report"
-          onClick={(e) => {
-            e.preventDefault();
-            const box = document.getElementById('full-report');
-            if (!box) return;
-            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-            // Put the cursor in the email field without interrupting the scroll.
-            box.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
-          }}
-          className="transition-opacity hover:opacity-70"
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-21)', fontStyle: 'italic', fontWeight: 'var(--fw-500)',
-            color: 'var(--color-accent-deep)', textDecoration: 'underline', textUnderlineOffset: 5, textDecorationThickness: 1,
-          }}
-        >
-          I want a full numerology report
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-            <path d="M6 1v11M6 12l-4-4M6 12l4-4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </a>
       </motion.div>
 
       {/* ── Disclaimer ── */}
