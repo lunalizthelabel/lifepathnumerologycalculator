@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { NUMBER_MEANINGS, PERSONAL_YEAR_THEMES } from '@/lib/numberMeanings';
 import { formatBirthDate } from '@/lib/numerology';
@@ -198,8 +199,80 @@ function Divider() {
   );
 }
 
+const PRICE = process.env.NEXT_PUBLIC_LAYER2_PRICE_DISPLAY || '$11';
+
+/** Scroll to the order form and put the cursor in the email field. */
+function goToOrderForm(e?: { preventDefault: () => void }) {
+  e?.preventDefault();
+  const box = document.getElementById('full-report');
+  if (!box) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  box.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
+}
+
+function LockIcon() {
+  return (
+    <svg width="14" height="16" viewBox="0 0 14 16" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 4, color: 'var(--color-accent)' }}>
+      <rect x="1.5" y="7" width="11" height="8" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M4 7V4.5a3 3 0 0 1 6 0V7" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+function Chevron() {
+  return (
+    <svg className="lp-details-icon" width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true">
+      <path d="M1 1l6 6 6-6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/**
+ * Fixed call to action. Shows once the life path result has scrolled off the top,
+ * hides while the order form is on screen. Position is fixed, so it never moves the page.
+ */
+function StickyReportBar({ resultRef }: { resultRef: RefObject<HTMLDivElement | null> }) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const result = resultRef.current;
+    const form = document.getElementById('full-report');
+    if (!result || !form) return;
+    let passed = false;
+    let formInView = false;
+    const update = () => setVisible(passed && !formInView);
+    const resultObserver = new IntersectionObserver(([entry]) => {
+      passed = !entry.isIntersecting && entry.boundingClientRect.bottom <= 0;
+      update();
+    });
+    const formObserver = new IntersectionObserver(([entry]) => {
+      formInView = entry.isIntersecting;
+      update();
+    });
+    resultObserver.observe(result);
+    formObserver.observe(form);
+    return () => {
+      resultObserver.disconnect();
+      formObserver.disconnect();
+    };
+  }, [resultRef]);
+
+  // The result only renders in the browser, after a calculation.
+  if (typeof document === 'undefined') return null;
+  return createPortal(
+    <div className="lp-sticky-cta" data-visible={visible}>
+      <a href="#full-report" onClick={goToOrderForm}>
+        Get my full report &middot; {PRICE}
+      </a>
+    </div>,
+    document.body,
+  );
+}
+
 export default function LifePathResult({ lifePath, personalYear, birthDate }: Props) {
   const [downloading, setDownloading] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
   const meaning = NUMBER_MEANINGS[lifePath];
   const pyMeaning = NUMBER_MEANINGS[personalYear];
   const pyTheme = PERSONAL_YEAR_THEMES[personalYear];
@@ -224,7 +297,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
       className="mx-auto max-w-3xl"
     >
       {/* ── Primary result ── */}
-      <div className="mb-10 text-center">
+      <div ref={resultRef} className="mb-10 text-center">
         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16, fontWeight: 'var(--fw-400)' }}>
           Born {formatBirthDate(birthDate)}
           {isMaster && <span style={{ marginLeft: 12 }}> · Master Number</span>}
@@ -271,10 +344,10 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="mb-10 grid grid-cols-1 sm:grid-cols-2"
+        className="mb-10 grid grid-cols-2"
         style={{ border: '1px solid var(--color-border)', gap: 1, background: 'var(--color-border)' }}
       >
-        <div style={{ background: 'var(--color-bg-raised)', padding: 24 }}>
+        <div className="p-4 sm:p-6" style={{ background: 'var(--color-bg-raised)' }}>
           <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
             Strengths
           </h3>
@@ -284,7 +357,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
             ))}
           </ul>
         </div>
-        <div style={{ background: 'var(--color-bg-raised)', padding: 24 }}>
+        <div className="p-4 sm:p-6" style={{ background: 'var(--color-bg-raised)' }}>
           <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 16 }}>
             Challenges
           </h3>
@@ -316,80 +389,161 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
             <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>{pyMeaning.tagline}</p>
           </div>
         </div>
-        {[
-          { label: 'What is a personal year?', text: personalYearIntro(year) },
-          { label: `${year} for you`, text: pyTheme?.focus ?? '' },
-          { label: 'Watch for', text: pyTheme?.watch ?? '' },
-        ].map(({ label, text }, i, arr) => (
-          <div key={label} className="px-6 py-5" style={{ borderBottom: i < arr.length - 1 ? '1px solid var(--color-border)' : 'none' }}>
-            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.6, marginBottom: 8, fontWeight: 'var(--fw-400)' }}>
-              {label}
+        <div className="px-6 py-5">
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.6, marginBottom: 8, fontWeight: 'var(--fw-400)' }}>
+            {year} for you
+          </p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
+            {pyTheme?.focus ?? ''}
+          </p>
+        </div>
+        <details className="lp-details" style={{ borderTop: '1px solid var(--color-border)' }}>
+          <summary className="px-6 py-4" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-500)', color: 'var(--color-accent-deep)' }}>
+            More about your personal year
+            <Chevron />
+          </summary>
+          {[
+            { label: 'What is a personal year?', text: personalYearIntro(year) },
+            { label: 'Watch for', text: pyTheme?.watch ?? '' },
+          ].map(({ label, text }) => (
+            <div key={label} className="px-6 py-5" style={{ borderTop: '1px solid var(--color-border)' }}>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.6, marginBottom: 8, fontWeight: 'var(--fw-400)' }}>
+                {label}
+              </p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
+                {text}
+              </p>
+            </div>
+          ))}
+        </details>
+      </motion.div>
+
+      {/* ── Full report: short teaser, then the order form ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.75 }}
+      >
+        <div className="mb-6" style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-raised)' }}>
+          <div className="px-6 pt-6 text-center">
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 10, fontWeight: 'var(--fw-400)' }}>
+              Your full picture
             </p>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', lineHeight: 1.85, color: 'var(--color-body)' }}>
-              {text}
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', lineHeight: 1.4, color: 'var(--color-ink)' }}>
+              Your Life Path {lifePath} is the foundation. It cannot tell you where you are right now.
             </p>
           </div>
-        ))}
+          <ul className="px-6 py-5" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {[
+              { title: 'Your Birthday Number', line: 'The specific flavour of your gifts: how your strengths actually show up in the world.' },
+              { title: 'Your Life Cycle and Pinnacle', line: 'The phase of life you are in now, and the conditions shaping what is easy and what resists.' },
+              { title: 'This month, and how it all connects', line: 'Where your numbers amplify each other, where they create friction, and why.' },
+            ].map(({ title, line }) => (
+              <li key={title} className="flex gap-3">
+                <LockIcon />
+                <span>
+                  <span className="sr-only">In the full report: </span>
+                  <span style={{ display: 'block', fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-18)', fontWeight: 'var(--fw-500)', lineHeight: 1.3, color: 'var(--color-ink)' }}>{title}</span>
+                  <span style={{ display: 'block', fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', lineHeight: 1.5, color: 'var(--color-muted)' }}>{line}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div id="full-report" className="mb-6 px-6 py-10 sm:px-8" style={{ border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)', scrollMarginTop: 84 }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-500)', color: 'var(--color-accent-deep)', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: 12 }}>
+            Order here
+          </p>
+          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-30)', fontWeight: 'var(--fw-500)', color: 'var(--color-ink)', textAlign: 'center', lineHeight: 1.2, marginBottom: 12 }}>
+            Your Full Numerology Report
+          </h3>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-14)', fontWeight: 'var(--fw-400)', lineHeight: 1.65, color: 'var(--color-muted)', textAlign: 'center', maxWidth: 440, margin: '0 auto 28px' }}>
+            A personal report of about 20 pages, written for your birth date. Enter your email below,
+            pay securely, and read it online or download it as a PDF about 2 minutes later.
+          </p>
+
+          <div style={{ marginBottom: 28 }}>
+            <SampleCarousel compact />
+          </div>
+
+          <NumerologyLayer2Checkout birthDate={birthDate} lifePath={lifePath} personalYear={personalYear} />
+        </div>
+
+        {/* ── The long version, for those who want it ── */}
+        <details className="lp-details mb-10" style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-raised)' }}>
+          <summary className="px-6 py-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-500)', color: 'var(--color-ink)' }}>
+            What&rsquo;s inside the report
+            <Chevron />
+          </summary>
+          <div style={{ borderTop: '1px solid var(--color-border)' }}>
+        {/* Hook */}
+        <div className="mb-px text-center px-8 py-7" style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12, fontWeight: 'var(--fw-400)' }}>
+            What you just received
+          </p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 8 }}>
+            Your Life Path {lifePath}: the <em>foundation</em>.
+          </p>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', lineHeight: 1.65, color: 'var(--color-muted)', maxWidth: 420, margin: '0 auto' }}>
+            It describes the shape of your journey. But it cannot tell you where you are <em>right now</em>,
+            what is coming, or why this specific year feels the way it does.
+          </p>
+        </div>
+
+
+        {/* Benefit cards */}
+        <div className="mb-px" style={{ display: 'flex', flexDirection: 'column', gap: 1, background: 'var(--color-border)' }}>
+          {[
+            { number: '01', title: 'Your Birthday Number', body: `Day 24 is not the same as day 6, even if both reduce to 6. Your Birthday Number is the specific flavour of your gifts: how your strengths actually show up in the world, and what you are here to develop in this lifetime.`, tag: 'CORE GIFT' },
+            { number: '02', title: 'Your Active Life Cycle', body: `Life unfolds in three major cycles, each roughly 27 years long. The cycle you are in now has its own number, and it determines the dominant theme, challenge, and opportunity of this entire phase of your life. Not in the abstract. Right now.`, tag: 'ACTIVE PHASE' },
+            { number: '03', title: 'Your Current Pinnacle', body: `Four peak periods overlay your life like weather systems. Your active Pinnacle is the atmosphere you are living inside: the external conditions shaping what is easy, what resists, and what is asking to be built. If you are near a transition, the report will tell you.`, tag: 'BACKGROUND CLIMATE' },
+            { number: '04', title: 'Your Personal Month', body: `Inside Personal Year ${personalYear}, each month carries a distinct sub-frequency. Some months are designed for action. Others for rest, reflection, or course correction. The full report reads the month you are in now, so you stop fighting the tide and start moving with it.`, tag: 'THIS MONTH' },
+            { number: '05', title: 'How It All Connects', body: `This is what separates a real reading from a generic one. Your Life Path, Birthday Number, active Cycle, Pinnacle, Personal Year, and Personal Month all interact. Where they amplify each other, the report shows you the open doors. Where they create friction, it shows you why, and what to do about it.`, tag: 'SYNTHESIS' },
+          ].map(({ number, title, body, tag }) => (
+            <div key={number} style={{ background: 'var(--color-bg-raised)' }}>
+              <div className="flex items-baseline gap-4 px-6 py-3" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
+                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-11)', color: 'var(--color-accent)', letterSpacing: '2px', opacity: 0.6 }}>{number}</span>
+                <span style={{ flex: 1, fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>{title}</span>
+                <span className="hidden sm:block" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.5 }}>{tag}</span>
+              </div>
+              <p className="px-6 py-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', lineHeight: 1.8, color: 'var(--color-muted)' }}>
+                {body}
+              </p>
+            </div>
+          ))}
+        </div>
+
+
+        {/* Social proof */}
+        <div className="mb-px flex items-center justify-center px-5 py-4 text-center" style={{ border: '1px solid var(--color-border)' }}>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', letterSpacing: '0.05em' }}>
+            2,000+ words &middot; Personalised to your exact birth date &middot; Ready in about 2 minutes
+          </p>
+        </div>
+
+
+        {/* Quote */}
+        <div className="mb-px px-8 py-7" style={{ border: '1px solid var(--color-border)' }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', textAlign: 'center', maxWidth: 480, margin: '0 auto 6px', lineHeight: 1.6 }}>
+            &ldquo;Most people spend years feeling slightly out of sync with their own life.
+            Usually, the numbers explain exactly why.&rdquo;
+          </p>
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', textAlign: 'center', letterSpacing: '3px', textTransform: 'uppercase' }}>
+            From 2,300 readings
+          </p>
+        </div>
+          </div>
+        </details>
       </motion.div>
 
       {/* ── Download ── */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.75 }}
-        className="mb-10 flex flex-col items-center gap-5"
+        transition={{ delay: 0.8 }}
+        className="mb-10 flex flex-col items-center"
       >
-        {/* Jump to the full report order box */}
-        <a
-          href="#full-report"
-          onClick={(e) => {
-            e.preventDefault();
-            const box = document.getElementById('full-report');
-            if (!box) return;
-            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-            // Put the cursor in the email field without interrupting the scroll.
-            box.querySelector<HTMLInputElement>('input[type="email"]')?.focus({ preventScroll: true });
-          }}
-          className="transition-opacity hover:opacity-90"
-          style={{
-            display: 'flex', alignItems: 'center', gap: 20, width: '100%',
-            padding: '22px 20px', textAlign: 'left', textDecoration: 'none',
-            border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)',
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/report-samples/page-2.jpg"
-            alt=""
-            width={600}
-            height={849}
-            style={{ width: 84, height: 'auto', flexShrink: 0, transform: 'rotate(-3deg)', boxShadow: '0 8px 20px rgba(30, 26, 22, 0.2)' }}
-          />
-          <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', minWidth: 0 }}>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-500)', letterSpacing: '4px', textTransform: 'uppercase', color: 'var(--color-accent-deep)', marginBottom: 6 }}>
-              Go deeper
-            </span>
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-24)', fontWeight: 'var(--fw-500)', lineHeight: 1.15, color: 'var(--color-ink)', marginBottom: 8 }}>
-              I want a full numerology report
-            </span>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', lineHeight: 1.5, color: 'var(--color-muted)', marginBottom: 14 }}>
-              About 20 pages, written for your birth date. {process.env.NEXT_PUBLIC_LAYER2_PRICE_DISPLAY || '$11'}.
-            </span>
-            <span style={{
-              display: 'inline-flex', alignItems: 'center', gap: 10,
-              background: 'var(--color-ink)', color: 'var(--color-bg-raised)',
-              fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', fontWeight: 'var(--fw-600)',
-              letterSpacing: '1.2px', textTransform: 'uppercase', padding: '12px 16px',
-            }}>
-              See the report
-              <svg width="12" height="14" viewBox="0 0 12 14" fill="none" aria-hidden="true">
-                <path d="M6 1v11M6 12l-4-4M6 12l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </span>
-        </a>
-
         <button
           onClick={handleDownload}
           disabled={downloading}
@@ -436,93 +590,7 @@ export default function LifePathResult({ lifePath, personalYear, birthDate }: Pr
         </p>
       </motion.div>
 
-      {/* ── Full report upsell ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.85 }}
-      >
-        {/* Hook */}
-        <div className="mb-px text-center px-8 py-7" style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: 12, fontWeight: 'var(--fw-400)' }}>
-            What you just received
-          </p>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', marginBottom: 8 }}>
-            Your Life Path {lifePath}: the <em>foundation</em>.
-          </p>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-13)', fontWeight: 'var(--fw-400)', lineHeight: 1.65, color: 'var(--color-muted)', maxWidth: 420, margin: '0 auto' }}>
-            It describes the shape of your journey. But it cannot tell you where you are <em>right now</em>,
-            what is coming, or why this specific year feels the way it does.
-          </p>
-        </div>
-
-        {/* Divider with label */}
-        <div className="flex items-center gap-4 py-6">
-          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '5px', textTransform: 'uppercase', color: 'var(--color-accent)', fontWeight: 'var(--fw-400)' }}>The full picture</p>
-          <div style={{ flex: 1, height: 1, background: 'var(--color-border)' }} />
-        </div>
-
-        {/* Benefit cards */}
-        <div className="mb-px" style={{ display: 'flex', flexDirection: 'column', gap: 1, background: 'var(--color-border)' }}>
-          {[
-            { number: '01', title: 'Your Birthday Number', body: `Day 24 is not the same as day 6, even if both reduce to 6. Your Birthday Number is the specific flavour of your gifts: how your strengths actually show up in the world, and what you are here to develop in this lifetime.`, tag: 'CORE GIFT' },
-            { number: '02', title: 'Your Active Life Cycle', body: `Life unfolds in three major cycles, each roughly 27 years long. The cycle you are in now has its own number, and it determines the dominant theme, challenge, and opportunity of this entire phase of your life. Not in the abstract. Right now.`, tag: 'ACTIVE PHASE' },
-            { number: '03', title: 'Your Current Pinnacle', body: `Four peak periods overlay your life like weather systems. Your active Pinnacle is the atmosphere you are living inside: the external conditions shaping what is easy, what resists, and what is asking to be built. If you are near a transition, the report will tell you.`, tag: 'BACKGROUND CLIMATE' },
-            { number: '04', title: `Personal Month Breakdown: all 12 months of ${year}`, body: `Inside Personal Year ${personalYear}, each month carries a distinct sub-frequency. Some months this year are designed for action. Others for rest, reflection, or course correction. The full report maps every month so you stop fighting the tide and start moving with it.`, tag: 'THIS MONTH & BEYOND' },
-            { number: '05', title: 'How It All Connects', body: `This is what separates a real reading from a generic one. Your Life Path, Birthday Number, active Cycle, Pinnacle, Personal Year, and Personal Month all interact. Where they amplify each other, the report shows you the open doors. Where they create friction, it shows you why, and what to do about it.`, tag: 'SYNTHESIS' },
-          ].map(({ number, title, body, tag }) => (
-            <div key={number} style={{ background: 'var(--color-bg-raised)' }}>
-              <div className="flex items-baseline gap-4 px-6 py-3" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-bg-muted)' }}>
-                <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-11)', color: 'var(--color-accent)', letterSpacing: '2px', opacity: 0.6 }}>{number}</span>
-                <span style={{ flex: 1, fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-17)', fontWeight: 'var(--fw-400)', color: 'var(--color-ink)' }}>{title}</span>
-                <span className="hidden sm:block" style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-9)', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--color-accent)', opacity: 0.5 }}>{tag}</span>
-              </div>
-              <p className="px-6 py-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-16)', fontWeight: 'var(--fw-400)', lineHeight: 1.8, color: 'var(--color-muted)' }}>
-                {body}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {/* Social proof */}
-        <div className="mb-px flex items-center justify-center px-5 py-4 text-center" style={{ border: '1px solid var(--color-border)' }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', letterSpacing: '0.05em' }}>
-            2,000+ words &middot; Personalised to your exact birth date &middot; Ready in about 2 minutes
-          </p>
-        </div>
-
-        {/* CTA block */}
-        {/* Quote */}
-        <div className="mb-px px-8 py-7" style={{ border: '1px solid var(--color-border)' }}>
-          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-20)', fontWeight: 'var(--fw-400)', fontStyle: 'italic', color: 'var(--color-ink)', textAlign: 'center', maxWidth: 480, margin: '0 auto 6px', lineHeight: 1.6 }}>
-            &ldquo;Most people spend years feeling slightly out of sync with their own life.
-            Usually, the numbers explain exactly why.&rdquo;
-          </p>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', textAlign: 'center', letterSpacing: '3px', textTransform: 'uppercase' }}>
-            From 2,300 readings
-          </p>
-        </div>
-
-        <div id="full-report" className="px-6 py-10 sm:px-8" style={{ border: '1px solid var(--color-accent)', background: 'var(--color-accent-soft)', scrollMarginTop: 84 }}>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-10)', fontWeight: 'var(--fw-500)', color: 'var(--color-accent-deep)', textAlign: 'center', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: 12 }}>
-            Order here
-          </p>
-          <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'var(--fs-30)', fontWeight: 'var(--fw-500)', color: 'var(--color-ink)', textAlign: 'center', lineHeight: 1.2, marginBottom: 12 }}>
-            Your Full Numerology Report
-          </h3>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-14)', fontWeight: 'var(--fw-400)', lineHeight: 1.65, color: 'var(--color-muted)', textAlign: 'center', maxWidth: 440, margin: '0 auto 28px' }}>
-            A personal report of about 20 pages, written for your birth date. Enter your email below,
-            pay securely, and read it online or download it as a PDF about 2 minutes later.
-          </p>
-
-          <div style={{ marginBottom: 28 }}>
-            <SampleCarousel compact />
-          </div>
-
-          <NumerologyLayer2Checkout birthDate={birthDate} lifePath={lifePath} personalYear={personalYear} />
-        </div>
-      </motion.div>
+      <StickyReportBar resultRef={resultRef} />
     </motion.div>
   );
 }

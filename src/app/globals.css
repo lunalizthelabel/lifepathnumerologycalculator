@@ -219,3 +219,80 @@ input[type="date"]::-webkit-date-and-time-value {
     font-size: 16px !important;
   }
 }
+
+/* Fold-out sections on the result page */
+.lp-details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.lp-details > summary::-webkit-details-marker {
+  display: none;
+}
+.lp-details .lp-details-icon {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  transition: transform 0.2s;
+}
+.lp-details[open] > summary .lp-details-icon {
+  transform: rotate(180deg);
+}
+
+/* Fixed "get my full report" bar on the result page. Fixed position: never shifts the page. */
+.lp-sticky-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: var(--color-bg-raised);
+  border-top: 1px solid var(--color-border);
+  transform: translateY(100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+.lp-sticky-cta[data-visible="true"] {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.lp-sticky-cta a {
+  display: block;
+  text-align: center;
+  background: var(--color-ink);
+  color: var(--color-bg-raised);
+  font-family: 'DM Sans', var(--font-dm-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 20px;
+}
+@media (min-width: 640px) {
+  .lp-sticky-cta {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    padding: 0;
+    background: none;
+    border: 0;
+    transform: translateY(12px);
+  }
+  .lp-sticky-cta a {
+    font-size: 12px;
+    padding: 12px 18px;
+    box-shadow: 0 8px 24px rgba(30, 26, 22, 0.18);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-sticky-cta {
+    transition: none;
+  }
+}
