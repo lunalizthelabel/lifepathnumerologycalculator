@@ -27,6 +27,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // The form checks this too; never rely on the client alone.
+  const emailAddress = typeof email === 'string' ? email.trim() : '';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailAddress)) {
+    return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 });
+  }
+
   // Timestamp is recorded server-side, at the moment the checkout is created.
   const consent = buildConsentRecord();
   const consentMetadata = consentToMetadata(consent);
@@ -40,7 +46,7 @@ export async function POST(request: NextRequest) {
     mode: 'payment',
     // Shows the "Add promotion code" field. Codes are managed in the Stripe dashboard.
     allow_promotion_codes: true,
-    customer_email: String(email),
+    customer_email: emailAddress,
     line_items: [
       {
         price: process.env.STRIPE_PRICE_ID!,

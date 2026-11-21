@@ -296,3 +296,17 @@ input[type="date"]::-webkit-date-and-time-value {
     transition: none;
   }
 }
+
+/* Order form text field: border colour follows focus and validation state */
+.lp-field {
+  border: 1px solid var(--color-border);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.lp-field:focus {
+  border-color: var(--color-accent);
+}
+.lp-field[data-invalid="true"] {
+  border-color: #b03a2e;
+  box-shadow: 0 0 0 1px #b03a2e;
+}

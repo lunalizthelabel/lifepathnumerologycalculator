@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useRef, useState } from 'react';
-import { WITHDRAWAL_CONSENT_TEXT } from '@/lib/legal/withdrawalConsent';
+import { ENTERTAINMENT_ACK_TEXT, WITHDRAWAL_CONSENT_TEXT } from '@/lib/legal/withdrawalConsent';
 
 type Props = {
   birthDate: string;
@@ -9,17 +9,40 @@ type Props = {
   personalYear: number;
 };
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ERROR_COLOR = '#b03a2e';
+
+function emailProblem(value: string): string {
+  const v = value.trim();
+  if (!v) return 'Please enter your email address. We send your report link there.';
+  if (!EMAIL_PATTERN.test(v)) return 'That email address does not look right. Please check it.';
+  return '';
+}
+
+/** Bring a field into view and focus it, without the focus call jumping the page. */
+function showField(el: HTMLElement | null) {
+  if (!el) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  el.focus({ preventScroll: true });
+}
+
 export default function NumerologyLayer2Checkout({ birthDate, lifePath, personalYear }: Props) {
   const [email, setEmail] = useState('');
-  const [agreed, setAgreed] = useState(false);
-  // Withdrawal-waiver consent: separate from the disclaimer checkbox, never pre-ticked.
-  const [waiverConsent, setWaiverConsent] = useState(false);
-  const [waiverError, setWaiverError] = useState(false);
-  const waiverRef = useRef<HTMLInputElement>(null);
-  const waiverId = useId();
-  const waiverErrorId = `${waiverId}-error`;
+  const [emailError, setEmailError] = useState('');
+  // One consent box: entertainment-only acknowledgement plus the EU withdrawal waiver. Never pre-ticked.
+  const [consent, setConsent] = useState(false);
+  const [consentError, setConsentError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const emailRef = useRef<HTMLInputElement>(null);
+  const consentRef = useRef<HTMLInputElement>(null);
+  const id = useId();
+  const emailId = `${id}-email`;
+  const emailErrorId = `${id}-email-error`;
+  const consentId = `${id}-consent`;
+  const consentErrorId = `${id}-consent-error`;
 
   const price = process.env.NEXT_PUBLIC_LAYER2_PRICE_DISPLAY || '$11';
   const currentYear = new Date().getFullYear();
@@ -27,12 +50,21 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!waiverConsent) {
-      setWaiverError(true);
-      waiverRef.current?.focus();
+    if (loading) return;
+
+    // Validate on click; the button itself is never disabled for missing fields.
+    const emailIssue = emailProblem(email);
+    setEmailError(emailIssue);
+    setConsentError(!consent);
+    if (emailIssue) {
+      showField(emailRef.current);
       return;
     }
-    if (!email.trim() || !agreed) return;
+    if (!consent) {
+      showField(consentRef.current);
+      return;
+    }
+
     setLoading(true);
     setError('');
     try {
@@ -46,7 +78,7 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           currentYear,
           currentMonth,
           email: email.trim(),
-          withdrawalWaiverConsent: waiverConsent,
+          withdrawalWaiverConsent: consent,
         }),
       });
       if (!res.ok) throw new Error('Could not create checkout session');
@@ -58,103 +90,132 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
     }
   }
 
-  const notReady = loading || !email.trim() || !agreed || !waiverConsent;
-
-  const inputStyle = {
-    background: 'var(--color-bg-raised)',
-    border: '1px solid var(--color-border)',
-    borderRadius: 0,
-    padding: '12px 16px',
+  const messageStyle = {
     fontFamily: "'DM Sans', sans-serif",
-    fontSize: 'var(--fs-14)',
-    fontWeight: 'var(--fw-400)',
-    color: 'var(--color-ink)',
-    width: '100%',
-    outline: 'none',
-    transition: 'border-color 0.2s',
+    fontSize: 'var(--fs-12)',
+    fontWeight: 'var(--fw-500)',
+    lineHeight: 1.5,
+    color: ERROR_COLOR,
   };
+  const smallPrint = {
+    fontFamily: "'DM Sans', sans-serif",
+    fontSize: 'var(--fs-11)',
+    fontWeight: 'var(--fw-400)',
+    color: 'var(--color-faint)',
+  };
+  const linkStyle = { color: 'var(--color-accent-deep)', textDecoration: 'underline' };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <input
-        type="email"
-        required
-        placeholder="Your email address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        disabled={loading}
-        style={{ ...inputStyle, opacity: loading ? 0.5 : 1 }}
-        onFocus={(e) => { e.target.style.borderColor = 'var(--color-accent)'; }}
-        onBlur={(e) => { e.target.style.borderColor = 'var(--color-border)'; }}
-      />
-      {error && (
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', color: '#c0392b' }}>{error}</p>
-      )}
-
-      {/* Disclaimer checkbox */}
-      <label className="flex cursor-pointer items-start gap-3">
-        <input
-          type="checkbox"
-          checked={agreed}
-          onChange={(e) => setAgreed(e.target.checked)}
-          disabled={loading}
-          style={{ marginTop: 2, width: 16, height: 16, flexShrink: 0, accentColor: 'var(--color-accent)', cursor: 'pointer' }}
-        />
-        <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', lineHeight: 1.6, color: 'var(--color-faint)' }}>
-          I understand this report is for entertainment and self-reflection purposes only.
-        </span>
-      </label>
-
-      {/* Withdrawal-waiver consent (EU right of withdrawal). Required, separate, never pre-ticked. */}
+    // noValidate: we show our own inline messages instead of the browser's pop-up bubbles.
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
       <div>
-        <div className="flex items-start gap-3">
+        <label htmlFor={emailId} className="sr-only">
+          Your email address
+        </label>
+        <input
+          ref={emailRef}
+          id={emailId}
+          name="email"
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
+          enterKeyHint="go"
+          placeholder="Your email address"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            // Clear the message as soon as the address is fixed; do not nag while typing.
+            if (emailError && !emailProblem(e.target.value)) setEmailError('');
+          }}
+          onBlur={() => {
+            if (email.trim()) setEmailError(emailProblem(email));
+          }}
+          disabled={loading}
+          aria-required="true"
+          aria-invalid={emailError ? true : undefined}
+          aria-describedby={emailError ? emailErrorId : undefined}
+          className="lp-field"
+          data-invalid={emailError ? 'true' : undefined}
+          style={{
+            background: 'var(--color-bg-raised)',
+            borderRadius: 0,
+            padding: '12px 16px',
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 'var(--fs-14)',
+            fontWeight: 'var(--fw-400)',
+            color: 'var(--color-ink)',
+            width: '100%',
+            opacity: loading ? 0.5 : 1,
+          }}
+        />
+        {emailError && (
+          <p id={emailErrorId} role="alert" style={{ ...messageStyle, marginTop: 6 }}>
+            {emailError}
+          </p>
+        )}
+      </div>
+
+      {/* Single consent box. Both statements stay in full: entertainment only, and the EU withdrawal waiver. */}
+      <div>
+        <div
+          className="flex items-start gap-3"
+          style={{
+            padding: 10,
+            margin: -10,
+            outline: consentError ? `1px solid ${ERROR_COLOR}` : 'none',
+            background: consentError ? 'rgba(176, 58, 46, 0.05)' : 'transparent',
+          }}
+        >
           <input
-            ref={waiverRef}
-            id={waiverId}
+            ref={consentRef}
+            id={consentId}
             type="checkbox"
-            aria-required="true"
-            checked={waiverConsent}
+            checked={consent}
             onChange={(e) => {
-              setWaiverConsent(e.target.checked);
-              if (e.target.checked) setWaiverError(false);
+              setConsent(e.target.checked);
+              if (e.target.checked) setConsentError(false);
             }}
             disabled={loading}
-            aria-invalid={waiverError}
-            aria-describedby={waiverError ? waiverErrorId : undefined}
-            style={{ marginTop: 2, width: 16, height: 16, flexShrink: 0, accentColor: 'var(--color-accent)', cursor: 'pointer' }}
+            aria-required="true"
+            aria-invalid={consentError ? true : undefined}
+            aria-describedby={consentError ? consentErrorId : undefined}
+            style={{ marginTop: 2, width: 18, height: 18, flexShrink: 0, accentColor: 'var(--color-accent)', cursor: 'pointer' }}
           />
           <label
-            htmlFor={waiverId}
+            htmlFor={consentId}
             className="cursor-pointer"
-            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', lineHeight: 1.6, color: 'var(--color-faint)' }}
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', lineHeight: 1.6, color: 'var(--color-muted)' }}
           >
-            {WITHDRAWAL_CONSENT_TEXT}
+            {ENTERTAINMENT_ACK_TEXT} {WITHDRAWAL_CONSENT_TEXT}
           </label>
         </div>
-        {waiverError && (
-          <p
-            id={waiverErrorId}
-            role="alert"
-            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-12)', color: '#c0392b', marginTop: 6, marginLeft: 28 }}
-          >
+        {consentError && (
+          <p id={consentErrorId} role="alert" style={{ ...messageStyle, marginTop: 16 }}>
             Please tick this box to continue. Your report is delivered immediately, so we need your consent first.
           </p>
         )}
-        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)', marginTop: 6, marginLeft: 28 }}>
+        <p style={{ ...smallPrint, marginTop: consentError ? 6 : 16, marginLeft: 30 }}>
           <a href="/disclaimer#right-of-withdrawal" target="_blank" rel="noopener" style={{ color: 'var(--color-accent)', textDecoration: 'underline' }}>
             About your right of withdrawal
           </a>
         </p>
       </div>
 
+      {error && (
+        <p role="alert" style={messageStyle}>
+          {error}
+        </p>
+      )}
+
       <button
         type="submit"
-        disabled={loading || !email.trim() || !agreed}
-        aria-disabled={loading || !email.trim() || !agreed || !waiverConsent}
+        disabled={loading}
         style={{
-          // Not ready yet: sand with dark text (about 7:1). Ready: near-black with cream text (about 16:1).
-          background: notReady ? 'var(--color-sand)' : 'var(--color-ink)',
-          color: notReady ? 'var(--color-deep-body)' : 'var(--color-bg-raised)',
+          background: 'var(--color-ink)',
+          color: 'var(--color-bg-raised)',
           fontFamily: "'DM Sans', sans-serif",
           fontSize: 'var(--fs-15)',
           letterSpacing: '1.5px',
@@ -162,22 +223,26 @@ export default function NumerologyLayer2Checkout({ birthDate, lifePath, personal
           padding: '18px 24px',
           border: 'none',
           borderRadius: 0,
-          cursor: notReady ? 'not-allowed' : 'pointer',
+          cursor: loading ? 'wait' : 'pointer',
+          opacity: loading ? 0.7 : 1,
           fontWeight: 'var(--fw-600)',
           lineHeight: 1.3,
-          transition: 'background 0.2s, color 0.2s',
+          transition: 'opacity 0.2s',
           width: '100%',
         }}
       >
         {loading ? 'Redirecting...' : `Get Full Report · ${price}`}
       </button>
 
-      <p style={{ textAlign: 'center', fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
+      <p style={{ ...smallPrint, textAlign: 'center', lineHeight: 1.7 }}>
         Secure payment via Stripe &middot; Instant delivery after purchase
         <br />
-        How we handle your data:{' '}
-        <a href="/privacy" target="_blank" rel="noopener" style={{ color: 'var(--color-accent-deep)', textDecoration: 'underline' }}>
+        <a href="/privacy" target="_blank" rel="noopener" style={linkStyle}>
           Privacy Policy
+        </a>{' '}
+        &middot;{' '}
+        <a href="/disclaimer" target="_blank" rel="noopener" style={linkStyle}>
+          Disclaimer
         </a>
       </p>
     </form>

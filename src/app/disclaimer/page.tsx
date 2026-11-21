@@ -57,7 +57,7 @@ The inclusion of any link does not constitute an endorsement of that site or its
     heading: 'Paid reports and your right of withdrawal',
     body: `Our full numerology report is digital content that we generate and deliver to you immediately after payment.
 
-Under EU consumer law you normally have 14 days to withdraw from an online purchase. For digital content that is delivered straight away, this right ends once delivery starts, but only if you agree to that beforehand. That is why, before you pay, we ask you to tick a separate box confirming that you want your report delivered immediately and that you understand you lose your 14-day right of withdrawal as a result. You cannot buy the report without ticking it.
+Under EU consumer law you normally have 14 days to withdraw from an online purchase. For digital content that is delivered straight away, this right ends once delivery starts, but only if you agree to that beforehand. That is why, before you pay, we ask you to tick a box confirming that you want your report delivered immediately and that you understand you lose your 14-day right of withdrawal as a result. You cannot buy the report without ticking it.
 
 We record the date, time, and wording of your consent, and confirm it on the invoice that Stripe emails to you after payment. If your report is not delivered or is faulty, you keep all your other legal rights. Contact us and we will put it right.`,
   },

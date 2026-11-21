@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { calculateLifePath, calculatePersonalYear } from '@/lib/numerology';
 
@@ -74,12 +73,6 @@ export default function LifePathCalculator({ onResult }: Props) {
       >
         Calculate my life path
       </motion.button>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 'var(--fs-11)', fontWeight: 'var(--fw-400)', color: 'var(--color-faint)' }}>
-        By calculating you agree to our{' '}
-        <Link href="/privacy" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>privacy policy</Link>
-        {' '}and{' '}
-        <Link href="/disclaimer" style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 2 }}>disclaimer</Link>.
-      </p>
     </form>
   );
 }

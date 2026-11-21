@@ -46,6 +46,23 @@ describe('POST /api/stripe/create-checkout', () => {
     expect(createSession).not.toHaveBeenCalled();
   });
 
+  it.each([
+    ['missing', undefined],
+    ['empty', '   '],
+    ['malformed', 'buyer@example'],
+    ['not a string', 42],
+  ])('rejects with 400 when the email is %s, without contacting Stripe', async (_label, email) => {
+    const res = await POST(post({ ...validBody, withdrawalWaiverConsent: true, email }));
+    expect(res.status).toBe(400);
+    expect(createSession).not.toHaveBeenCalled();
+  });
+
+  it('trims the email before sending it to Stripe', async () => {
+    const res = await POST(post({ ...validBody, withdrawalWaiverConsent: true, email: '  buyer@example.com ' }));
+    expect(res.status).toBe(200);
+    expect(createSession.mock.calls[0][0].customer_email).toBe('buyer@example.com');
+  });
+
   it('rejects a malformed JSON body with 400', async () => {
     const req = new NextRequest('http://localhost:3001/api/stripe/create-checkout', {
       method: 'POST',

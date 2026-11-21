@@ -5,11 +5,22 @@
  * unless they (a) expressly consent to immediate delivery and (b) acknowledge
  * that they thereby lose that right. Both are captured by this single checkbox.
  *
- * The text and its version live together here so they always change together.
- * If you change WITHDRAWAL_CONSENT_TEXT in any way, bump WITHDRAWAL_CONSENT_VERSION.
+ * Since v2 the same checkbox label also opens with ENTERTAINMENT_ACK_TEXT
+ * (it used to be a second checkbox). The waiver sentence itself is unchanged.
+ *
+ * The texts and their version live together here so they always change together.
+ * If you change either text in any way, bump WITHDRAWAL_CONSENT_VERSION.
+ *
+ * Versions:
+ *   v1-2026-11  two checkboxes: entertainment acknowledgement, and the waiver on its own
+ *   v2-2026-11  one checkbox whose label is ENTERTAINMENT_ACK_TEXT + WITHDRAWAL_CONSENT_TEXT
  */
 
-export const WITHDRAWAL_CONSENT_VERSION = 'v1-2026-11';
+export const WITHDRAWAL_CONSENT_VERSION = 'v2-2026-11';
+
+/** First sentence of the checkout checkbox label. */
+export const ENTERTAINMENT_ACK_TEXT =
+  'I understand this report is for entertainment and self-reflection purposes only.';
 
 export const WITHDRAWAL_CONSENT_TEXT =
   'I agree that my report is generated and delivered immediately after payment, and I acknowledge that I thereby lose my 14-day right of withdrawal.';

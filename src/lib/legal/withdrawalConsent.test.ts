@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  ENTERTAINMENT_ACK_TEXT,
   WITHDRAWAL_CONSENT_TEXT,
   WITHDRAWAL_CONSENT_VERSION,
   buildConsentRecord,
@@ -13,6 +14,14 @@ describe('withdrawal consent helpers', () => {
     expect(WITHDRAWAL_CONSENT_TEXT).toBe(
       'I agree that my report is generated and delivered immediately after payment, and I acknowledge that I thereby lose my 14-day right of withdrawal.'
     );
+  });
+
+  it('keeps the entertainment acknowledgement wording and the current text version', () => {
+    expect(ENTERTAINMENT_ACK_TEXT).toBe(
+      'I understand this report is for entertainment and self-reflection purposes only.'
+    );
+    // Bump this whenever either consent text changes.
+    expect(WITHDRAWAL_CONSENT_VERSION).toBe('v2-2026-11');
   });
 
   it('round-trips through Stripe metadata', () => {
